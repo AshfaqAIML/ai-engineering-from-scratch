@@ -8,6 +8,7 @@
     { "source": "/catalog", "destination": "/catalog.html" },
     { "source": "/path", "destination": "/prereqs.html" },
     { "source": "/roadmap", "destination": "/prereqs.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/about", "destination": "/about.html" }
   ],
   "headers": [
@@ -30,7 +31,7 @@
       ]
     },
     {
-      "source": "/(glossary|catalog|path|roadmap)",
+      "source": "/(glossary|catalog|path|roadmap|dashboard)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=86400, stale-while-revalidate=604800" }
       ]

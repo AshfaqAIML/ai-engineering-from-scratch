@@ -25,6 +25,7 @@
   <a href="#contents"><img src="https://img.shields.io/badge/phases-20-3553ff?style=flat-square&labelColor=fafaf5" alt="20 phases"></a>
   <a href="https://github.com/rohitg00/ai-engineering-from-scratch/stargazers"><img src="https://img.shields.io/github/stars/rohitg00/ai-engineering-from-scratch?style=flat-square&labelColor=fafaf5&color=3553ff" alt="GitHub stars"></a>
   <a href="https://aiengineeringfromscratch.com"><img src="https://img.shields.io/badge/web-aiengineeringfromscratch.com-3553ff?style=flat-square&labelColor=fafaf5" alt="Website"></a>
+  <a href="https://ai-engineering-from-scratch-mu-dun.vercel.app/"><img src="https://img.shields.io/badge/live%20demo-ai-engineering-from-scratch-mu-dun.vercel.app-3553ff?style=flat-square&labelColor=fafaf5" alt="Live demo"></a>
 </p>
 
 ## From the creator of [Agent Memory - #1 Persistent memory ⭐](https://github.com/rohitg00/agentmemory) <a href="https://github.com/rohitg00/agentmemory/stargazers"><img src="https://img.shields.io/github/stars/rohitg00/agentmemory?style=flat-square&labelColor=fafaf5&color=3553ff" alt="GitHub stars"></a> which naturally works with any agents or chat assistants.
@@ -174,7 +175,9 @@ Lessons stream from this repo as you go — no clone needed. Progress lives in
 
 **Option B — read.** Open any completed lesson on
 [aiengineeringfromscratch.com](https://aiengineeringfromscratch.com) or expand a phase under
-[Contents](#contents). No setup, no cloning.
+[Contents](#contents). No setup, no cloning. Or try the live demo at
+[ai-engineering-from-scratch-mu-dun.vercel.app](https://ai-engineering-from-scratch-mu-dun.vercel.app/)
+and track your reading with the built-in dashboard.
 
 **Option C — clone and run.**
 
@@ -201,6 +204,25 @@ lesson's code to `/learn` for real execution instead of read-along.
 | [`/course-guide`](skills/course-guide/SKILL.md) | Topic router. "Where do I learn attention?" or "my loss is NaN" → the exact lessons, with links. |
 | [`/find-your-level`](skills/find-your-level/SKILL.md) | Ten-question placement quiz. Maps your knowledge to a starting phase and produces a personalized path with hour estimates. |
 | [`/check-understanding <phase>`](skills/check-understanding/SKILL.md) | Per-phase quiz, eight questions, with feedback and specific lessons to review. |
+
+```text
+░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒
+```
+
+## Your reading dashboard
+
+The web version ships a private, per-reader dashboard. No accounts server, no databases,
+no third-party tracking — everything runs client-side and lives only in your own browser.
+
+| Feature | What it does |
+|---|---|
+| **Accounts** | Sign up / log in with email + password. Passwords are salted and hashed with SHA-256 via the Web Crypto API; sessions persist across visits. |
+| **Reading progress** | Scroll position and reading time auto-save every few seconds and on close — resume any lesson exactly where you left off. |
+| **Streaks** | GitHub-style reading streak once you pass 5 minutes in a day. Current, longest, and total-day stats with a 28-day heatmap. |
+| **Continue reading** | One-click resume of your most recent in-progress lesson, right from the homepage. |
+| **Dashboard** | `/dashboard` — completed lessons, streak stats, total reading time, a 28-day heatmap, and a per-lesson progress list. |
+
+> **Try the live demo:** [ai-engineering-from-scratch-mu-dun.vercel.app](https://ai-engineering-from-scratch-mu-dun.vercel.app/)
 
 ```text
 ░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒░░░▒▒▒
@@ -1256,6 +1278,10 @@ MIT. Use it however you want — fork it, teach it, sell it, ship it. Attributio
 not required.
 
 Maintained by [Rohit Ghumare](https://github.com/rohitg00) and the community.
+
+**Live demo & reader dashboard:** deployed and maintained by [Ashfaq](https://github.com/AshfaqAIML) —
+fork at [github.com/AshfaqAIML/ai-engineering-from-scratch](https://github.com/AshfaqAIML/ai-engineering-from-scratch).
+The accounts, reading-progress, and streak features described above are original additions on this fork.
 
 <sub>
   <a href="https://x.com/ghumare64">@ghumare64</a> &nbsp;·&nbsp;

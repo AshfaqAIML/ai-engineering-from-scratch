@@ -12,12 +12,14 @@
  *       longestStreak: number,
  *       totalDays: number,
  *       lastReadDate: string,   // "YYYY-MM-DD"
- *       readingDays: string[]   // ["2026-08-01", "2026-08-02", ...]
+ *       readingDays: string[],  // ["2026-08-01", "2026-08-02", ...]
+ *       dayMinutes: {}          // { "YYYY-MM-DD": minutes read that day }
  *     }
  *   }
  *
- * A day counts as a reading day if the user spends at least MIN_READING_MINUTES
- * reading. The threshold is configurable via setMinReadingMinutes().
+ * A day counts as a reading day once the user accumulates at least
+ * MIN_READING_MINUTES of reading across any lessons that day. The threshold
+ * is configurable via setMinReadingMinutes().
  */
 (function () {
   var STORAGE_KEY = 'aifs:streak:v1';
@@ -51,7 +53,7 @@
   function getStreak() {
     var all = readAll();
     var key = userKey();
-    return all[key] || { currentStreak: 0, longestStreak: 0, totalDays: 0, lastReadDate: '', readingDays: [] };
+    return all[key] || { currentStreak: 0, longestStreak: 0, totalDays: 0, lastReadDate: '', readingDays: [], dayMinutes: {} };
   }
 
   function saveStreak(streak) {
@@ -128,32 +130,35 @@
   }
 
   function updateStreak(minutesRead) {
-    if (typeof minutesRead !== 'number' || minutesRead < MIN_READING_MINUTES) return getStreak();
+    if (typeof minutesRead !== 'number' || minutesRead < 0) return getStreak();
 
     var streak = getStreak();
     var today = todayStr();
 
-    if (streak.lastReadDate === today) return streak;
+    if (!streak.dayMinutes) streak.dayMinutes = {};
+    streak.dayMinutes[today] = (streak.dayMinutes[today] || 0) + minutesRead;
 
-    var hadYesterday = streak.lastReadDate === dateStr(Date.now() - 86400000);
+    if (streak.lastReadDate !== today && streak.dayMinutes[today] >= MIN_READING_MINUTES) {
+      var hadYesterday = streak.lastReadDate === dateStr(Date.now() - 86400000);
 
-    if (!streak.readingDays) streak.readingDays = [];
-    if (streak.readingDays.indexOf(today) < 0) {
-      streak.readingDays.push(today);
+      if (!streak.readingDays) streak.readingDays = [];
+      if (streak.readingDays.indexOf(today) < 0) {
+        streak.readingDays.push(today);
+      }
+
+      if (hadYesterday) {
+        streak.currentStreak += 1;
+      } else {
+        streak.currentStreak = 1;
+      }
+
+      streak.lastReadDate = today;
+
+      var stats = calculateStreak(streak.readingDays);
+      streak.currentStreak = stats.currentStreak;
+      streak.longestStreak = Math.max(streak.longestStreak, stats.longestStreak);
+      streak.totalDays = stats.totalDays;
     }
-
-    if (hadYesterday) {
-      streak.currentStreak += 1;
-    } else {
-      streak.currentStreak = 1;
-    }
-
-    streak.lastReadDate = today;
-
-    var stats = calculateStreak(streak.readingDays);
-    streak.currentStreak = stats.currentStreak;
-    streak.longestStreak = Math.max(streak.longestStreak, stats.longestStreak);
-    streak.totalDays = stats.totalDays;
 
     saveStreak(streak);
     return streak;
@@ -172,6 +177,11 @@
   function getTodayStatus() {
     var streak = getStreak();
     return streak.lastReadDate === todayStr();
+  }
+
+  function getTodayMinutes() {
+    var streak = getStreak();
+    return Math.round((streak.dayMinutes || {})[todayStr()] || 0);
   }
 
   function setMinReadingMinutes(n) {
@@ -204,6 +214,7 @@
     resetStreak: resetStreak,
     getLongestStreak: getLongestStreak,
     getTodayStatus: getTodayStatus,
+    getTodayMinutes: getTodayMinutes,
     calculateStreak: calculateStreak,
     setMinReadingMinutes: setMinReadingMinutes,
     getMinReadingMinutes: getMinReadingMinutes,

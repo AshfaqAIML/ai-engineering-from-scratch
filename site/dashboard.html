@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Engineering from Scratch</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf5'/><rect x='2' y='2' width='28' height='28' fill='none' stroke='%233553ff' stroke-width='1.2'/><text x='6' y='22' font-size='14' font-family='monospace' fill='%233553ff'>AI</text></svg>">
+  <meta name="description" content="Your reading dashboard for AI Engineering from Scratch — progress, streaks, and where you left off.">
+  <link rel="canonical" href="https://aiengineeringfromscratch.com/dashboard.html">
+  <meta property="og:title" content="AI Engineering from Scratch · Dashboard">
+  <meta property="og:description" content="Your reading dashboard — progress, streaks, and where you left off.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260804a">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
+      </a>
+      <nav class="header-nav">
+        <a href="index.html#contents">Contents</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="prereqs.html">Roadmap</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener" class="header-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <span class="star-count" data-loading="true" aria-label="GitHub stars">…</span>
+        </a>
+      </nav>
+      <button class="search-toggle" type="button" data-cmd-palette
+        aria-label="Search (⌘K)" title="Search (⌘K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <div class="profile-wrap" id="profileWrap">
+        <button class="login-btn" id="loginBtn" type="button" style="display:none">Log In</button>
+        <button class="profile-btn" id="profileBtn" type="button" style="display:none">
+          <span class="profile-avatar" id="profileAvatar"></span>
+          <span id="profileName"></span>
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a class="profile-dropdown-item" href="dashboard.html">Dashboard</a>
+          <div class="profile-dropdown-sep"></div>
+          <button class="profile-dropdown-item" id="logoutBtn" type="button">Log Out</button>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
+        <span class="theme-icon" id="themeIcon">N</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-modal" style="position:relative">
+      <button class="auth-close" id="authClose" type="button" aria-label="Close">&times;</button>
+      <div class="auth-modal-title" id="authTitle">Log In</div>
+      <div class="auth-error" id="authError"></div>
+      <form id="authForm" autocomplete="on">
+        <div class="auth-field" id="authNameField" style="display:none">
+          <label for="authName">Name</label>
+          <input type="text" id="authName" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="auth-field">
+          <label for="authPassword">Password</label>
+          <input type="password" id="authPassword" placeholder="Min. 6 characters" autocomplete="current-password" required>
+        </div>
+        <button class="auth-submit" type="submit" id="authSubmit">Log In</button>
+      </form>
+      <div class="auth-switch" id="authSwitch">
+        Don't have an account? <a id="authToggleLink">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="dashboard" id="main">
+    <div class="container">
+
+      <section class="dash-hero">
+        <div class="dash-avatar" id="dashAvatar">?</div>
+        <div class="dash-identity">
+          <p class="dash-greeting" id="dashGreeting">Your reading desk</p>
+          <h1 class="dash-title" id="dashTitle">Welcome</h1>
+          <p class="dash-subtitle" id="dashSubtitle">Signed in as guest · data stored in this browser</p>
+        </div>
+        <a class="dash-browse-btn" href="catalog.html">Browse lessons &rarr;</a>
+      </section>
+
+      <section class="dash-stats" id="dashStats">
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statCompleted">0</div>
+          <div class="dash-stat-label">Lessons Completed</div>
+        </div>
+        <div class="dash-stat-card accent">
+          <div class="dash-stat-value" id="statCurrent">0</div>
+          <div class="dash-stat-label">Current Streak</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statLongest">0</div>
+          <div class="dash-stat-label">Longest Streak</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statTotal">0</div>
+          <div class="dash-stat-label">Total Reading Days</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statTime">0m</div>
+          <div class="dash-stat-label">Reading Time</div>
+        </div>
+      </section>
+
+      <div class="dash-grid">
+
+        <section class="dash-panel" id="dashContinue">
+          <div class="dash-panel-header">
+            <span class="dash-panel-title">Continue Reading</span>
+          </div>
+          <div id="dashContinueBody">
+            <div class="dash-empty">Start reading a lesson and you'll be able to pick up right where you left off.</div>
+          </div>
+        </section>
+
+        <section class="dash-panel">
+          <div class="dash-panel-header">
+            <span class="dash-panel-title">Today's Goal</span>
+            <span class="dash-panel-note" id="dashGoalNote">5 min locks the day</span>
+          </div>
+          <div class="dash-goal">
+            <div class="dash-goal-mins"><span id="dashGoalMins">0</span><span class="dash-goal-unit">min today</span></div>
+            <div class="dash-bar tall"><div class="dash-bar-fill" id="dashGoalBar" style="width:0%"></div></div>
+            <div class="dash-goal-status" id="dashGoalStatus">Keep reading to lock your streak.</div>
+          </div>
+        </section>
+
+        <section class="dash-panel">
+          <div class="dash-panel-header">
+            <span class="dash-panel-title">Curriculum Completion</span>
+          </div>
+          <div class="dash-donut-wrap">
+            <svg class="dash-donut" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="dash-donut-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="dash-donut-fill" id="dashDonutFill" cx="60" cy="60" r="52" data-pct="0"></circle>
+            </svg>
+            <div class="dash-donut-label"><span id="dashDonutPct">0%</span><span>complete</span></div>
+          </div>
+          <div class="dash-donut-stats">
+            <span><b id="dashDonutDone">0</b> done</span>
+            <span><b id="dashDonutTotal">503</b> lessons</span>
+          </div>
+        </section>
+
+        <section class="dash-panel">
+          <div class="dash-panel-header">
+            <span class="dash-panel-title">Last 28 Days</span>
+            <span class="dash-panel-note">a day counts after 5+ minutes of reading</span>
+          </div>
+          <div class="dash-heatmap" id="dashHeatmap"></div>
+          <div class="streak-today" id="dashStreakToday"></div>
+        </section>
+
+      </div>
+
+      <section class="dash-panel">
+        <div class="dash-panel-header">
+          <span class="dash-panel-title">Reading Progress</span>
+          <span class="dash-panel-note">auto-saved every few seconds</span>
+        </div>
+        <div class="dash-progress-list" id="dashProgressList">
+          <div class="dash-empty">No reading progress yet. Open a lesson to start tracking.</div>
+        </div>
+      </section>
+
+      <p class="dash-privacy">All progress, streaks, and accounts live only in this browser (localStorage). Nothing is sent anywhere.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>AI Engineering from Scratch · open source · free forever.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener">GitHub</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="https://github.com/rohitg00/ai-engineering-from-scratch/issues/new/choose" target="_blank" rel="noopener">Report / Suggest</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js?v=20260801a"></script>
+  <script src="progress.js?v=20260801a"></script>
+  <script src="auth.js?v=20260804a"></script>
+  <script src="streak.js?v=20260804a"></script>
+  <script src="reading-progress.js?v=20260804a"></script>
+  <script src="header.js?v=20260801a" defer></script>
+  <script src="cmdpalette.js?v=20260801a" defer></script>
+  <script>
+    (function () {
+      // Theme
+      var root = document.documentElement;
+      var stored = localStorage.getItem('theme');
+      if (stored) {
+        root.setAttribute('data-theme', stored);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        root.setAttribute('data-theme', 'dark');
+      } else {
+        root.setAttribute('data-theme', 'light');
+      }
+      updateThemeIcon();
+      document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.addEventListener('click', function () {
+            var current = root.getAttribute('data-theme');
+            var next = current === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon();
+          });
+        }
+      });
+      function updateThemeIcon() {
+        var icon = document.getElementById('themeIcon');
+        if (icon) icon.textContent = root.getAttribute('data-theme') === 'light' ? 'N' : 'D';
+      }
+
+      // Auth UI
+      var authOverlay = document.getElementById('authOverlay');
+      var authClose = document.getElementById('authClose');
+      var authForm = document.getElementById('authForm');
+      var authTitle = document.getElementById('authTitle');
+      var authError = document.getElementById('authError');
+      var authSubmit = document.getElementById('authSubmit');
+      var authToggleLink = document.getElementById('authToggleLink');
+      var authNameField = document.getElementById('authNameField');
+      var loginBtn = document.getElementById('loginBtn');
+      var profileBtn = document.getElementById('profileBtn');
+      var profileAvatar = document.getElementById('profileAvatar');
+      var profileName = document.getElementById('profileName');
+      var profileDropdown = document.getElementById('profileDropdown');
+      var logoutBtn = document.getElementById('logoutBtn');
+
+      var isSignup = false;
+
+      function openAuth(mode) {
+        isSignup = mode === 'signup';
+        authTitle.textContent = isSignup ? 'Sign Up' : 'Log In';
+        authSubmit.textContent = isSignup ? 'Sign Up' : 'Log In';
+        authNameField.style.display = isSignup ? '' : 'none';
+        authError.className = 'auth-error';
+        authError.textContent = '';
+        authToggleLink.textContent = isSignup ? 'Log in' : 'Sign up';
+        authForm.reset();
+        authOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeAuth() {
+        authOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      loginBtn.addEventListener('click', function () { openAuth('login'); });
+      authClose.addEventListener('click', closeAuth);
+      authOverlay.addEventListener('click', function (e) { if (e.target === authOverlay) closeAuth(); });
+      authToggleLink.addEventListener('click', function () { openAuth(isSignup ? 'login' : 'signup'); });
+
+      authForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var name = document.getElementById('authName').value;
+        var email = document.getElementById('authEmail').value;
+        var password = document.getElementById('authPassword').value;
+        var result;
+        if (isSignup) {
+          result = await window.AIFSAuth.signup(name, email, password);
+        } else {
+          result = await window.AIFSAuth.login(email, password);
+        }
+        if (result.ok) {
+          closeAuth();
+          refreshAll();
+        } else {
+          authError.textContent = result.errors.join(' ');
+          authError.className = 'auth-error visible';
+        }
+      });
+
+      profileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', function () { profileDropdown.classList.remove('open'); });
+
+      logoutBtn.addEventListener('click', function () {
+        window.AIFSAuth.logout();
+        profileDropdown.classList.remove('open');
+        refreshAll();
+      });
+
+      function updateAuthUI() {
+        var user = window.AIFSAuth.currentUser();
+        var title = document.getElementById('dashTitle');
+        var greeting = document.getElementById('dashGreeting');
+        var now = new Date();
+        var hour = now.getHours();
+        var tod = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+
+        if (user) {
+          loginBtn.style.display = 'none';
+          profileBtn.style.display = '';
+          profileAvatar.textContent = user.name.charAt(0).toUpperCase();
+          profileName.textContent = user.name.split(' ')[0];
+          document.getElementById('dashAvatar').textContent = user.name.charAt(0).toUpperCase();
+          greeting.textContent = tod + ', ' + user.name.split(' ')[0];
+          title.textContent = 'Welcome back';
+          document.getElementById('dashSubtitle').textContent = user.email + ' · progress stored in this browser';
+        } else {
+          loginBtn.style.display = '';
+          profileBtn.style.display = 'none';
+          profileDropdown.classList.remove('open');
+          document.getElementById('dashAvatar').textContent = '?';
+          greeting.textContent = tod;
+          title.textContent = 'Welcome';
+          document.getElementById('dashSubtitle').textContent = 'Signed in as guest · data stored in this browser';
+        }
+      }
+
+      function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.textContent = str == null ? '' : str;
+        return div.innerHTML;
+      }
+
+      // Build lesson path -> name lookup from PHASES
+      var lessonNames = {};
+      var totalLessons = 0;
+      if (typeof PHASES !== 'undefined') {
+        for (var i = 0; i < PHASES.length; i++) {
+          var p = PHASES[i];
+          for (var j = 0; j < p.lessons.length; j++) {
+            var l = p.lessons[j];
+            var m = l.url ? l.url.match(/(phases\/[^/]+\/[^/]+)\/?$/) : null;
+            if (m) lessonNames[m[1]] = l.name;
+            totalLessons++;
+          }
+        }
+      }
+      if (totalLessons === 0) totalLessons = 503;
+      document.getElementById('dashDonutTotal').textContent = totalLessons;
+
+      function formatTime(seconds) {
+        var mins = Math.round(seconds / 60);
+        if (mins < 60) return mins + 'm';
+        var h = Math.floor(mins / 60);
+        var m = mins % 60;
+        return h + 'h ' + m + 'm';
+      }
+
+      function refreshAll() {
+        updateAuthUI();
+        renderStats();
+        renderGoal();
+        renderDonut();
+        renderContinue();
+        renderProgress();
+        renderHeatmap();
+      }
+
+      function renderStats() {
+        var completed = window.AIFSProgress ? window.AIFSProgress.totalCompleted() : 0;
+        document.getElementById('statCompleted').textContent = completed;
+
+        var streak = window.AIFSStreak ? window.AIFSStreak.getStreak() : { currentStreak: 0, longestStreak: 0, totalDays: 0 };
+        document.getElementById('statCurrent').textContent = streak.currentStreak;
+        document.getElementById('statLongest').textContent = streak.longestStreak;
+        document.getElementById('statTotal').textContent = streak.totalDays;
+
+        var totalSeconds = 0;
+        var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
+        for (var path in all) {
+          if (all.hasOwnProperty(path) && all[path].readSeconds) totalSeconds += all[path].readSeconds;
+        }
+        document.getElementById('statTime').textContent = formatTime(totalSeconds);
+      }
+
+      function renderGoal() {
+        if (!window.AIFSStreak) return;
+        var mins = window.AIFSStreak.getTodayMinutes();
+        var goal = window.AIFSStreak.getMinReadingMinutes();
+        var todayDone = window.AIFSStreak.getTodayStatus();
+        document.getElementById('dashGoalMins').textContent = mins;
+        document.getElementById('dashGoalBar').style.width = Math.min(100, (mins / goal) * 100) + '%';
+        var status = document.getElementById('dashGoalStatus');
+        var note = document.getElementById('dashGoalNote');
+        if (todayDone) {
+          status.textContent = 'Goal met. Day locked. Streak secure.';
+          status.className = 'dash-goal-status done';
+          note.textContent = goal + ' min goal reached';
+        } else if (mins >= goal) {
+          status.textContent = 'You\u0027ve hit the threshold — streak locks shortly.';
+          status.className = 'dash-goal-status';
+          note.textContent = goal + ' min goal reached';
+        } else {
+          status.textContent = (goal - mins) + ' more minutes to lock today\u0027s streak.';
+          status.className = 'dash-goal-status';
+          note.textContent = goal + ' min locks the day';
+        }
+      }
+
+      function renderDonut() {
+        var completed = window.AIFSProgress ? window.AIFSProgress.totalCompleted() : 0;
+        var pct = Math.min(100, Math.round((completed / totalLessons) * 100));
+        document.getElementById('dashDonutPct').textContent = pct + '%';
+        document.getElementById('dashDonutDone').textContent = completed;
+        var fill = document.getElementById('dashDonutFill');
+        var c = 2 * Math.PI * 52;
+        fill.setAttribute('stroke-dasharray', c);
+        fill.setAttribute('stroke-dashoffset', c * (1 - pct / 100));
+        fill.setAttribute('data-pct', pct);
+      }
+
+      function renderContinue() {
+        var body = document.getElementById('dashContinueBody');
+        var last = null;
+        var bestTime = 0;
+        var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
+        for (var path in all) {
+          if (!all.hasOwnProperty(path)) continue;
+          var p = all[path];
+          if (!p.completed && p.lastOpened > bestTime) {
+            bestTime = p.lastOpened;
+            last = { path: path, scrollPct: p.scrollPct || 0, lastOpened: p.lastOpened };
+          }
+        }
+        if (!last) {
+          body.innerHTML = '<div class="dash-empty">Start reading a lesson and you\'ll be able to pick up right where you left off.</div>';
+          return;
+        }
+        var name = lessonNames[last.path] || last.path;
+        var pct = Math.round(last.scrollPct || 0);
+        body.innerHTML =
+          '<div class="dash-continue">' +
+            '<div class="dash-continue-name">' + escapeHtml(name) + '</div>' +
+            '<div class="dash-continue-meta">Last opened ' + new Date(last.lastOpened).toLocaleDateString() + '</div>' +
+            '<div class="dash-bar"><div class="dash-bar-fill" style="width:' + pct + '%"></div></div>' +
+            '<div class="dash-continue-actions">' +
+              '<a class="dash-continue-btn" href="lesson.html?path=' + escapeHtml(last.path) + '">Resume &rarr;</a>' +
+              '<span class="dash-continue-pct">' + pct + '% read</span>' +
+            '</div>' +
+          '</div>';
+      }
+
+      function renderProgress() {
+        var list = document.getElementById('dashProgressList');
+        var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
+        var paths = [];
+        for (var path in all) {
+          if (all.hasOwnProperty(path)) paths.push(path);
+        }
+        paths.sort(function (a, b) { return all[b].lastOpened - all[a].lastOpened; });
+
+        if (!paths.length) {
+          list.innerHTML = '<div class="dash-empty">No reading progress yet. Open a lesson to start tracking.</div>';
+          return;
+        }
+
+        var html = '';
+        for (var i = 0; i < paths.length; i++) {
+          var pp = paths[i];
+          var data = all[pp];
+          var name = lessonNames[pp] || pp;
+          var pct = Math.min(100, Math.round(data.scrollPct || 0));
+          var isComplete = data.completed;
+          html += '<div class="dash-progress-row">' +
+            '<div class="dash-progress-info">' +
+              '<a class="dash-progress-name" href="lesson.html?path=' + escapeHtml(pp) + '">' + escapeHtml(name) + '</a>' +
+              '<span class="dash-progress-meta">' + (isComplete ? 'Completed' : pct + '% read') + '</span>' +
+            '</div>' +
+            '<div class="dash-bar"><div class="dash-bar-fill' + (isComplete ? ' complete' : '') + '" style="width:' + pct + '%"></div></div>' +
+          '</div>';
+        }
+        list.innerHTML = html;
+      }
+
+      function renderHeatmap() {
+        var cal = document.getElementById('dashHeatmap');
+        var streak = window.AIFSStreak ? window.AIFSStreak.getStreak() : { readingDays: [] };
+        var today = new Date();
+        var html = '';
+        for (var i = 27; i >= 0; i--) {
+          var d = new Date(today);
+          d.setDate(d.getDate() - i);
+          var ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+          var isToday = i === 0;
+          var readDays = streak.readingDays || [];
+          var isRead = readDays.indexOf(ds) >= 0;
+          html += '<div class="dash-heat-day' + (isRead ? ' read' : '') + (isToday ? ' today' : '') + '" title="' + ds + '"></div>';
+        }
+        cal.innerHTML = html;
+
+        var todayEl = document.getElementById('dashStreakToday');
+        var todayDone = window.AIFSStreak ? window.AIFSStreak.getTodayStatus() : false;
+        todayEl.textContent = todayDone ? 'Today: reading logged' : 'Read today to keep your streak going';
+        todayEl.className = 'streak-today' + (todayDone ? ' done' : '');
+      }
+
+      window.AIFSAuth.onChange(refreshAll);
+      window.AIFSStreak.onChange(refreshAll);
+      if (window.AIFSReadingProgress) window.AIFSReadingProgress.onChange(refreshAll);
+      if (window.AIFSProgress) window.AIFSProgress.onChange(refreshAll);
+      refreshAll();
+    })();
+  </script>
+</body>
+</html>

@@ -24,6 +24,7 @@
   var listeners = [];
   var saveTimer = null;
   var sessionStart = 0;
+  var sessionReadSeconds = 0;
   var currentPath = '';
   var activeScrollHandler = null;
 
@@ -113,6 +114,7 @@
     stopTracking();
     currentPath = path;
     sessionStart = Date.now();
+    sessionReadSeconds = 0;
 
     var lastSave = Date.now();
     activeScrollHandler = function () {
@@ -124,6 +126,7 @@
     };
 
     window.addEventListener('scroll', activeScrollHandler, { passive: true });
+    saveTimer = setInterval(persistNow, SAVE_INTERVAL_MS);
 
     window.addEventListener('beforeunload', persistNow);
   }
@@ -135,15 +138,18 @@
       activeScrollHandler = null;
     }
     window.removeEventListener('beforeunload', persistNow);
-    if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+    if (saveTimer) { clearInterval(saveTimer); saveTimer = null; }
     currentPath = '';
     sessionStart = 0;
+    sessionReadSeconds = 0;
   }
 
   function persistNow() {
     if (!currentPath) return;
     var scrollPct = calcScrollPct();
-    var readSeconds = (Date.now() - sessionStart) / 1000;
+    var elapsed = (Date.now() - sessionStart) / 1000;
+    sessionReadSeconds += elapsed;
+    var readSeconds = elapsed;
     var completed = scrollPct > 90;
     saveProgress(currentPath, {
       scrollPct: scrollPct,
@@ -154,8 +160,7 @@
     sessionStart = Date.now();
 
     if (window.AIFSStreak) {
-      var minutes = readSeconds / 60;
-      window.AIFSStreak.updateStreak(minutes);
+      window.AIFSStreak.updateStreak(sessionReadSeconds / 60);
     }
   }
 
