@@ -1283,6 +1283,11 @@ Maintained by [Rohit Ghumare](https://github.com/rohitg00) and the community.
 fork at [github.com/AshfaqAIML/ai-engineering-from-scratch](https://github.com/AshfaqAIML/ai-engineering-from-scratch).
 The accounts, reading-progress, and streak features described above are original additions on this fork.
 
+Connect: [GitHub](https://github.com/AshfaqAIML) ·
+[LinkedIn](https://www.linkedin.com/in/ishfaq-dar-aaa277240/) ·
+[Website](https://my-website-psi-puce-82.vercel.app/) ·
+[Email](mailto:Dar1.Ishfaq36@gmail.com)
+
 <sub>
   <a href="https://x.com/ghumare64">@ghumare64</a> &nbsp;·&nbsp;
   <a href="https://aiengineeringfromscratch.com">aiengineeringfromscratch.com</a> &nbsp;·&nbsp;
