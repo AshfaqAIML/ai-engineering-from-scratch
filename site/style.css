@@ -2162,6 +2162,47 @@ body[data-palette-open] {
   color: var(--blueprint);
 }
 
+/* ── Continue with Google ────────────────────────────────────────────── */
+
+.auth-google {
+  margin-bottom: 14px;
+}
+
+.auth-google-btn {
+  min-height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-google-note {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--ink-mute);
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
 @media (max-width: 600px) {
   .profile-btn { padding: 4px 8px; font-size: 0.66rem; }
   .profile-avatar { width: 20px; height: 20px; font-size: 0.62rem; }

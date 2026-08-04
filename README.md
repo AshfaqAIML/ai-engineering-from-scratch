@@ -216,7 +216,7 @@ no third-party tracking — everything runs client-side and lives only in your o
 
 | Feature | What it does |
 |---|---|
-| **Accounts** | Sign up / log in with email + password. Passwords are salted and hashed with SHA-256 via the Web Crypto API; sessions persist across visits. |
+| **Accounts** | Sign up / log in with email + password, or **Continue with Google**. Passwords are salted and hashed with SHA-256 via the Web Crypto API; sessions persist across visits. |
 | **Reading progress** | Scroll position and reading time auto-save every few seconds and on close — resume any lesson exactly where you left off. |
 | **Streaks** | GitHub-style reading streak once you pass 5 minutes in a day. Current, longest, and total-day stats with a 28-day heatmap. |
 | **Continue reading** | One-click resume of your most recent in-progress lesson, right from the homepage. |
