@@ -12,14 +12,15 @@
  * strong authentication. For server-side verification, route the ID token
  * through a backend endpoint instead.
  *
- * Configuration: set GOOGLE_CLIENT_ID below, or set window.AIFS_GOOGLE_CLIENT_ID
- * before this script loads. The button stays hidden until a valid client ID
- * (ending in .apps.googleusercontent.com) is configured.
+ * Configuration: GOOGLE_CLIENT_ID below is the app default; set
+ * window.AIFS_GOOGLE_CLIENT_ID before this script loads to override it.
+ * The button stays hidden until a valid client ID (ending in
+ * .apps.googleusercontent.com) is configured.
  *
  * Source: Google Identity Services — https://developers.google.com/identity/gsi/web
  */
 (function () {
-  var GOOGLE_CLIENT_ID = window.AIFS_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+  var GOOGLE_CLIENT_ID = window.AIFS_GOOGLE_CLIENT_ID || '1036316303591-nf7jv6o2or5oob92u9atrom89i6klanj.apps.googleusercontent.com';
   var GSI_SRC = 'https://accounts.google.com/gsi/client';
 
   var inited = false;
