@@ -2488,6 +2488,65 @@ body[data-palette-open] {
   }
 }
 
+/* Resume learning banner (lesson page) */
+
+.resume-banner {
+  position: fixed;
+  left: 20px;
+  bottom: 18px;
+  z-index: 9996;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(420px, calc(100vw - 40px));
+  border: 1px solid var(--blueprint);
+  background: var(--modal-bg);
+  box-shadow: var(--shadow-hard-lg);
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink);
+}
+
+.resume-banner-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.resume-banner-text {
+  flex: 1 1 auto;
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resume-banner-btn {
+  flex: 0 0 auto;
+  border: 1px solid var(--blueprint);
+  background: var(--blueprint);
+  color: var(--paper);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.resume-banner-btn:hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 600px) {
+  .resume-banner {
+    left: 12px;
+    bottom: 12px;
+    max-width: calc(100vw - 24px);
+  }
+}
+
 /* ── Dashboard ───────────────────────────────────────────────────────── */
 
 .dashboard {
@@ -2566,7 +2625,7 @@ body[data-palette-open] {
 
 .dash-stats {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   padding: 20px 0 8px;
 }

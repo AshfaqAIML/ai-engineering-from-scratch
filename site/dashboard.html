@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260804b">
+  <link rel="stylesheet" href="style.css?v=20260805a">
 </head>
 <body>
 
@@ -69,7 +69,7 @@
       <div class="auth-error" id="authError"></div>
       <div class="auth-google" id="authGoogleWrap" style="display:none">
         <div class="auth-google-btn" id="authGoogleBtn"></div>
-        <p class="auth-google-note">Google shares only your name and email. Reading data stays in this browser.</p>
+        <p class="auth-google-note">Google shares only your name and email. Your progress syncs to your account.</p>
         <div class="auth-divider"><span>or</span></div>
       </div>
       <form id="authForm" autocomplete="on">
@@ -126,6 +126,18 @@
         <div class="dash-stat-card">
           <div class="dash-stat-value" id="statTime">0m</div>
           <div class="dash-stat-label">Reading Time</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statRemaining">0</div>
+          <div class="dash-stat-label">Lessons Remaining</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statEstimate">0</div>
+          <div class="dash-stat-label">Est. Time Left</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-value" id="statActivity">&mdash;</div>
+          <div class="dash-stat-label">Last Activity</div>
         </div>
       </section>
 
@@ -190,7 +202,7 @@
         </div>
       </section>
 
-      <p class="dash-privacy">All progress, streaks, and accounts live only in this browser (localStorage). Nothing is sent anywhere.</p>
+      <p class="dash-privacy">Signed-in progress, streaks, and accounts are saved to your account and sync across devices. Signed-out activity stays in this browser.</p>
 
     </div>
   </main>
@@ -209,11 +221,12 @@
   </footer>
 
   <script src="data.js?v=20260801a"></script>
-  <script src="progress.js?v=20260801a"></script>
-  <script src="auth.js?v=20260804b"></script>
-  <script src="google-auth.js?v=20260804c"></script>
-  <script src="streak.js?v=20260804a"></script>
-  <script src="reading-progress.js?v=20260804a"></script>
+  <script src="progress.js?v=20260805a"></script>
+  <script src="auth.js?v=20260805a"></script>
+  <script src="google-auth.js?v=20260805a"></script>
+  <script src="streak.js?v=20260805a"></script>
+  <script src="reading-progress.js?v=20260805a"></script>
+  <script src="sync.js?v=20260805a"></script>
   <script src="header.js?v=20260801a" defer></script>
   <script src="cmdpalette.js?v=20260801a" defer></script>
   <script>
@@ -322,7 +335,8 @@
       });
       document.addEventListener('click', function () { profileDropdown.classList.remove('open'); });
 
-      logoutBtn.addEventListener('click', function () {
+      logoutBtn.addEventListener('click', async function () {
+        if (window.AIFSSync) { try { await window.AIFSSync.flushNow(); } catch (e) {} }
         window.AIFSAuth.logout();
         profileDropdown.classList.remove('open');
         refreshAll();
@@ -352,7 +366,7 @@
           document.getElementById('dashAvatar').textContent = user.name.charAt(0).toUpperCase();
           greeting.textContent = tod + ', ' + user.name.split(' ')[0];
           title.textContent = 'Welcome back';
-          document.getElementById('dashSubtitle').textContent = user.email + ' · progress stored in this browser';
+          document.getElementById('dashSubtitle').textContent = user.email + ' · progress synced to your account';
         } else {
           loginBtn.style.display = '';
           profileBtn.style.display = 'none';
@@ -361,7 +375,7 @@
           document.getElementById('dashAvatar').textContent = '?';
           greeting.textContent = tod;
           title.textContent = 'Welcome';
-          document.getElementById('dashSubtitle').textContent = 'Signed in as guest · data stored in this browser';
+          document.getElementById('dashSubtitle').textContent = 'Signed in as guest · progress stays in this browser';
         }
       }
 
@@ -396,6 +410,22 @@
         return h + 'h ' + m + 'm';
       }
 
+      function timeAgo(ts) {
+        if (!ts) return '\u2014';
+        var diff = Date.now() - ts;
+        if (diff < 60000) return 'Just now';
+        var mins = Math.floor(diff / 60000);
+        if (mins < 60) return mins + ' min ago';
+        var hrs = Math.floor(mins / 60);
+        if (hrs < 24) return hrs + 'h ago';
+        var days = Math.floor(hrs / 24);
+        return days + 'd ago';
+      }
+
+      function escapeAttr(str) {
+        return String(str == null ? '' : str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
       function refreshAll() {
         updateAuthUI();
         renderStats();
@@ -416,11 +446,23 @@
         document.getElementById('statTotal').textContent = streak.totalDays;
 
         var totalSeconds = 0;
+        var completedSeconds = 0;
+        var lastActivity = 0;
         var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
         for (var path in all) {
-          if (all.hasOwnProperty(path) && all[path].readSeconds) totalSeconds += all[path].readSeconds;
+          if (!all.hasOwnProperty(path)) continue;
+          var p = all[path];
+          if (p.readSeconds) totalSeconds += p.readSeconds;
+          if (p.lastOpened > lastActivity) lastActivity = p.lastOpened;
+          if (p.completed && p.readSeconds) completedSeconds += p.readSeconds;
         }
         document.getElementById('statTime').textContent = formatTime(totalSeconds);
+        document.getElementById('statActivity').textContent = timeAgo(lastActivity);
+
+        var remaining = Math.max(0, totalLessons - completed);
+        document.getElementById('statRemaining').textContent = remaining;
+        var avgSeconds = completed > 0 ? Math.max(1800, completedSeconds / completed) : 2700;
+        document.getElementById('statEstimate').textContent = formatTime(avgSeconds * remaining);
       }
 
       function renderGoal() {
@@ -478,13 +520,16 @@
         }
         var name = lessonNames[last.path] || last.path;
         var pct = Math.round(last.scrollPct || 0);
+        var resumeHref = 'lesson.html?path=' + escapeAttr(last.path) +
+          (last.sectionId ? '&section=' + escapeAttr(last.sectionId) : '') +
+          '&scroll=' + pct;
         body.innerHTML =
           '<div class="dash-continue">' +
             '<div class="dash-continue-name">' + escapeHtml(name) + '</div>' +
-            '<div class="dash-continue-meta">Last opened ' + new Date(last.lastOpened).toLocaleDateString() + '</div>' +
+            '<div class="dash-continue-meta">Last opened ' + timeAgo(last.lastOpened) + (last.sectionId ? ' &middot; at ' + escapeHtml(last.sectionId.replace(/-/g, ' ')) : '') + '</div>' +
             '<div class="dash-bar"><div class="dash-bar-fill" style="width:' + pct + '%"></div></div>' +
             '<div class="dash-continue-actions">' +
-              '<a class="dash-continue-btn" href="lesson.html?path=' + escapeHtml(last.path) + '">Resume &rarr;</a>' +
+              '<a class="dash-continue-btn" href="' + resumeHref + '">Resume &rarr;</a>' +
               '<span class="dash-continue-pct">' + pct + '% read</span>' +
             '</div>' +
           '</div>';
@@ -553,4 +598,5 @@
   </script>
 </body>
 </html>
+
 

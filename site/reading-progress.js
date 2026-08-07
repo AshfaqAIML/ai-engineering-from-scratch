@@ -11,6 +11,7 @@
  *     "<user-key>": {
  *       "<lesson-path>": {
  *         scrollPct: number,     // 0-100, last known scroll depth
+ *         sectionId: string,     // last visible h2 section ("study point")
  *         readSeconds: number,   // cumulative time on page
  *         lastOpened: number,    // timestamp
  *         completed: boolean     // true when scrollPct > 90
@@ -24,7 +25,6 @@
   var listeners = [];
   var saveTimer = null;
   var sessionStart = 0;
-  var sessionReadSeconds = 0;
   var currentPath = '';
   var activeScrollHandler = null;
 
@@ -70,8 +70,9 @@
     if (!path) return;
     var all = readAll();
     var userData = ensureUser(all);
-    var existing = userData[path] || { scrollPct: 0, readSeconds: 0, lastOpened: 0, completed: false };
+    var existing = userData[path] || { scrollPct: 0, sectionId: '', readSeconds: 0, lastOpened: 0, completed: false };
     existing.scrollPct = Math.max(existing.scrollPct || 0, data.scrollPct || 0);
+    if (data.sectionId) existing.sectionId = data.sectionId;
     existing.readSeconds = (existing.readSeconds || 0) + (data.readSeconds || 0);
     existing.lastOpened = data.lastOpened || Date.now();
     if (data.completed) existing.completed = true;
@@ -91,7 +92,7 @@
       var p = userData[path];
       if (p.lastOpened > bestTime) {
         bestTime = p.lastOpened;
-        best = { path: path, scrollPct: p.scrollPct || 0, completed: p.completed || false, lastOpened: p.lastOpened };
+        best = { path: path, sectionId: p.sectionId || '', scrollPct: p.scrollPct || 0, completed: p.completed || false, lastOpened: p.lastOpened };
       }
     }
     return best;
@@ -114,7 +115,6 @@
     stopTracking();
     currentPath = path;
     sessionStart = Date.now();
-    sessionReadSeconds = 0;
 
     var lastSave = Date.now();
     activeScrollHandler = function () {
@@ -141,18 +141,18 @@
     if (saveTimer) { clearInterval(saveTimer); saveTimer = null; }
     currentPath = '';
     sessionStart = 0;
-    sessionReadSeconds = 0;
   }
 
   function persistNow() {
     if (!currentPath) return;
     var scrollPct = calcScrollPct();
     var elapsed = (Date.now() - sessionStart) / 1000;
-    sessionReadSeconds += elapsed;
     var readSeconds = elapsed;
     var completed = scrollPct > 90;
+    var sectionId = (window.AIFSSync && window.AIFSSync.currentSection) ? window.AIFSSync.currentSection() : '';
     saveProgress(currentPath, {
       scrollPct: scrollPct,
+      sectionId: sectionId,
       readSeconds: readSeconds,
       lastOpened: Date.now(),
       completed: completed
@@ -160,7 +160,7 @@
     sessionStart = Date.now();
 
     if (window.AIFSStreak) {
-      window.AIFSStreak.updateStreak(sessionReadSeconds / 60);
+      window.AIFSStreak.updateStreak(readSeconds / 60);
     }
   }
 
@@ -168,6 +168,21 @@
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     return docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+  }
+
+  /**
+   * Import server reading progress (from GET /api/auth/me) for a user key,
+   * replacing whatever that browser had cached for the same account.
+   */
+  function hydrate(userKeyToUse, map) {
+    if (!userKeyToUse || !map || typeof map !== 'object') return;
+    var all = readAll();
+    all[userKeyToUse] = map;
+    writeAll(all);
+  }
+
+  function getCurrentPath() {
+    return currentPath;
   }
 
   function resetProgress(path) {
@@ -206,7 +221,10 @@
     startTracking: startTracking,
     stopTracking: stopTracking,
     persistNow: persistNow,
+    hydrate: hydrate,
+    getCurrentPath: getCurrentPath,
     resetProgress: resetProgress,
     onChange: onChange
   };
 })();
+

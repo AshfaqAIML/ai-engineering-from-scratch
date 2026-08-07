@@ -1,16 +1,11 @@
 /**
  * "Continue with Google" sign-in for the reader dashboard.
  *
- * Uses Google Identity Services in popup mode — no backend required, so the
- * static site keeps working with zero server code. Google returns an ID
- * token (JWT); its payload is decoded client-side to recover the user's
- * Google sub, email, and name, which are then handed to AIFSAuth.googleSignIn()
- * so the session lives in localStorage like every other account.
- *
- * SECURITY NOTE: the token signature is not verified (there is no server),
- * so this is a convenience identity link for the local-only dashboard, not
- * strong authentication. For server-side verification, route the ID token
- * through a backend endpoint instead.
+ * Uses Google Identity Services in popup mode. Google returns an ID token
+ * (JWT); it is NOT decoded or trusted in the browser anymore — the raw
+ * credential is handed to AIFSAuth.googleSignIn(), which POSTs it to
+ * /api/auth/google where the signature, audience, issuer, and expiry are
+ * verified against Google's public keys before a session is issued.
  *
  * Configuration: GOOGLE_CLIENT_ID below is the app default; set
  * window.AIFS_GOOGLE_CLIENT_ID before this script loads to override it.
@@ -32,33 +27,13 @@
       GOOGLE_CLIENT_ID.indexOf('YOUR_GOOGLE_CLIENT_ID') === -1;
   }
 
-  function decodeJwt(token) {
-    try {
-      var seg = token.split('.')[1];
-      var b64 = seg.replace(/-/g, '+').replace(/_/g, '/');
-      var raw = atob(b64);
-      var utf8 = decodeURIComponent(Array.prototype.map.call(raw, function (ch) {
-        return '%' + ('00' + ch.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      return JSON.parse(utf8);
-    } catch (e) {
-      return null;
-    }
-  }
-
   function handleCredential(response) {
-    if (!response || !response.credential) return;
-    var payload = decodeJwt(response.credential);
-    if (!payload || !payload.email || !window.AIFSAuth) return;
-    var result = window.AIFSAuth.googleSignIn({
-      sub: payload.sub,
-      email: payload.email,
-      name: payload.name || payload.given_name || payload.email.split('@')[0],
-      picture: payload.picture || ''
+    if (!response || !response.credential || !window.AIFSAuth) return;
+    window.AIFSAuth.googleSignIn(response.credential).then(function (result) {
+      if (result && result.ok) {
+        try { window.dispatchEvent(new CustomEvent('aifs:google-signin')); } catch (e) {}
+      }
     });
-    if (result && result.ok) {
-      try { window.dispatchEvent(new CustomEvent('aifs:google-signin')); } catch (e) {}
-    }
   }
 
   function loadGsi() {

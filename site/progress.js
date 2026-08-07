@@ -136,6 +136,28 @@
     return n;
   }
 
+  /**
+   * Import server state (from GET /api/auth/me) into the local store so the
+   * UI reflects the account's progress on any device. Server data wins, but
+   * never reduces visitedAt.
+   */
+  function hydrate(serverProgress) {
+    if (!serverProgress || typeof serverProgress !== 'object') return;
+    var state = read();
+    for (var path in serverProgress) {
+      if (!serverProgress.hasOwnProperty(path)) continue;
+      var sp = serverProgress[path];
+      if (!sp || !sp.lastVisited) continue;
+      var lesson = ensureLesson(state, path);
+      for (var qid in (sp.answers || {})) {
+        lesson.answers[qid] = sp.answers[qid];
+      }
+      if (sp.completedAt) lesson.completedAt = sp.completedAt;
+      lesson.visitedAt = Math.max(lesson.visitedAt || 0, sp.lastVisited || 0);
+    }
+    write(state);
+  }
+
   function reset() {
     try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
     for (var i = 0; i < listeners.length; i++) {
@@ -167,6 +189,7 @@
     countCompletedFromUrls: countCompletedFromUrls,
     extractPath: extractPath,
     totalCompleted: totalCompleted,
+    hydrate: hydrate,
     reset: reset,
     onChange: onChange,
   };

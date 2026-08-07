@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260804b">
+  <link rel="stylesheet" href="style.css?v=20260805a">
   <style>
     .scroll-progress {
       position: fixed;
@@ -1740,7 +1740,7 @@
       <div class="auth-error" id="authError"></div>
       <div class="auth-google" id="authGoogleWrap" style="display:none">
         <div class="auth-google-btn" id="authGoogleBtn"></div>
-        <p class="auth-google-note">Google shares only your name and email. Reading data stays in this browser.</p>
+        <p class="auth-google-note">Google shares only your name and email. Your progress syncs to your account.</p>
         <div class="auth-divider"><span>or</span></div>
       </div>
       <form id="authForm" autocomplete="on">
@@ -1806,15 +1806,22 @@
     </div>
   </div>
 
+  <div class="resume-banner" id="resumeBanner" style="display:none">
+    <span class="resume-banner-icon" aria-hidden="true">&#128218;</span>
+    <span class="resume-banner-text" id="resumeBannerText"></span>
+    <button class="resume-banner-btn" id="resumeBannerBtn" type="button">Resume &rarr;</button>
+  </div>
+
   <script src="build-meta.js"></script>
   <script src="langs.js?v=20260802a"></script>
   <script src="lang-picker.js?v=20260802a"></script>
   <script src="data.js?v=20260801a"></script>
-  <script src="progress.js?v=20260801a"></script>
-  <script src="auth.js?v=20260804b"></script>
-  <script src="google-auth.js?v=20260804c"></script>
-  <script src="streak.js?v=20260804a"></script>
-  <script src="reading-progress.js?v=20260804a"></script>
+  <script src="progress.js?v=20260805a"></script>
+  <script src="auth.js?v=20260805a"></script>
+  <script src="google-auth.js?v=20260805a"></script>
+  <script src="streak.js?v=20260805a"></script>
+  <script src="reading-progress.js?v=20260805a"></script>
+  <script src="sync.js?v=20260805a"></script>
   <script src="header.js?v=20260801a" defer></script>
   <script src="tts.js?v=20260803a" defer></script>
   <script src="cmdpalette.js?v=20260801a" defer></script>
@@ -2087,6 +2094,57 @@
         }, { passive: true });
       }
 
+      // Resume learning: jump to the exact study point (section or scroll %)
+      // passed in the URL by the dashboard / sync layer.
+      function applyResumePosition() {
+        var sectionParam = params.get('section');
+        var scrollParam = parseFloat(params.get('scroll')) || 0;
+        var target = null;
+        if (sectionParam) target = document.getElementById(sectionParam);
+
+        function jump() {
+          if (target) {
+            try { target.scrollIntoView({ behavior: 'auto' }); } catch (e) {}
+          } else if (scrollParam > 0) {
+            var doc = document.documentElement;
+            var maxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+            window.scrollTo(0, Math.round((Math.min(100, scrollParam) / 100) * maxScroll));
+          }
+        }
+        // Content (mermaid, figures) renders async and shifts the layout, so
+        // retry a few times to land on the right spot.
+        jump();
+        [300, 900, 1800].forEach(function (d) { setTimeout(jump, d); });
+      }
+
+      // Show a slim "You were reading …" pill so returning readers can resume
+      // with one click even when they arrived on the lesson directly.
+      function maybeShowResumeBanner() {
+        if (params.get('section')) return;
+        if (!window.AIFSReadingProgress) return;
+        var saved = window.AIFSReadingProgress.getProgress(lessonPath);
+        if (!saved || (!saved.sectionId && !saved.scrollPct)) return;
+        var banner = document.getElementById('resumeBanner');
+        if (!banner) return;
+        var label = saved.sectionId
+          ? saved.sectionId.replace(/-/g, ' ').replace(/^\w/, function (m) { return m.toUpperCase(); })
+          : Math.round(saved.scrollPct) + '% through this lesson';
+        document.getElementById('resumeBannerText').textContent = 'You were reading: ' + label + '.';
+        banner.style.display = 'flex';
+        var btn = document.getElementById('resumeBannerBtn');
+        btn.addEventListener('click', function () {
+          banner.style.display = 'none';
+          var t = saved.sectionId ? document.getElementById(saved.sectionId) : null;
+          if (t) {
+            t.scrollIntoView({ behavior: 'smooth' });
+          } else if (saved.scrollPct > 0) {
+            var doc = document.documentElement;
+            var maxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+            window.scrollTo({ top: Math.round((Math.min(100, saved.scrollPct) / 100) * maxScroll), behavior: 'smooth' });
+          }
+        });
+      }
+
       var lessonQuizPromise = null;
 
       // language state (current lang + RTL direction) is owned by lang-picker.js
@@ -2139,6 +2197,8 @@
                 try { renderQuiz(data); }
                 catch (err) { console.error('renderQuiz failed', err); }
               });
+            applyResumePosition();
+            maybeShowResumeBanner();
           })
           .catch(function () {
             if (!retried) {
@@ -3809,7 +3869,8 @@
       });
       document.addEventListener('click', function () { profileDropdown.classList.remove('open'); });
 
-      logoutBtn.addEventListener('click', function () {
+      logoutBtn.addEventListener('click', async function () {
+        if (window.AIFSSync) { try { await window.AIFSSync.flushNow(); } catch (e) {} }
         window.AIFSAuth.logout();
         profileDropdown.classList.remove('open');
         updateAuthUI();
@@ -3902,4 +3963,5 @@
   </script>
 </body>
 </html>
+
 

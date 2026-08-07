@@ -170,6 +170,25 @@
     writeAll(all);
   }
 
+  /**
+   * Import a server streak (from GET /api/auth/me) for a user key, replacing
+   * whatever that browser had cached for the same account. Server wins so
+   * minutes are never double-counted across devices.
+   */
+  function hydrate(userKeyToUse, streak) {
+    if (!userKeyToUse || !streak || typeof streak !== 'object') return;
+    var all = readAll();
+    all[userKeyToUse] = {
+      currentStreak: streak.currentStreak || 0,
+      longestStreak: streak.longestStreak || 0,
+      totalDays: streak.totalDays || 0,
+      lastReadDate: streak.lastReadDate || '',
+      readingDays: Array.isArray(streak.readingDays) ? streak.readingDays : [],
+      dayMinutes: streak.dayMinutes && typeof streak.dayMinutes === 'object' ? streak.dayMinutes : {}
+    };
+    writeAll(all);
+  }
+
   function getLongestStreak() {
     return getStreak().longestStreak;
   }
@@ -212,6 +231,7 @@
     getStreak: getStreak,
     updateStreak: updateStreak,
     resetStreak: resetStreak,
+    hydrate: hydrate,
     getLongestStreak: getLongestStreak,
     getTodayStatus: getTodayStatus,
     getTodayMinutes: getTodayMinutes,
