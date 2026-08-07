@@ -8,8 +8,7 @@
  */
 const STUDY_THRESHOLD_MINUTES = 5;
 
-function todayStr() {
-  const d = new Date();
+function formatDate(d) {
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 }
 
@@ -21,10 +20,14 @@ function daysBetween(a, b) {
 
 /**
  * rows: [{ day: 'YYYY-MM-DD', minutes: number }]
+ * today: optional client-local calendar day 'YYYY-MM-DD'. The server may run
+ * in a different timezone than the reader, so the client anchors "today" by
+ * passing the day it already reports read minutes against. Defaults to the
+ * server's local day.
  * Returns { currentStreak, longestStreak, totalDays, lastReadDate,
  *           readingDays, dayMinutes }.
  */
-function computeStreak(rows) {
+function computeStreak(rows, today) {
   const dayMinutes = {};
   const readingDays = [];
   for (const row of rows || []) {
@@ -38,12 +41,12 @@ function computeStreak(rows) {
 
   let currentStreak = 0;
   let longestStreak = 0;
-  const today = todayStr();
-  const yesterday = new Date(Date.now() - 86400000);
-  const yesterdayStr = yesterday.getFullYear() + '-' + String(yesterday.getMonth() + 1).padStart(2, '0') + '-' + String(yesterday.getDate()).padStart(2, '0');
+  const anchor = today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? new Date(today + 'T00:00:00') : new Date();
+  const todayStr = formatDate(anchor);
+  const yesterdayStr = formatDate(new Date(anchor.getTime() - 86400000));
 
   if (readingDays.length) {
-    const todayIdx = readingDays.indexOf(today);
+    const todayIdx = readingDays.indexOf(todayStr);
     const startIdx = todayIdx >= 0 ? todayIdx : readingDays.indexOf(yesterdayStr);
     if (startIdx >= 0) {
       currentStreak = 1;

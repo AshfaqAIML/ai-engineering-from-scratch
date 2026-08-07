@@ -57,9 +57,15 @@ function cookieFrom(response) {
   return response.sessionCookie;
 }
 
+function localDay() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
 const email = 'wf-' + Date.now() + '-' + Math.floor(Math.random() * 1e6) + '@example.com';
 const password = 'hunter2secret';
 const lessonPath = 'phases/00-setup-and-tooling/01-dev-environment';
+const day = localDay();
 
 console.log('Target: ' + BASE_URL);
 console.log('Test account: ' + email + '\n');
@@ -91,12 +97,12 @@ const progress1 = await request('/api/progress', {
       },
     ],
     deltaMinutes: 4,
-    day: new Date().toISOString().slice(0, 10),
+    day,
   },
 });
 assert(progress1.status === 200, 'progress saved', 'got ' + progress1.status);
 
-const me1 = await request('/api/auth/me', { cookie });
+const me1 = await request('/api/auth/me?day=' + day, { cookie });
 assert(me1.status === 200, 'me returns account');
 const saved = me1.data && me1.data.progress && me1.data.progress[lessonPath];
 assert(saved && saved.scrollPct === 42, 'scroll position 42% persisted');
@@ -120,7 +126,7 @@ assert(!!cookie, 'session cookie re-issued');
 
 // 5. Resume
 console.log('5. Resume');
-const me2 = await request('/api/auth/me', { cookie });
+const me2 = await request('/api/auth/me?day=' + day, { cookie });
 const resumed = me2.data && me2.data.progress && me2.data.progress[lessonPath];
 assert(me2.status === 200, 'me returns account');
 assert(resumed && resumed.scrollPct === 42, 'resume restores 42% scroll');
@@ -135,12 +141,12 @@ const progress2 = await request('/api/progress', {
   body: {
     items: [{ path: lessonPath, deltaSeconds: 60, scrollPct: 75, completed: false }],
     deltaMinutes: 2,
-    day: new Date().toISOString().slice(0, 10),
+    day,
   },
 });
 assert(progress2.status === 200, 'second session saves progress');
 
-const me3 = await request('/api/auth/me', { cookie });
+const me3 = await request('/api/auth/me?day=' + day, { cookie });
 const after = me3.data && me3.data.progress && me3.data.progress[lessonPath];
 assert(after && after.scrollPct === 75, 'scroll updated to 75% (max merge)');
 assert(after && after.readSeconds === 180, 'read time accumulates across sessions (120+60)');

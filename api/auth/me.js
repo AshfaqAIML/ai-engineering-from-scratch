@@ -1,8 +1,10 @@
 /**
- * GET /api/auth/me
+ * GET /api/auth/me?day=YYYY-MM-DD
  * Returns the signed-in user plus their full progress snapshot and streak.
  * The frontend hydrates its local caches from this response on login and on
  * page load, which is what makes "resume where I left off" work on any device.
+ * The optional day query param is the reader's local calendar day and anchors
+ * the streak computation, so a reader in Tokyo and the UTC server agree.
  */
 const { getPool, ensureSchema } = require('../lib/db');
 const helpers = require('../lib/helpers');
@@ -28,15 +30,16 @@ module.exports = async (req, res) => {
         progress[row.path] = {
           sectionId: row.section_id || '',
           scrollPct: Math.round(row.scroll_pct || 0),
-          readSeconds: row.read_seconds || 0,
+          readSeconds: Number(row.read_seconds || 0),
           completed: !!row.completed,
-          completedAt: row.completed_at || null,
+          completedAt: row.completed_at === null ? null : Number(row.completed_at),
           answers: row.answers || {},
-          lastVisited: row.last_visited,
+          lastVisited: Number(row.last_visited || 0),
         };
       }
 
-      const studyDays = studyRows.rows.map((r) => ({ day: r.day, minutes: r.minutes }));
+      const studyDays = studyRows.rows.map((r) => ({ day: String(r.day).slice(0, 10), minutes: Number(r.minutes) }));
+      const dayParam = new URL(req.url, 'http://localhost').searchParams.get('day') || undefined;
 
       return helpers.ok(res, {
         user: {
@@ -47,7 +50,7 @@ module.exports = async (req, res) => {
           createdAt: user.createdAt,
         },
         progress,
-        streak: streakLib.computeStreak(studyDays),
+        streak: streakLib.computeStreak(studyDays, dayParam),
       });
     } finally {
       client.release();

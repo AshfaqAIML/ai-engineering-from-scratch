@@ -19,17 +19,54 @@
  */
 const { Pool } = require('pg');
 
+// Keep DATE columns as the 'YYYY-MM-DD' string Postgres sends. The default
+// parser returns a JS Date, whose String() renders as "Fri Aug 07" and whose
+// toISOString() can shift the calendar day across timezones — both break the
+// streak day-key matching.
+require('pg').types.setTypeParser(1082, (val) => val);
+
 let pool = null;
+
+function isTransientConnectError(err) {
+  const msg = (err && (err.message || err.code)) || '';
+  return /connection terminated|ECONNRESET|connection refused|timeout/i.test(msg);
+}
+
+// Neon free-tier computes autosuspend after idle. The first connection after
+// wake-up can fail while the compute resumes, so acquire with one bounded
+// retry instead of surfacing a 500 to the reader.
+class RetryingPool extends Pool {
+  async connect(...args) {
+    try {
+      return await super.connect(...args);
+    } catch (err) {
+      if (isTransientConnectError(err)) {
+        await new Promise((r) => setTimeout(r, 2000));
+        return super.connect(...args);
+      }
+      throw err;
+    }
+  }
+}
 
 function getPool() {
   if (!pool) {
-    pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+    // The node pg driver does not implement SCRAM channel binding, so Neon
+    // URLs carrying channel_binding=require must have that param stripped or
+    // the connection is rejected. TLS is still enforced via ssl below.
+    const raw = process.env.DATABASE_URL || '';
+    const connectionString = raw.replace(/([?&])channel_binding=[^&]+(&|$)/, (m, pre, post) =>
+      pre === '&' && post ? '&' : ''
+    ).replace(/[?&]$/, '');
+    pool = new RetryingPool({
+      connectionString,
       max: 2,
       idleTimeoutMillis: 15000,
-      connectionTimeoutMillis: 8000,
+      connectionTimeoutMillis: 30000,
       ssl: { rejectUnauthorized: false },
     });
+    // Idle sockets the server closes mid-request must not crash the process.
+    pool.on('error', () => {});
   }
   return pool;
 }

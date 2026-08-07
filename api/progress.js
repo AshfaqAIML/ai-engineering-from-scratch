@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
 
           await client.query(
             `INSERT INTO progress (user_id, path, section_id, scroll_pct, read_seconds, completed, completed_at, answers, last_visited)
-             VALUES ($1, $2, $3, $4, $5, $6, CASE WHEN $6 THEN $8 ELSE NULL END, COALESCE($7::jsonb, '{}'::jsonb), $8)
+             VALUES ($1, $2, $3, $4, $5, $6, CASE WHEN $6 THEN $8::bigint ELSE NULL END, COALESCE($7::jsonb, '{}'::jsonb), $8::bigint)
              ON CONFLICT (user_id, path) DO UPDATE SET
                section_id = CASE WHEN EXCLUDED.section_id <> '' THEN EXCLUDED.section_id ELSE progress.section_id END,
                scroll_pct = GREATEST(progress.scroll_pct, EXCLUDED.scroll_pct),
