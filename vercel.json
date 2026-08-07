@@ -2,7 +2,7 @@
   "buildCommand": "node site/build.js",
   "outputDirectory": "site",
   "framework": null,
-  "installCommand": "echo skip",
+  "installCommand": "npm install --no-audit --no-fund",
   "rewrites": [
     { "source": "/glossary", "destination": "/glossary.html" },
     { "source": "/catalog", "destination": "/catalog.html" },

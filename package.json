@@ -1,0 +1,11 @@
+{
+  "name": "ai-engineering-from-scratch-site",
+  "private": true,
+  "description": "Backend for the AI Engineering from Scratch learning site (Vercel Functions + Neon Postgres). The static site lives in site/.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
