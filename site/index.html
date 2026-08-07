@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260805a">
+  <link rel="stylesheet" href="style.css?v=20260807a">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -929,6 +929,15 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
       margin-top: 20px;
+      container-type: inline-size;
+    }
+
+    @container (max-width: 640px) {
+      .books-grid { grid-template-columns: 1fr; }
+    }
+
+    @container (min-width: 641px) and (max-width: 900px) {
+      .books-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     .book-card {
@@ -1518,7 +1527,11 @@
       <a href="index.html" class="logo">
         <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
       </a>
-      <nav class="header-nav">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-controls="siteNav" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true">&#9776;</span>
+        <span class="close-icon" aria-hidden="true">&#10005;</span>
+      </button>
+      <nav class="header-nav" id="siteNav" aria-label="Primary">
         <a href="#contents">Contents</a>
         <a href="#books">Books</a>
         <a href="catalog.html">Catalog</a>
@@ -2081,6 +2094,7 @@
   <script src="reading-progress.js?v=20260805a"></script>
   <script src="sync.js?v=20260805a"></script>
   <script src="header.js?v=20260801a" defer></script>
+  <script src="nav.js?v=20260807a" defer></script>
   <script src="cmdpalette.js?v=20260801a" defer></script>
   <script src="app.js?v=20260803b"></script>
   <script>
