@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node site/build.js",
+  "buildCommand": "node site/build.js && node scripts/build_certification_data.js",
   "outputDirectory": "site",
   "framework": null,
   "installCommand": "npm install --no-audit --no-fund",
@@ -9,7 +9,14 @@
     { "source": "/path", "destination": "/prereqs.html" },
     { "source": "/roadmap", "destination": "/prereqs.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/about", "destination": "/about.html" }
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/developer", "destination": "/developer.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/learning-paths", "destination": "/learning-paths.html" },
+    { "source": "/certifications", "destination": "/certifications.html" },
+    { "source": "/certification", "destination": "/certification.html" },
+    { "source": "/assessment", "destination": "/assessment.html" }
   ],
   "headers": [
     {
