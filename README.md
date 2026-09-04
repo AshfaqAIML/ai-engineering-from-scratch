@@ -20,6 +20,10 @@
 </p>
 
 <p align="center">
+  <sub>🤖 <b>For LLMs:</b> give the model <a href="README_FOR_LLM.md"><code>README_FOR_LLM.md</code></a> — full architecture, responsive system, and elegant UX/UI playbook.</sub>
+</p>
+
+<p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1a1a1a?style=flat-square&labelColor=fafaf5" alt="MIT License"></a>
   <a href="ROADMAP.md"><img src="https://img.shields.io/badge/lessons-523-3553ff?style=flat-square&labelColor=fafaf5" alt="523 lessons"></a>
   <a href="#contents"><img src="https://img.shields.io/badge/phases-20-3553ff?style=flat-square&labelColor=fafaf5" alt="20 phases"></a>
