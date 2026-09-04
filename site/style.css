@@ -3276,7 +3276,9 @@ body.nav-open {
   border-right: 1px solid var(--rule-soft);
   box-shadow: 24px 0 48px rgba(0, 0, 0, 0.18);
   transform: translateX(-105%);
-  transition: transform var(--motion-drawer) var(--ease-drawer);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform var(--motion-drawer) var(--ease-drawer), visibility 0s linear var(--motion-drawer);
   overflow-y: auto;
   overscroll-behavior: contain;
   z-index: 90;
@@ -3284,6 +3286,9 @@ body.nav-open {
 
 .site-header:has(.menu-toggle) .header-nav.open {
   transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform var(--motion-drawer) var(--ease-drawer);
 }
 
 .site-header:has(.menu-toggle) .header-nav a {
