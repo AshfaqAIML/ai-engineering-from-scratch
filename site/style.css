@@ -844,6 +844,8 @@ p.dropcap::first-letter {
   font-size: 0.95rem;
   cursor: pointer;
   padding: 2px 6px;
+  min-height: 44px;
+  min-width: 44px;
   color: var(--ink-mute);
   transition: color var(--motion-feedback);
 }
