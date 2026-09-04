@@ -885,11 +885,24 @@
   }
 
   function init() {
-    initTheme();
-    var page = document.body.getAttribute('data-cert-page');
-    if (page === 'catalog') renderCatalog();
-    else if (page === 'track') renderTrack();
-    else if (page === 'assessment') renderAssessment();
+    try {
+      initTheme();
+      var page = document.body.getAttribute('data-cert-page');
+      if (page === 'catalog') renderCatalog();
+      else if (page === 'track') renderTrack();
+      else if (page === 'assessment') renderAssessment();
+    } catch (e) {
+      console.error('Certification init failed:', e);
+      var mount = document.getElementById('certTrackGrid') || document.getElementById('trackHero') || document.getElementById('assessmentMount');
+      if (mount) {
+        mount.innerHTML = '<div class="state-error">' +
+          '<div class="state-error-icon">!</div>' +
+          '<div class="state-error-title">Could not load certification data</div>' +
+          '<div class="state-error-desc">Something went wrong while loading this page. Try reloading.</div>' +
+          '<div class="state-error-actions"><button class="state-error-action" onclick="location.reload()">Retry</button></div>' +
+          '</div>';
+      }
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

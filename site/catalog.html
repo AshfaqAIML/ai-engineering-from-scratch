@@ -462,6 +462,19 @@
           });
         }
 
+        if (typeof PHASES === 'undefined' || !PHASES || !PHASES.length) {
+          var bodyEl = document.getElementById('catalogBody');
+          if (bodyEl) {
+            bodyEl.innerHTML = '<tr><td colspan="5"><div class="state-error">' +
+              '<div class="state-error-icon">!</div>' +
+              '<div class="state-error-title">Could not load catalog</div>' +
+              '<div class="state-error-desc">The curriculum data failed to load. Try reloading the page.</div>' +
+              '<div class="state-error-actions"><button class="state-error-action" onclick="location.reload()">Retry</button></div>' +
+              '</div></td></tr>';
+          }
+          return;
+        }
+
         var allRows = [];
         var phaseSelect = document.getElementById('catalogPhase');
 
@@ -598,6 +611,22 @@
 
         render();
       });
+    })();
+  </script>
+  <div class="state-offline" id="offlineBanner" role="status" aria-hidden="true" aria-live="polite">
+    You are offline. Some features may be limited.
+  </div>
+  <script>
+    (function () {
+      var banner = document.getElementById('offlineBanner');
+      if (!banner) return;
+      function update() {
+        var offline = !navigator.onLine;
+        banner.setAttribute('aria-hidden', String(!offline));
+      }
+      window.addEventListener('online', update);
+      window.addEventListener('offline', update);
+      update();
     })();
   </script>
 <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>

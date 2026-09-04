@@ -384,13 +384,17 @@
       }
 
       function refreshAll() {
-        updateAuthUI();
-        renderStats();
-        renderGoal();
-        renderDonut();
-        renderContinue();
-        renderProgress();
-        renderHeatmap();
+        try {
+          updateAuthUI();
+          renderStats();
+          renderGoal();
+          renderDonut();
+          renderContinue();
+          renderProgress();
+          renderHeatmap();
+        } catch (e) {
+          console.error('Dashboard refresh failed:', e);
+        }
       }
 
       function renderStats() {
@@ -628,6 +632,22 @@
       if (window.AIFSProgress) window.AIFSProgress.onChange(refreshAll);
       wireFilters();
       refreshAll();
+    })();
+  </script>
+  <div class="state-offline" id="offlineBanner" role="status" aria-hidden="true" aria-live="polite">
+    You are offline. Some features may be limited.
+  </div>
+  <script>
+    (function () {
+      var banner = document.getElementById('offlineBanner');
+      if (!banner) return;
+      function update() {
+        var offline = !navigator.onLine;
+        banner.setAttribute('aria-hidden', String(!offline));
+      }
+      window.addEventListener('online', update);
+      window.addEventListener('offline', update);
+      update();
     })();
   </script>
 </body>

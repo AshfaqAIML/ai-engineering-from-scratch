@@ -2623,7 +2623,14 @@
 
       function showError(title, msg) {
         var el = document.getElementById('lessonContent');
-        el.innerHTML = '<div class="lesson-error"><h2>' + title + '</h2><p>' + msg + '</p><a href="index.html" class="btn btn-primary">Back to Home</a></div>';
+        el.innerHTML = '<div class="state-error">' +
+          '<div class="state-error-icon">!</div>' +
+          '<div class="state-error-title">' + title + '</div>' +
+          '<div class="state-error-desc">' + msg + '</div>' +
+          '<div class="state-error-actions">' +
+          '<button class="state-error-action" onclick="location.reload()">Retry</button>' +
+          '<a href="index.html" class="state-error-action state-error-action--secondary">Back to Home</a>' +
+          '</div></div>';
       }
 
       function lessonDescription(md) {
@@ -4364,6 +4371,22 @@
           if (progressContainer) progressContainer.setAttribute('aria-valuenow', Math.round(pct));
         }, { passive: true });
       }
+    })();
+  </script>
+  <div class="state-offline" id="offlineBanner" role="status" aria-hidden="true" aria-live="polite">
+    You are offline. Some features may be limited.
+  </div>
+  <script>
+    (function () {
+      var banner = document.getElementById('offlineBanner');
+      if (!banner) return;
+      function update() {
+        var offline = !navigator.onLine;
+        banner.setAttribute('aria-hidden', String(!offline));
+      }
+      window.addEventListener('online', update);
+      window.addEventListener('offline', update);
+      update();
     })();
   </script>
 </body>

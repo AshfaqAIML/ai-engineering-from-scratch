@@ -12,8 +12,22 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initThemeToggle();
-    populateStats();
-    renderPhases();
+    try {
+      populateStats();
+      renderPhases();
+    } catch (e) {
+      console.error('Failed to load curriculum data:', e);
+      var grid = document.getElementById('phasesGrid');
+      if (grid) {
+        grid.innerHTML = '<div class="state-error phase-grid-empty">' +
+          '<div class="state-error-icon">!</div>' +
+          '<div class="state-error-title">Could not load curriculum</div>' +
+          '<div class="state-error-desc">The course data failed to load. This may be a temporary issue.</div>' +
+          '<div class="state-error-actions">' +
+          '<a href="." class="state-error-action">Reload page</a>' +
+          '</div></div>';
+      }
+    }
     initStaggerIndex();
     initModal();
     initCopyButton();
@@ -46,6 +60,9 @@
     var totalLessons = 0;
     var completeLessons = 0;
     var hasProgress = !!window.AIFSProgress;
+    if (typeof PHASES === 'undefined' || !PHASES) {
+      return { lessons: 0, phases: 0, complete: 0, completePhases: 0 };
+    }
     for (var i = 0; i < PHASES.length; i++) {
       var lessons = PHASES[i].lessons;
       totalLessons += lessons.length;
@@ -106,6 +123,14 @@
   function renderPhases() {
     var grid = document.getElementById('phasesGrid');
     if (!grid) return;
+    if (typeof PHASES === 'undefined' || !PHASES || !PHASES.length) {
+      grid.innerHTML = '<div class="state-empty phase-grid-empty">' +
+        '<div class="state-empty-icon">&#9634;</div>' +
+        '<div class="state-empty-title">No phases available</div>' +
+        '<div class="state-empty-desc">The curriculum data is being prepared. Check back soon.</div>' +
+        '</div>';
+      return;
+    }
     var hasProgress = !!window.AIFSProgress;
     var html = '';
     for (var i = 0; i < PHASES.length; i++) {
