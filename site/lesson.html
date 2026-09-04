@@ -2124,29 +2124,37 @@
     <div class="auth-modal" style="position:relative">
       <button class="auth-close" id="authClose" type="button" aria-label="Close">&times;</button>
       <div class="auth-modal-title" id="authTitle">Log In</div>
-      <div class="auth-error" id="authError"></div>
-      <div class="auth-google" id="authGoogleWrap" style="display:none">
-        <div class="auth-google-btn" id="authGoogleBtn"></div>
-        <p class="auth-google-note">Google shares only your name and email. Your progress syncs to your account.</p>
-        <div class="auth-divider"><span>or</span></div>
-      </div>
+      <div class="auth-info" id="authInfo" aria-live="polite"></div>
+      <div class="auth-error" id="authError" role="alert"></div>
       <form id="authForm" autocomplete="on">
         <div class="auth-field" id="authNameField" style="display:none">
           <label for="authName">Name</label>
           <input type="text" id="authName" placeholder="Your name" autocomplete="name">
+          <div class="auth-field-err" id="authNameErr"></div>
         </div>
         <div class="auth-field">
           <label for="authEmail">Email</label>
-          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email" required>
+          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email">
+          <div class="auth-field-err" id="authEmailErr"></div>
         </div>
         <div class="auth-field">
           <label for="authPassword">Password</label>
-          <input type="password" id="authPassword" placeholder="Min. 6 characters" autocomplete="current-password" required>
+          <input type="password" id="authPassword" placeholder="Min. 6 characters" autocomplete="current-password">
+          <div class="auth-pw-guide" id="authPwGuide"></div>
+          <div class="auth-field-err" id="authPasswordErr"></div>
         </div>
-        <button class="auth-submit" type="submit" id="authSubmit">Log In</button>
+        <button class="auth-submit" type="submit" id="authSubmit">
+          <span class="auth-submit-label" id="authSubmitLabel">Log In</span>
+        </button>
+        <div class="auth-status" id="authStatus" role="status"></div>
       </form>
+      <div class="auth-google" id="authGoogleWrap" style="display:none">
+        <div class="auth-divider"><span>or</span></div>
+        <div class="auth-google-btn" id="authGoogleBtn"></div>
+        <p class="auth-google-note">Continue with Google — no password needed. Google shares only your name and email.</p>
+      </div>
       <div class="auth-switch" id="authSwitch">
-        Don't have an account? <a id="authToggleLink">Sign up</a>
+        <span>Don't have an account?</span> <a id="authToggleLink">Sign up</a>
       </div>
     </div>
   </div>
@@ -2211,6 +2219,7 @@
   <script src="progress.js?v=20260805a"></script>
   <script src="auth.js?v=20260805a"></script>
   <script src="google-auth.js?v=20260805a"></script>
+  <script src="auth-ui.js?v=20260809a"></script>
   <script src="streak.js?v=20260805a"></script>
   <script src="reading-progress.js?v=20260805a"></script>
   <script src="sync.js?v=20260805a"></script>
@@ -4290,114 +4299,8 @@
   </script>
   <script>
     (function () {
-      // Auth UI
-      var authOverlay = document.getElementById('authOverlay');
-      var authClose = document.getElementById('authClose');
-      var authForm = document.getElementById('authForm');
-      var authTitle = document.getElementById('authTitle');
-      var authError = document.getElementById('authError');
-      var authSubmit = document.getElementById('authSubmit');
-      var authToggleLink = document.getElementById('authToggleLink');
-      var authNameField = document.getElementById('authNameField');
-      var authGoogleWrap = document.getElementById('authGoogleWrap');
-      var authGoogleBtn = document.getElementById('authGoogleBtn');
-      var loginBtn = document.getElementById('loginBtn');
-      var profileBtn = document.getElementById('profileBtn');
-      var profileAvatar = document.getElementById('profileAvatar');
-      var profileName = document.getElementById('profileName');
-      var profileDropdown = document.getElementById('profileDropdown');
-      var logoutBtn = document.getElementById('logoutBtn');
-
-      var isSignup = false;
-
-      function openAuth(mode) {
-        isSignup = mode === 'signup';
-        authTitle.textContent = isSignup ? 'Sign Up' : 'Log In';
-        authSubmit.textContent = isSignup ? 'Sign Up' : 'Log In';
-        authNameField.style.display = isSignup ? '' : 'none';
-        authError.className = 'auth-error';
-        authError.textContent = '';
-        authToggleLink.textContent = isSignup ? 'Log in' : 'Sign up';
-        authForm.reset();
-        authOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        if (window.AIFSGoogleAuth && window.AIFSGoogleAuth.isConfigured()) {
-          authGoogleWrap.style.display = '';
-          window.AIFSGoogleAuth.renderButton(authGoogleBtn);
-        } else {
-          authGoogleWrap.style.display = 'none';
-        }
-      }
-
-      function closeAuth() {
-        authOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-
-      loginBtn.addEventListener('click', function () { openAuth('login'); });
-      authClose.addEventListener('click', closeAuth);
-      authOverlay.addEventListener('click', function (e) { if (e.target === authOverlay) closeAuth(); });
-      authToggleLink.addEventListener('click', function () { openAuth(isSignup ? 'login' : 'signup'); });
-      window.addEventListener('aifs:google-signin', closeAuth);
-
-      authForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        var name = document.getElementById('authName').value;
-        var email = document.getElementById('authEmail').value;
-        var password = document.getElementById('authPassword').value;
-        var result;
-        if (isSignup) {
-          result = await window.AIFSAuth.signup(name, email, password);
-        } else {
-          result = await window.AIFSAuth.login(email, password);
-        }
-        if (result.ok) {
-          closeAuth();
-          updateAuthUI();
-        } else {
-          authError.textContent = result.errors.join(' ');
-          authError.className = 'auth-error visible';
-        }
-      });
-
-      profileBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        profileDropdown.classList.toggle('open');
-      });
-      document.addEventListener('click', function () { profileDropdown.classList.remove('open'); });
-
-      logoutBtn.addEventListener('click', async function () {
-        if (window.AIFSSync) { try { await window.AIFSSync.flushNow(); } catch (e) {} }
-        window.AIFSAuth.logout();
-        profileDropdown.classList.remove('open');
-        updateAuthUI();
-      });
-
-      function updateAuthUI() {
-        var user = window.AIFSAuth.currentUser();
-        if (user) {
-          loginBtn.style.display = 'none';
-          profileBtn.style.display = '';
-          if (user.picture) {
-            profileAvatar.style.backgroundImage = 'url("' + user.picture + '")';
-            profileAvatar.style.backgroundSize = 'cover';
-            profileAvatar.style.backgroundPosition = 'center';
-            profileAvatar.textContent = '';
-          } else {
-            profileAvatar.style.backgroundImage = '';
-            profileAvatar.textContent = user.name.charAt(0).toUpperCase();
-          }
-          profileName.textContent = user.name.split(' ')[0];
-        } else {
-          loginBtn.style.display = '';
-          profileBtn.style.display = 'none';
-          profileAvatar.style.backgroundImage = '';
-          profileDropdown.classList.remove('open');
-        }
-      }
-
-      window.AIFSAuth.onChange(updateAuthUI);
-      updateAuthUI();
+      // Auth UI is driven by the shared auth-ui.js controller (header profile
+      // button, login/signup overlay, logout). Nothing page-specific here.
 
       // Reading progress tracking
       var params = new URLSearchParams(window.location.search);
