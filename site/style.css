@@ -3516,6 +3516,18 @@ a[aria-disabled="true"],
   pointer-events: none;
 }
 
+/* ── Content-visibility: skip rendering off-screen sections ──────────── */
+.glossary-list,
+.catalog-table-wrap,
+.cert-track-grid,
+.cert-lesson-list,
+.cert-plan-grid,
+.dash-progress-list,
+.phase-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
 /* ── Print (save ink, keep reading clean) ─────────────────────────────── */
 
 @media print {

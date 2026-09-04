@@ -26,7 +26,7 @@
   }
   const txt = (s) => document.createTextNode(s);
 
-  // host loop with hover-pause + optional step control
+  // host loop with hover-pause + optional step control + visibility pause
   function loop(host, fn, period = 6000, opts = {}) {
     let raf, paused = false, t0 = performance.now(), localT = 0;
     const onTick = (now) => {
@@ -37,8 +37,17 @@
     host.addEventListener('mouseenter', () => paused = true);
     host.addEventListener('mouseleave', () => paused = false);
     if (reduced) { fn(opts.staticT ?? 0.62); return () => {}; }
+    // Pause when off-screen to save CPU
+    const vis = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        if (paused !== false) { paused = false; t0 = performance.now() - localT * period; }
+      } else {
+        paused = true;
+      }
+    }, { threshold: 0 });
+    vis.observe(host);
     raf = requestAnimationFrame(onTick);
-    return () => cancelAnimationFrame(raf);
+    return () => { cancelAnimationFrame(raf); vis.disconnect(); };
   }
 
   function softmax(xs, t = 1) {

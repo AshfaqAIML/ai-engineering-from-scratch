@@ -60,6 +60,12 @@
             status:     lesson.status   || '',
             lessonPath: lessonPath,
             url:        lesson.url      || '',
+            _name:      (lesson.name     || '').toLowerCase(),
+            _summary:   (lesson.summary  || '').toLowerCase(),
+            _keywords:  (lesson.keywords || '').toLowerCase(),
+            _phaseName: (phase.name      || '').toLowerCase(),
+            _lang:      (lesson.lang     || '').toLowerCase(),
+            _type:      (lesson.type     || '').toLowerCase(),
           });
         }
       }
@@ -74,6 +80,9 @@
           name:    g.term  || '',
           summary: g.means || '',
           says:    g.says  || '',
+          _name:     (g.term  || '').toLowerCase(),
+          _summary:  (g.means || '').toLowerCase(),
+          _says:     (g.says  || '').toLowerCase(),
         });
       }
     }
@@ -92,6 +101,9 @@
           lesson:     art.lesson,
           lessonPath: art.lessonPath || '',
           file:       art.file || '',
+          _name:      (art.name || '').toLowerCase(),
+          _summary:   (art.description || '').toLowerCase(),
+          _keywords:  Array.isArray(art.tags) ? art.tags.join(' ').toLowerCase() : '',
         });
       }
     }
@@ -102,13 +114,14 @@
   // ── Scoring ──────────────────────────────────────────────────────────
   function scoreItem(item, q) {
     // q is already lowercased + trimmed by the caller
-    var name     = item.name.toLowerCase();
-    var summary  = (item.summary  || '').toLowerCase();
-    var keywords = (item.keywords || '').toLowerCase();
-    var phase    = (item.phaseName || '').toLowerCase();
-    var lang     = (item.lang  || '').toLowerCase();
-    var type     = (item.type  || '').toLowerCase();
-    var says     = (item.says  || '').toLowerCase();
+    // Use pre-lowercased _fields when available, fall back to runtime .toLowerCase()
+    var name     = item._name     !== undefined ? item._name     : item.name.toLowerCase();
+    var summary  = item._summary  !== undefined ? item._summary  : (item.summary  || '').toLowerCase();
+    var keywords = item._keywords !== undefined ? item._keywords : (item.keywords || '').toLowerCase();
+    var phase    = item._phaseName !== undefined ? item._phaseName : (item.phaseName || '').toLowerCase();
+    var lang     = item._lang     !== undefined ? item._lang     : (item.lang  || '').toLowerCase();
+    var type     = item._type     !== undefined ? item._type     : (item.type  || '').toLowerCase();
+    var says     = item._says     !== undefined ? item._says     : (item.says  || '').toLowerCase();
 
     var s = 0;
 
