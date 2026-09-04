@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var MENU_BREAKPOINT = 1000;
+  var MENU_BREAKPOINT = 1360;
 
   function wireDrawer() {
     var toggle = document.getElementById('menuToggle');
