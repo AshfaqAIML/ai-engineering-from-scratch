@@ -302,7 +302,7 @@ p.dropcap::first-letter {
 }
 
 .header-priority-nav {
-  display: flex;
+  display: none;
   gap: 20px;
   align-items: center;
   flex: 0 0 auto;
@@ -3010,6 +3010,7 @@ body.nav-open {
   }
 
   .header-priority-nav {
+    display: flex;
     gap: 14px;
   }
 
