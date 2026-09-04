@@ -22,45 +22,67 @@
   <link rel="stylesheet" href="style.css?v=20260807a">
   <style>
     .catalog-page {
-      padding: 100px 0 80px;
+      padding: var(--header-offset) 0 80px;
       min-height: 100vh;
     }
 
     .catalog-header {
-      text-align: center;
-      margin-bottom: 32px;
+      text-align: left;
+      margin-bottom: var(--space-5);
+      border-bottom: 1px solid var(--rule-soft);
+      padding-bottom: var(--space-4);
     }
 
     .catalog-header h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin-bottom: 8px;
+      font-family: var(--font-display);
+      font-size: var(--type-xl);
+      line-height: var(--leading-tight);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--blueprint);
+      margin-bottom: var(--space-2);
     }
 
     .catalog-header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
+      color: var(--ink-soft);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      max-width: 60ch;
     }
 
     .catalog-controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1.6fr auto auto;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
       align-items: center;
     }
 
+    .catalog-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .catalog-search-wrap svg {
+      position: absolute;
+      left: 12px;
+      color: var(--ink-mute);
+      pointer-events: none;
+    }
+
     .catalog-search {
-      flex: 1;
-      min-width: 200px;
+      width: 100%;
       font-family: var(--font-body);
       font-size: 1rem;
-      padding: 12px 16px;
-      background: var(--bg-surface);
-      border: 2px solid var(--border);
-      border-radius: 0;
+      padding: 12px 16px 12px 36px;
+      background: var(--bg);
+      border: var(--border-thin) solid var(--rule-soft);
+      border-radius: var(--radius-sm);
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color var(--motion-feedback) ease, box-shadow var(--motion-feedback) ease;
     }
 
     .catalog-search::placeholder {
@@ -68,7 +90,8 @@
     }
 
     .catalog-search:focus {
-      border-color: var(--accent);
+      border-color: var(--blueprint);
+      box-shadow: 0 0 0 3px var(--blueprint-tint);
     }
 
     .catalog-search:focus-visible,
@@ -78,66 +101,97 @@
     }
 
     .catalog-filter {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 14px;
       background: var(--bg-surface);
-      border: 2px solid var(--border);
-      border-radius: 0;
-      color: var(--text);
+      border: var(--border-thin) solid var(--rule-soft);
+      border-radius: var(--radius-sm);
+      color: var(--ink-soft);
       outline: none;
       cursor: pointer;
       -webkit-appearance: none;
       appearance: none;
+      transition: border-color var(--motion-feedback) ease, background-color var(--motion-feedback) ease;
     }
+
+    .catalog-filter:hover { border-color: var(--rule); }
+    .catalog-filter:focus { border-color: var(--blueprint); }
 
     .catalog-count {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .catalog-count::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--rule-soft);
+      flex: 0 0 auto;
     }
 
     .catalog-table-wrap {
       overflow-x: auto;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      background: var(--bg-surface);
+      border: var(--border-thin) solid var(--rule-soft);
+      border-radius: var(--radius);
+      background: var(--bg);
+      box-shadow: var(--shadow-soft);
+      -webkit-overflow-scrolling: touch;
     }
 
     .catalog-table {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.92rem;
       min-width: 640px;
     }
 
+    .catalog-table thead { position: sticky; top: 0; z-index: 1; }
+
     .catalog-table th {
-      font-family: var(--font-heading);
+      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       text-align: left;
-      padding: 14px 16px;
-      border-bottom: 2px solid var(--border);
-      color: var(--text-muted);
+      padding: 12px 16px;
+      border-bottom: var(--border-thin) solid var(--rule);
+      background: var(--bg-surface);
+      color: var(--ink-mute);
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
-      transition: color 0.2s;
+      transition: color var(--motion-feedback) ease, background-color var(--motion-feedback) ease;
+      position: sticky;
+      top: 0;
     }
 
     .catalog-table th:hover {
-      color: var(--accent);
+      color: var(--blueprint);
+      background: var(--bg-surface-hover);
     }
 
     .catalog-table th .sort-arrow {
-      font-size: 0.7rem;
-      margin-left: 4px;
+      font-size: 0.62rem;
+      margin-left: 6px;
+      color: var(--ink-mute);
     }
 
     .catalog-table td {
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
+      padding: 11px 16px;
+      border-bottom: var(--border-thin) solid var(--paper-rule);
       vertical-align: middle;
     }
 
@@ -145,16 +199,36 @@
       border-bottom: none;
     }
 
-    .catalog-table tr:hover td {
-      background: var(--bg-surface-hover);
+    .catalog-table tbody tr {
+      transition: background-color var(--motion-feedback) ease;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 44px;
+    }
+
+    .catalog-table tbody tr:hover td {
+      background: var(--blueprint-tint);
+    }
+
+    .catalog-table tbody tr:focus-within td {
+      background: var(--blueprint-tint-strong);
     }
 
     .catalog-table a {
-      color: var(--secondary);
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color var(--motion-feedback) ease, border-color var(--motion-feedback) ease;
     }
 
     .catalog-table a:hover {
-      color: var(--accent);
+      color: var(--blueprint);
+      border-bottom-color: var(--blueprint);
+    }
+
+    .catalog-table a:focus-visible {
+      outline: 2px solid var(--blueprint);
+      outline-offset: 2px;
     }
 
     .catalog-status-dot {
@@ -162,35 +236,70 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      margin-right: 6px;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
 
     .catalog-status-dot.complete {
       background: var(--complete);
+      box-shadow: 0 0 0 3px var(--blueprint-tint);
     }
 
     .catalog-status-dot.planned {
       background: var(--planned);
+      border: 1px solid var(--rule-soft);
+    }
+
+    .catalog-type-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule-soft);
+      background: var(--bg-surface);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .catalog-type-pill[data-type="Build"] {
+      border-color: var(--blueprint);
+      color: var(--blueprint);
+      background: var(--blueprint-tint);
     }
 
     .catalog-lang {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.76rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.02em;
     }
 
     .catalog-phase-label {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--bg-surface);
+      border: 1px solid var(--rule-soft);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
     }
 
     .catalog-empty {
       text-align: center;
-      padding: 48px 24px;
-      color: var(--text-muted);
-      font-size: 1.1rem;
+      padding: 56px 24px;
+      color: var(--ink-soft);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
     }
+
+    .catalog-empty strong { color: var(--ink); font-weight: 700; }
+    .catalog-empty a { color: var(--blueprint); text-decoration: underline; text-underline-offset: 3px; }
 
     @media (max-width: 768px) {
       .catalog-page {
@@ -272,7 +381,10 @@
         <p>Every lesson across all 20 phases. Search, filter, sort.</p>
       </div>
       <div class="catalog-controls">
-        <input type="text" class="catalog-search" id="catalogSearch" placeholder="Search lessons..." aria-label="Search lessons">
+        <label class="catalog-search-wrap" aria-label="Search lessons">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="catalog-search" id="catalogSearch" placeholder="Search 523 lessons, phases, types…" aria-label="Search lessons">
+        </label>
         <select class="catalog-filter" id="catalogPhase" aria-label="Filter by phase">
           <option value="">All Phases</option>
         </select>
@@ -430,23 +542,27 @@
           countEl.textContent = rows.length + ' of ' + allRows.length + ' lessons';
 
           if (rows.length === 0) {
-            bodyEl.innerHTML = '<tr><td colspan="5" class="catalog-empty">No lessons match your filters.</td></tr>';
+            var q = escapeHtml(query || phaseFilter || statusFilter);
+            bodyEl.innerHTML = '<tr><td colspan="5" class="catalog-empty"><strong>No lessons match “' + q + '”</strong><br>Try a different term, or <a href="#" id="catalogReset">reset filters</a> to see all 523 lessons.</td></tr>';
+            var reset = document.getElementById('catalogReset');
+            if (reset) reset.addEventListener('click', function(e){ e.preventDefault(); searchInput.value=''; phaseSelect.value=''; statusSelect.value=''; render(); });
             return;
           }
 
           var html = '';
           for (var i = 0; i < rows.length; i++) {
             var r = rows[i];
-            html += '<tr>';
-            html += '<td><span class="catalog-phase-label">' + String(r.phase).padStart(2, '0') + '</span></td>';
+            var phaseLabel = String(r.phase).padStart(2, '0');
+            html += '<tr tabindex="0">';
+            html += '<td><span class="catalog-phase-label">' + phaseLabel + '</span> <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink-mute);">' + escapeHtml(r.phaseName) + '</span></td>';
             if (r.url) {
               html += '<td><a href="' + r.url + '" target="_blank" rel="noopener">' + escapeHtml(r.name) + '</a></td>';
             } else {
               html += '<td>' + escapeHtml(r.name) + '</td>';
             }
-            html += '<td>' + escapeHtml(r.type) + '</td>';
+            html += '<td><span class="catalog-type-pill" data-type="' + escapeHtml(r.type) + '">' + escapeHtml(r.type) + '</span></td>';
             html += '<td><span class="catalog-lang">' + escapeHtml(r.lang) + '</span></td>';
-            html += '<td><span class="catalog-status-dot ' + r.status + '"></span>' + r.status + '</td>';
+            html += '<td><span class="catalog-status-dot ' + r.status + '" aria-hidden="true"></span><span style="font-family:var(--font-mono);font-size:0.76rem;text-transform:capitalize;">' + r.status + '</span></td>';
             html += '</tr>';
           }
           bodyEl.innerHTML = html;

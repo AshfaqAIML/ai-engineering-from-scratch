@@ -30,6 +30,14 @@
 
   --header-offset: 92px;
 
+  /* Motion — shared durations for transitions and animations */
+  --motion-feedback: 180ms;
+  --motion-press: 120ms;
+  --motion-drawer: 250ms;
+  --motion-enter: 280ms;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
   /* Spacing — restrained 8pt scale + editorial exceptions */
   --space-1: 4px;
   --space-2: 8px;
@@ -2949,6 +2957,105 @@ body[data-palette-open] {
   .dash-stats { grid-template-columns: repeat(2, 1fr); }
   .dash-heatmap { gap: 3px; }
 }
+
+/* ── Dashboard cockpit — calm, editorial, not admin ───────────────────── */
+.dash-guest-note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 16px 0 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--rule-soft);
+  background: var(--bg-surface);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.dash-guest-icon { color: var(--blueprint); flex: 0 0 auto; margin-top: 1px; }
+.dash-guest-copy a { color: var(--blueprint); text-decoration: underline; text-underline-offset: 3px; }
+
+.dash-stats .dash-stat-card.primary {
+  border-color: var(--ink);
+  background: var(--bg);
+  box-shadow: var(--shadow-soft);
+}
+.dash-stats .dash-stat-card.primary .dash-stat-value { font-size: 2rem; color: var(--ink); }
+.dash-stats .dash-stat-card.primary .dash-stat-value.small { font-size: 1.1rem; line-height: 1.2; white-space: normal; }
+.dash-stat-sub {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.dash-panel--featured {
+  border-color: var(--ink);
+  border-left: 4px solid var(--blueprint);
+  background: var(--bg);
+  box-shadow: var(--shadow-soft);
+  padding: 20px 22px 22px;
+}
+.dash-panel--featured .dash-panel-title { font-size: 0.82rem; letter-spacing: 0.14em; }
+.dash-empty--featured { text-align: left; padding: 18px 0 6px; }
+.dash-empty-icon { font-size: 1.4rem; color: var(--blueprint); margin-bottom: 8px; }
+.dash-empty-title { font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); margin-bottom: 6px; }
+.dash-empty-text { font-size: 0.95rem; line-height: 1.55; max-width: 60ch; margin-bottom: 14px; }
+.dash-empty-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--blueprint);
+  background: var(--blueprint);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.dash-empty-cta.secondary { background: var(--bg); color: var(--ink); border-color: var(--rule); }
+.dash-empty-cta:hover { filter: brightness(1.05); }
+
+.dash-donut-explain {
+  margin: 12px 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: center;
+  line-height: 1.5;
+}
+.dash-panel--donut .dash-donut-stats { gap: 16px; }
+
+.dash-panel--streak .dash-panel-hint {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+}
+
+.dash-panel-actions { display: flex; align-items: center; gap: 12px; }
+.dash-filter { display: inline-flex; gap: 6px; }
+.dash-filter-btn {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--rule-soft);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.dash-filter-btn.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.dash-empty--inline { padding: 24px 0; }
 
 /* ══ Responsive architecture (adaptive, device-agnostic) ═════════════════
    Shared by every page. Fluid scale, logical properties, touch-target
