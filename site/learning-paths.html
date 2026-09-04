@@ -16,12 +16,12 @@
   <meta name="twitter:title" content="AI Engineering Learning Paths · AI Engineering from Scratch">
   <meta name="twitter:description" content="Four core AI engineering learning paths and six career routes, expanded into practical lessons.">
   <meta name="twitter:image" content="https://aiengineeringfromscratch.com/og-image.png?v=3">
-  <script src="learning-paths.js?v=20260830a"></script>
+  <script src="learning-paths.js?v=20260904a"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=20260824a">
-  <link rel="stylesheet" href="learning-paths.css?v=20260829d">
+  <link rel="stylesheet" href="learning-paths.css?v=20260904a">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -269,7 +269,7 @@
       <div class="skills-domain-tree">
         <div class="skills-domain-root">
           <div><strong>Build the complete AI application</strong><span class="learning-paths-path-meta">12-lesson path · 780 minutes</span></div>
-          <a class="skills-domain-root-link" href="lesson.html?path=phases/11-llm-engineering/01-prompt-engineering&amp;learningPath=building-and-deploying-ai-applications">Open full path</a>
+          <a class="skills-domain-root-link" data-route="building-and-deploying-ai-applications" href="lesson.html?path=phases/11-llm-engineering/01-prompt-engineering&amp;learningPath=building-and-deploying-ai-applications"><span class="route-state-label">Open full path</span></a>
         </div>
         <div class="skills-domain-scroller" aria-label="Building and Deploying AI Applications competencies">
           <div class="skills-domain-children" style="--child-count: 6;">
@@ -293,7 +293,7 @@
       <div class="skills-domain-tree">
         <div class="skills-domain-root">
           <div><strong>Steer the software tradeoffs behind AI systems</strong><span class="learning-paths-path-meta">13-lesson foundation path · 730 minutes</span></div>
-          <a class="skills-domain-root-link" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment&amp;learningPath=software-engineering-fundamentals">Open full path</a>
+          <a class="skills-domain-root-link" data-route="software-engineering-fundamentals" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment&amp;learningPath=software-engineering-fundamentals"><span class="route-state-label">Open full path</span></a>
         </div>
         <div class="skills-domain-scroller" aria-label="Software Engineering Fundamentals competencies">
           <div class="skills-domain-children skills-domain-children--five" style="--child-count: 5;">
@@ -316,7 +316,7 @@
       <div class="skills-domain-tree">
         <div class="skills-domain-root">
           <div><strong>Turn model capability into dependable work</strong><span class="learning-paths-path-meta">16-lesson path · 900 minutes</span></div>
-          <a class="skills-domain-root-link" href="lesson.html?path=phases/14-agent-engineering/31-agent-workbench-why-models-fail&amp;learningPath=using-coding-agents">Open full path</a>
+          <a class="skills-domain-root-link" data-route="using-coding-agents" href="lesson.html?path=phases/14-agent-engineering/31-agent-workbench-why-models-fail&amp;learningPath=using-coding-agents"><span class="route-state-label">Open full path</span></a>
         </div>
         <div class="skills-domain-scroller" aria-label="Agent-Assisted Engineering competencies">
           <div class="skills-domain-children" style="--child-count: 8;">
@@ -342,7 +342,7 @@
       <div class="skills-domain-tree">
         <div class="skills-domain-root">
           <div><strong>Choose the right build before producing output</strong><span class="learning-paths-path-meta">8-lesson path · 550 minutes</span></div>
-          <a class="skills-domain-root-link" href="lesson.html?path=phases/14-agent-engineering/47-outcomes-before-output&amp;learningPath=shaping-the-build">Open full path</a>
+          <a class="skills-domain-root-link" data-route="shaping-the-build" href="lesson.html?path=phases/14-agent-engineering/47-outcomes-before-output&amp;learningPath=shaping-the-build"><span class="route-state-label">Open full path</span></a>
         </div>
         <div class="skills-domain-scroller" aria-label="Product Judgment and Delivery competencies">
           <div class="skills-domain-children" style="--child-count: 8;">
@@ -359,6 +359,77 @@
         <div class="skills-domain-footer"><span>Follow every connected competency.</span><a class="learning-paths-back" href="#overview">Back to four domains</a></div>
       </div>
     </section>
+
+    <section class="focused-routes learning-paths-container" id="focused-routes" aria-labelledby="focusedRoutesTitle">
+      <header class="focused-routes-header">
+        <div>
+          <span class="learning-paths-domain-number">Focused routes · go deep on one system</span>
+          <h2 id="focusedRoutesTitle">One system. End to end.</h2>
+        </div>
+        <div class="focused-routes-copy">
+          <p>Four specialist tracks sequence the same phase lessons around one system you want to operate yourself. Each path is a typed route with a concrete starting point, a bounded scope, and one action to begin.</p>
+          <p class="focused-routes-legend"><span class="focused-route-chip focused-route-chip--idle">Start path</span> not started <span class="focused-route-chip focused-route-chip--continue">Continue path</span> in progress <span class="focused-route-chip focused-route-chip--done">Completed</span> every lesson</p>
+        </div>
+      </header>
+      <div class="focused-route-grid">
+        <article class="focused-route-card" data-focused-route="model-context-protocol" data-paths='["phases/13-tools-and-protocols/06-mcp-fundamentals","phases/13-tools-and-protocols/07-building-an-mcp-server","phases/13-tools-and-protocols/08-building-an-mcp-client","phases/13-tools-and-protocols/09-mcp-transports","phases/13-tools-and-protocols/10-mcp-resources-and-prompts","phases/13-tools-and-protocols/11-mcp-sampling","phases/13-tools-and-protocols/12-mcp-roots-and-elicitation","phases/13-tools-and-protocols/13-mcp-async-tasks","phases/13-tools-and-protocols/14-mcp-apps","phases/13-tools-and-protocols/15-mcp-security-tool-poisoning","phases/13-tools-and-protocols/16-mcp-security-oauth-2-1","phases/13-tools-and-protocols/18-mcp-auth-production","phases/13-tools-and-protocols/17-mcp-gateways-and-registries","phases/13-tools-and-protocols/28-mcp-tool-contracts-and-content","phases/13-tools-and-protocols/29-mcp-reliability-cancellation-and-flow-control","phases/13-tools-and-protocols/30-mcp-registry-supply-chain-and-drift","phases/13-tools-and-protocols/31-mcp-conformance-versioning-and-operations"]'>
+          <header class="focused-route-card-head">
+            <span class="learning-paths-node-index">Protocol · wire plumbing</span>
+            <h3>Model Context Protocol (MCP)</h3>
+          </header>
+          <p class="focused-route-summary">Build, secure, verify, and operate stateless MCP systems from JSON-RPC envelopes through conformance release gates.</p>
+          <dl class="focused-route-facts">
+            <div><dt>Who it is for</dt><dd>Engineers wiring tools, hosts, and registries together</dd></div>
+            <div><dt>Starting point</dt><dd>MCP Fundamentals · stateless requests and JSON-RPC</dd></div>
+            <div><dt>Scope</dt><dd>17 lessons · 1,395 min</dd></div>
+            <div><dt>Key phases</dt><dd>Phase 13 · Tools &amp; Protocols</dd></div>
+          </dl>
+          <a class="focused-route-cta" data-cta-route="model-context-protocol" href="lesson.html?path=phases/13-tools-and-protocols/06-mcp-fundamentals&amp;learningPath=model-context-protocol"><span class="focused-route-cta-label">Start path</span><span class="focused-route-cta-meta">17 lessons · 1,395 min</span></a>
+        </article>
+        <article class="focused-route-card" data-focused-route="agent-skills" data-paths='["phases/13-tools-and-protocols/22-skills-and-agent-sdks","phases/13-tools-and-protocols/24-skill-discovery-and-progressive-disclosure","phases/13-tools-and-protocols/25-skill-invocation-and-routing","phases/13-tools-and-protocols/26-skill-permissions-sandboxes-and-trust","phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability"]'>
+          <header class="focused-route-card-head">
+            <span class="learning-paths-node-index">Agents · composable capability</span>
+            <h3>Agent Skills Engineering</h3>
+          </header>
+          <p class="focused-route-summary">Build, route, secure, evaluate, package, and verify Agent Skills in real hosts.</p>
+          <dl class="focused-route-facts">
+            <div><dt>Who it is for</dt><dd>Engineers shipping reusable skills into agents</dd></div>
+            <div><dt>Starting point</dt><dd>Skills and Agent SDKs</dd></div>
+            <div><dt>Scope</dt><dd>5 lessons · 570 min</dd></div>
+            <div><dt>Key phases</dt><dd>Phase 13 · Tools &amp; Protocols</dd></div>
+          </dl>
+          <a class="focused-route-cta" data-cta-route="agent-skills" href="lesson.html?path=phases/13-tools-and-protocols/22-skills-and-agent-sdks&amp;learningPath=agent-skills"><span class="focused-route-cta-label">Start path</span><span class="focused-route-cta-meta">5 lessons · 570 min</span></a>
+        </article>
+        <article class="focused-route-card" data-focused-route="using-coding-agents" data-paths='["phases/14-agent-engineering/31-agent-workbench-why-models-fail","phases/14-agent-engineering/43-frame-the-task-before-code","phases/14-agent-engineering/44-plan-from-evidence","phases/14-agent-engineering/32-minimal-agent-workbench","phases/14-agent-engineering/33-instructions-as-executable-constraints","phases/14-agent-engineering/34-repo-memory-and-state","phases/14-agent-engineering/35-initialization-scripts","phases/14-agent-engineering/36-scope-contracts","phases/14-agent-engineering/37-runtime-feedback-loops","phases/14-agent-engineering/38-verification-gates","phases/14-agent-engineering/39-reviewer-agent","phases/14-agent-engineering/45-delegate-with-isolation","phases/14-agent-engineering/40-multi-session-handoff","phases/14-agent-engineering/41-workbench-for-real-repos","phases/14-agent-engineering/46-turn-feedback-into-system","phases/14-agent-engineering/42-agent-workbench-capstone"]'>
+          <header class="focused-route-card-head">
+            <span class="learning-paths-node-index">Workflow · coding with agents</span>
+            <h3>Agent-Assisted Engineering</h3>
+          </header>
+          <p class="focused-route-summary">Frame, plan, execute, delegate, verify, review, and improve coding-agent work inside real repositories.</p>
+          <dl class="focused-route-facts">
+            <div><dt>Who it is for</dt><dd>Developers delegating real work to agent workbenches</dd></div>
+            <div><dt>Starting point</dt><dd>Agent workbench · why models fail</dd></div>
+            <div><dt>Scope</dt><dd>16 lessons · 900 min</dd></div>
+            <div><dt>Key phases</dt><dd>Phase 14 · Agent Engineering</dd></div>
+          </dl>
+          <a class="focused-route-cta" data-cta-route="using-coding-agents" href="lesson.html?path=phases/14-agent-engineering/31-agent-workbench-why-models-fail&amp;learningPath=using-coding-agents"><span class="focused-route-cta-label">Start path</span><span class="focused-route-cta-meta">16 lessons · 900 min</span></a>
+        </article>
+        <article class="focused-route-card" data-focused-route="shaping-the-build" data-paths='["phases/14-agent-engineering/47-outcomes-before-output","phases/14-agent-engineering/48-discover-the-real-workflow","phases/14-agent-engineering/49-map-assumptions-and-risk","phases/14-agent-engineering/50-choose-the-smallest-testable-slice","phases/14-agent-engineering/51-write-specifications-that-preserve-judgment","phases/14-agent-engineering/52-design-success-metrics","phases/14-agent-engineering/53-prototype-pilot-or-production","phases/14-agent-engineering/54-build-the-feedback-ratchet"]'>
+          <header class="focused-route-card-head">
+            <span class="learning-paths-node-index">Judgment · choose the right build</span>
+            <h3>Product Judgment and Delivery</h3>
+          </header>
+          <p class="focused-route-summary">Turn evidence into outcomes, assumptions, testable slices, executable specifications, measurement plans, and owned feedback loops.</p>
+          <dl class="focused-route-facts">
+            <div><dt>Who it is for</dt><dd>Engineers deciding what to build before building it</dd></div>
+            <div><dt>Starting point</dt><dd>Outcomes before output</dd></div>
+            <div><dt>Scope</dt><dd>8 lessons · 550 min</dd></div>
+            <div><dt>Key phases</dt><dd>Phase 14 · Agent Engineering</dd></div>
+          </dl>
+          <a class="focused-route-cta" data-cta-route="shaping-the-build" href="lesson.html?path=phases/14-agent-engineering/47-outcomes-before-output&amp;learningPath=shaping-the-build"><span class="focused-route-cta-label">Start path</span><span class="focused-route-cta-meta">8 lessons · 550 min</span></a>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -373,6 +444,9 @@
     </div>
   </footer>
 
+  <script src="data.js?v=20260801a"></script>
+  <script src="progress.js?v=20260805a"></script>
+  <script src="reading-progress.js?v=20260805a"></script>
   <script src="header.js?v=20260829b" defer></script>
   <script src="cmdpalette.js?v=20260821a" defer></script>
   <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>

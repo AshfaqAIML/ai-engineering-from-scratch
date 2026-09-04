@@ -86,6 +86,68 @@
     return true;
   }
 
+  function routePathsFromCard(card) {
+    var raw = card.getAttribute('data-paths');
+    if (!raw) return [];
+    try {
+      var value = JSON.parse(raw);
+      return Array.isArray(value) ? value : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function routeState(paths) {
+    if (!paths || !paths.length) return 'start';
+    var done = 0;
+    var started = 0;
+    for (var i = 0; i < paths.length; i++) {
+      var path = paths[i];
+      var completed = window.AIFSProgress && window.AIFSProgress.isLessonComplete(path);
+      var readPct = window.AIFSReadingProgress ? (window.AIFSReadingProgress.getProgressPct(path) || 0) : 0;
+      if (completed) done++;
+      else if (readPct > 0) started++;
+    }
+    if (done === paths.length) return 'done';
+    if (done > 0 || started > 0) return 'continue';
+    return 'start';
+  }
+
+  function setCtaLabel(cta, state) {
+    if (!cta) return;
+    var labels = {
+      done: 'Completed',
+      continue: 'Continue path',
+      start: 'Start path'
+    };
+    cta.setAttribute('data-state', state);
+    var label = cta.querySelector('.focused-route-cta-label') || cta.querySelector('.route-state-label');
+    if (label) label.textContent = labels[state] || 'Start path';
+  }
+
+  function routePathsFromTree(link) {
+    var tree = link.closest('.skills-domain-tree');
+    var paths = [];
+    if (!tree) return paths;
+    tree.querySelectorAll('.skills-node').forEach(function (node) {
+      var match = (node.getAttribute('href') || '').match(/lesson\.html\?path=([^&]+)/);
+      if (match) {
+        try { paths.push(decodeURIComponent(match[1])); } catch (error) {}
+      }
+    });
+    return paths;
+  }
+
+  function syncRouteStates() {
+    if (!window.AIFSProgress && !window.AIFSReadingProgress) return;
+    document.querySelectorAll('.focused-route-card[data-paths]').forEach(function (card) {
+      setCtaLabel(card.querySelector('.focused-route-cta'), routeState(routePathsFromCard(card)));
+    });
+    document.querySelectorAll('.skills-domain-root-link[data-route]').forEach(function (link) {
+      setCtaLabel(link, routeState(routePathsFromTree(link)));
+    });
+  }
+
   applyTheme(savedTheme() || systemTheme());
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -110,6 +172,8 @@
     });
 
     if (!revealCareerGuide(window.location.hash, false)) syncCareerChoice(null);
+
+    syncRouteStates();
   });
 
   window.addEventListener('hashchange', function () {
@@ -118,6 +182,7 @@
 
   window.addEventListener('storage', function (event) {
     if (event.key === 'theme') applyTheme(savedTheme() || systemTheme());
+    if (event.key === 'aifs:progress:v1' || event.key === 'aifs:reading-progress:v1') syncRouteStates();
   });
 
   if (media) {

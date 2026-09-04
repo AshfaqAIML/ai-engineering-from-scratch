@@ -508,18 +508,22 @@
   }
 
   // ── Global keyboard shortcut (Cmd/Ctrl+K) ────────────────────────────
-  document.addEventListener('keydown', function (e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      if (_isOpen) {
-        // Palette is already open — just refocus the input
-        var inp = _inputEl();
-        if (inp) inp.focus();
-      } else {
-        open();
+  // Only wire the DOM when run in a browser. Node-based unit tests import
+  // this module for search + navigation helpers and must not touch the DOM.
+  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (_isOpen) {
+          // Palette is already open — just refocus the input
+          var inp = _inputEl();
+          if (inp) inp.focus();
+        } else {
+          open();
+        }
       }
-    }
-  });
+    });
+  }
 
   // ── Init: wire trigger buttons + eagerly build index ─────────────────
   function _init() {
@@ -536,13 +540,17 @@
     buildIndex();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', _init);
-  } else {
-    _init();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', _init);
+    } else {
+      _init();
+    }
   }
 
   // ── Public API ────────────────────────────────────────────────────────
-  window.CmdPalette = { open: open, close: close };
+  if (typeof window !== 'undefined') {
+    window.CmdPalette = { open: open, close: close };
+  }
 
 }());

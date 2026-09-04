@@ -17,22 +17,21 @@
     [1],
     [2],
     [3],
-    [4, 5, 6, 9],
-    [7],
+    [4, 5, 6, 7, 9],
     [8, 10],
-    [11, 12],
-    [13],
+    [11, 18],
+    [12, 13, 17],
     [14],
-    [15, 17],
-    [16, 18],
+    [15],
+    [16],
     [19]
   ];
 
   var STAGES = [
     { id: 'foundations', number: '01', name: 'Foundations', startTier: 0, endTier: 3, focusPhase: 0 },
     { id: 'model-disciplines', number: '02', name: 'Model disciplines', startTier: 4, endTier: 6, focusPhase: 7 },
-    { id: 'engineering-systems', number: '03', name: 'Engineering systems', startTier: 7, endTier: 11, focusPhase: 11 },
-    { id: 'capstone-proof', number: '04', name: 'Capstone proof', startTier: 12, endTier: 12, focusPhase: 19 }
+    { id: 'engineering-systems', number: '03', name: 'Engineering systems', startTier: 7, endTier: 9, focusPhase: 14 },
+    { id: 'capstone-proof', number: '04', name: 'Capstone proof', startTier: 10, endTier: 11, focusPhase: 19 }
   ];
 
   var NODE_W = 210;
@@ -46,6 +45,9 @@
   var SVG_H = PAD_Y * 2 + (TIER_ORDER.length - 1) * TIER_GAP + NODE_H;
   var MIN_ZOOM = 0.7;
   var MAX_ZOOM = 1.3;
+  var MOBILE_BREAKPOINT = 760;
+  var isMobile = window.matchMedia && window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+  var breakpointMedia = window.matchMedia ? window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)') : null;
 
   var phaseMap = {};
   var children = {};
@@ -58,7 +60,7 @@
   var routeEdgeStates = {};
   var selectedId = null;
   var rovingId = 0;
-  var zoom = window.matchMedia && window.matchMedia('(max-width: 760px)').matches ? MIN_ZOOM : 1;
+  var zoom = 1;
   var draggedSincePointerDown = false;
   var reducedMotionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var prefersReducedMotion = !!(reducedMotionQuery && reducedMotionQuery.matches);
@@ -168,6 +170,20 @@
 
   function computePositions() {
     positions = {};
+    if (isMobile) {
+      var seq = [];
+      for (var mp = 0; mp < PHASES.length; mp++) seq.push(PHASES[mp].id);
+      var MOBILE_SVG_W = 320;
+      var MOBILE_NODE_GAP = 168;
+      var mobileCx = MOBILE_SVG_W / 2;
+      SVG_W = MOBILE_SVG_W;
+      SVG_H = PAD_Y * 2 + (seq.length - 1) * MOBILE_NODE_GAP + NODE_H;
+      for (var mIdx = 0; mIdx < seq.length; mIdx++) {
+        positions[seq[mIdx]] = { x: mobileCx - NODE_W / 2, y: PAD_Y + mIdx * MOBILE_NODE_GAP, tier: mIdx };
+      }
+      return;
+    }
+
     for (var tierIndex = 0; tierIndex < TIER_ORDER.length; tierIndex++) {
       var tier = TIER_ORDER[tierIndex];
       var totalWidth = tier.length * NODE_W + (tier.length - 1) * COLUMN_GAP;
@@ -350,6 +366,7 @@
   }
 
   function renderStageBands(layer) {
+    if (isMobile) return;
     for (var i = 0; i < STAGES.length; i++) {
       var stage = STAGES[i];
       var startY = Math.max(18, PAD_Y + stage.startTier * TIER_GAP - 28);
@@ -528,7 +545,28 @@
     return (index - (sorted.length - 1) / 2) * step;
   }
 
+  function syncBreakpoint() {
+    var now = breakpointMedia ? breakpointMedia.matches : false;
+    if (now === isMobile) return;
+    isMobile = now;
+    zoom = 1;
+    computePositions();
+    renderGraph();
+    var wrap = document.getElementById('roadmapGraphWrap');
+    if (wrap) { wrap.scrollLeft = 0; wrap.scrollTop = 0; }
+    if (selectedId !== null) {
+      applyRouteHighlight(selectedId);
+      renderInspector(selectedId, false);
+    }
+  }
+
   function bindInteractions() {
+    if (breakpointMedia) {
+      breakpointMedia.addEventListener('change', function () {
+        syncBreakpoint();
+      });
+    }
+
     var themeButton = document.getElementById('themeToggle');
     if (themeButton) {
       themeButton.addEventListener('click', function () {
@@ -1144,7 +1182,7 @@
 
   function lessonPageUrl(lesson) {
     var path = lessonPath(lesson && lesson.url);
-    return path ? 'lesson?path=' + encodeURI(path) : '';
+    return path ? 'lesson.html?path=' + encodeURI(path) : '';
   }
 
   function lessonPath(url) {

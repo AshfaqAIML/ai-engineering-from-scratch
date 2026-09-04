@@ -47,7 +47,7 @@ function careerSectionSource() {
 }
 
 test('homepage nodes open the expanded learning paths domains', () => {
-  assert.match(homepage, /href="learning-paths\.html"[\s\S]*?>\s*<span>Explore Learning Paths<\/span>/);
+  assert.match(homepage, /href="learning-paths\.html"[\s\S]*?>\s*<span>View Learning Paths<\/span>/);
   assert.match(homepage, /href="learning-paths\.html#career-routes">Browse career routes<\/a>/);
   assert.match(homepage, /<figcaption class="learning-paths-compact-root">\s*<strong>AI Engineering<\/strong>\s*<span>4 connected domains<\/span>\s*<\/figcaption>/);
   assert.match(homepage, /@media \(max-width: 600px\)[\s\S]*?\.learning-paths-figure\s*\{[\s\S]*?display: grid;[\s\S]*?gap: 8px;[\s\S]*?padding: 12px;/);
@@ -97,7 +97,7 @@ test('domain route totals match their canonical manifests', () => {
 });
 
 test('every child node resolves to a real local lesson', () => {
-  const hrefs = Array.from(learningPaths.matchAll(/<a class="skills-node" href="lesson\?path=([^&"]+)&amp;learningPath=([^"]+)"/g));
+  const hrefs = Array.from(learningPaths.matchAll(/<a class="skills-node" href="lesson\.html\?path=([^&"]+)&amp;learningPath=([^"]+)"/g));
   assert.equal(hrefs.length, 27);
   for (const match of hrefs) {
     const lessonPath = decodeURIComponent(match[1]);
@@ -127,7 +127,7 @@ test('career chooser opens detailed work-family guides before lessons', () => {
     const manifest = career.manifest;
     const guideId = `career-route-${career.id}`;
     const firstLesson = manifest.lessons[0].path;
-    const href = `lesson?path=${firstLesson}&amp;learningPath=${career.id}`;
+    const href = `lesson.html?path=${firstLesson}&amp;learningPath=${career.id}`;
     assert.equal(source.includes(`href="#${guideId}" data-career-choice="${career.id}"`), true, `${career.id} chooser link is missing`);
     assert.equal(source.includes(`id="${guideId}" data-career-guide="${career.id}"`), true, `${career.id} guide is missing`);
     assert.equal(source.includes(`<strong>${career.title}</strong>`), true, `${career.id} work-family title is missing`);
@@ -136,6 +136,75 @@ test('career chooser opens detailed work-family guides before lessons', () => {
     assert.equal(source.includes(`href="${href}"`), true, `${career.id} guide does not open its specialist lessons`);
   }
 });
+
+test('focused routes expose typed state-aware action CTAs', () => {
+  const start = learningPaths.indexOf('<section class="focused-routes learning-paths-container" id="focused-routes"');
+  assert.notEqual(start, -1, 'focused routes section is missing');
+  const end = learningPaths.indexOf('</section>', start);
+  assert.notEqual(end, -1, 'focused routes section is not closed');
+  const source = learningPaths.slice(start, end);
+
+  assert.match(source, /<span class="learning-paths-domain-number">Focused routes · go deep on one system<\/span>/);
+  assert.match(source, /<h2 id="focusedRoutesTitle">One system\. End to end\.<\/h2>/);
+  assert.match(source, /class="focused-route-grid"/);
+
+  const focusedIds = ['model-context-protocol', 'agent-skills', 'using-coding-agents', 'shaping-the-build'];
+  const cards = Array.from(source.matchAll(/<article class="focused-route-card" data-focused-route="([^"]+)" data-paths='(\[.*?\])'>/g));
+  assert.equal(cards.length, focusedIds.length);
+
+  for (const match of cards) {
+    const id = match[1];
+    const manifest = JSON.parse(fs.readFileSync(path.join(root, 'learning-paths', `${id}.json`), 'utf8'));
+    assert.equal(manifest.id, id);
+    const expectedPaths = manifest.lessons.filter(l => l.required !== false).map(l => l.path);
+    const cardSource = source.slice(source.indexOf(`data-focused-route="${id}"`), source.indexOf('</article>', source.indexOf(`data-focused-route="${id}"`)));
+
+    const paths = JSON.parse(match[2]);
+    assert.deepEqual(paths, expectedPaths, `${id} data-paths drifted from its manifest`);
+
+    for (const lessonPath of paths) {
+      assert.equal(fs.existsSync(path.join(root, lessonPath, 'docs', 'en.md')), true, `${id} path missing: ${lessonPath}`);
+    }
+
+    const firstLesson = expectedPaths[0];
+    assert.match(cardSource, new RegExp(`class="focused-route-cta" data-cta-route="${id}" href="lesson\\.html\\?path=${escapeRegExp(firstLesson)}&amp;learningPath=${id}"`));
+    assert.match(cardSource, /<span class="focused-route-cta-label">Start path<\/span>/);
+    assert.match(cardSource, /<span class="focused-route-cta-meta">\d+ lessons · [\d,]+ min<\/span>/);
+    assert.match(cardSource, /<dl class="focused-route-facts">/);
+    assert.match(cardSource, /<dt>Who it is for<\/dt><dd>/);
+  }
+
+  assert.equal((source.match(/class="focused-route-chip focused-route-chip--idle"/g) || []).length, 1);
+  assert.equal((source.match(/class="focused-route-chip focused-route-chip--continue"/g) || []).length, 1);
+  assert.equal((source.match(/class="focused-route-chip focused-route-chip--done"/g) || []).length, 1);
+  assert.match(source, /<span class="focused-route-chip focused-route-chip--idle">Start path<\/span>/);
+
+  const domainRootLinks = Array.from(learningPaths.matchAll(/<a class="skills-domain-root-link" data-route="([^"]+)"[^>]*><span class="route-state-label">Open full path<\/span><\/a>/g));
+  assert.equal(domainRootLinks.length, 4);
+  assert.deepEqual(domainRootLinks.map(m => m[1]).sort(), ['building-and-deploying-ai-applications', 'shaping-the-build', 'software-engineering-fundamentals', 'using-coding-agents'].sort());
+
+  assert.match(learningPaths, /<script src="progress\.js\?v=20260805a"><\/script>/);
+  assert.match(learningPaths, /<script src="reading-progress\.js\?v=20260805a"><\/script>/);
+
+  assert.match(learningPathsJs, /function routeState\(paths\)/);
+  assert.match(learningPathsJs, /function syncRouteStates\(\)/);
+  assert.match(learningPathsJs, /window\.AIFSProgress\s*&&\s*window\.AIFSProgress\.isLessonComplete/);
+  assert.match(learningPathsJs, /window\.AIFSReadingProgress\s*\?\s*\(?window\.AIFSReadingProgress\.getProgressPct/);
+  assert.match(learningPathsJs, /'Completed'|Completed/);
+  assert.match(learningPathsJs, /'Continue path'/);
+  assert.match(learningPathsJs, /'Start path'/);
+
+  assert.match(learningPathsCss, /\.focused-route-grid\s*\{[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(learningPathsCss, /\.focused-route-cta\[data-state="start"\]|\.focused-route-cta\s*\{/);
+  assert.match(learningPathsCss, /\.focused-route-cta\[data-state="continue"\]/);
+  assert.match(learningPathsCss, /\.focused-route-cta\[data-state="done"\]/);
+  assert.match(learningPathsCss, /@media \(max-width: 900px\)[\s\S]*?\.focused-route-grid\s*\{[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/);
+  assert.match(learningPathsCss, /@media \(max-width: 600px\)[\s\S]*?\.focused-route-facts > div\s*\{/);
+});
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 test('career route manifests are honest evidence-building overlays', () => {
   for (const career of careerRoutes) {
@@ -248,8 +317,8 @@ test('career chooser hash navigation reveals and focuses a guide', () => {
 });
 
 test('learning paths shares the site theme preference', () => {
-  assert.match(learningPaths, /<script src="learning-paths\.js\?v=20260830a"><\/script>/);
-  assert.match(learningPaths, /<link rel="stylesheet" href="learning-paths\.css\?v=20260829d">/);
+  assert.match(learningPaths, /<script src="learning-paths\.js\?v=20260904a"><\/script>/);
+  assert.match(learningPaths, /<link rel="stylesheet" href="learning-paths\.css\?v=20260904a">/);
   assert.match(learningPathsJs, /localStorage\.getItem\('theme'\)/);
   assert.match(learningPathsJs, /localStorage\.setItem\('theme', theme\)/);
   assert.match(learningPathsJs, /prefers-color-scheme: dark/);

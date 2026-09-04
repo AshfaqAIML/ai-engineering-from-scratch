@@ -1193,3 +1193,233 @@
     transform: none;
   }
 }
+
+/* ── Level 3: focused routes ──────────────────────────────────────────── */
+.focused-routes {
+  scroll-margin-top: 92px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.focused-routes-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.focused-routes-header h2 {
+  max-width: 18ch;
+  margin-top: 8px;
+  font-size: clamp(2.4rem, 4.5vw, 4.4rem);
+}
+
+.focused-routes-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.focused-routes-copy p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.focused-routes-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+
+.focused-route-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: 1px solid var(--rule);
+  font-weight: 500;
+}
+
+.focused-route-chip--idle {
+  border-color: var(--blueprint);
+  color: var(--blueprint);
+  background: var(--blueprint-tint);
+}
+
+.focused-route-chip--continue {
+  color: var(--ink);
+}
+
+.focused-route-chip--done {
+  background: var(--blueprint);
+  border-color: var(--blueprint);
+  color: var(--bg);
+}
+
+.focused-route-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.focused-route-card {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+}
+
+.focused-route-card-head {
+  display: grid;
+  gap: 7px;
+  padding: 16px 18px 0;
+}
+
+.focused-route-card-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.focused-route-summary {
+  margin: 12px 18px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.focused-route-facts {
+  display: grid;
+  gap: 8px;
+  margin: 14px 18px 0;
+  padding: 0;
+  border-top: 1px dashed var(--rule-soft);
+}
+
+.focused-route-facts > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 170px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: baseline;
+}
+
+.focused-route-facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+}
+
+.focused-route-facts dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.42;
+  color: var(--ink);
+}
+
+.focused-route-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 18px 18px;
+  padding: 13px 15px;
+  border: 1px solid var(--blueprint);
+  background: var(--blueprint-tint);
+  color: var(--blueprint);
+  text-decoration: none;
+  transition: transform 120ms var(--ease-out), background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out);
+}
+
+.focused-route-cta:hover,
+.focused-route-cta:focus-visible {
+  background: var(--blueprint-tint-strong);
+  transform: translateY(-1px);
+}
+
+.focused-route-cta:active {
+  transform: translateY(0);
+}
+
+.focused-route-cta:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 3px;
+}
+
+.focused-route-cta-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.focused-route-cta-meta {
+  font-size: 0.85rem;
+  color: inherit;
+  opacity: 0.82;
+}
+
+.focused-route-cta[data-state="continue"] {
+  border-color: var(--rule);
+  background: var(--bg-surface);
+  color: var(--ink);
+}
+
+.focused-route-cta[data-state="done"] {
+  border-color: var(--blueprint);
+  background: var(--blueprint);
+  color: var(--bg);
+}
+
+.route-state-label {
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .focused-routes-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .focused-route-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .focused-route-facts > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+
+  .focused-route-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focused-route-cta {
+    transition: none;
+  }
+
+  .focused-route-cta:hover,
+  .focused-route-cta:focus-visible,
+  .focused-route-cta:active {
+    transform: none;
+  }
+}
