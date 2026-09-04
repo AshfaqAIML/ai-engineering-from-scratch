@@ -237,13 +237,16 @@ p.dropcap::first-letter {
 }
 
 .header-inner {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 28px;
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
+  min-width: 0;
 }
 
 .logo {
@@ -256,6 +259,10 @@ p.dropcap::first-letter {
   display: flex;
   align-items: baseline;
   gap: 8px;
+  flex: 0 1 auto;
+  min-width: 0;
+  margin-inline-end: auto;
+  white-space: nowrap;
 }
 
 .logo:hover {
@@ -272,8 +279,11 @@ p.dropcap::first-letter {
 
 .header-nav {
   display: flex;
-  gap: 28px;
+  gap: 20px;
   align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .header-nav a {
@@ -783,6 +793,7 @@ p.dropcap::first-letter {
 .footer-links {
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
@@ -2969,7 +2980,7 @@ body.nav-open {
   overflow: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1360px) {
   .header-inner {
     justify-content: flex-start;
   }
