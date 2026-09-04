@@ -20,7 +20,7 @@
 
   --status-complete: #3553ff;
   --status-in-progress: #4a4a4a;
-  --status-planned: #b8b6ad;
+  --status-planned: #6a6860;
   --warn: #b8870f;
 
   --code-bg: #efece0;
@@ -112,7 +112,7 @@
 
   --status-complete: #6b8eff;
   --status-in-progress: #c8c6c0;
-  --status-planned: #4a4a48;
+  --status-planned: #8a8880;
   --warn: #d4a83d;
 
   --code-bg: #131830;

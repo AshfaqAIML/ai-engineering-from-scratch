@@ -2173,7 +2173,7 @@
   </div>
 
   <div class="lesson-layout">
-    <aside class="lesson-sidebar" id="lessonSidebar"></aside>
+    <aside class="lesson-sidebar" id="lessonSidebar" aria-label="Lesson navigation"></aside>
     <main class="lesson-main" id="main">
       <div class="lesson-content" id="lessonContent">
         <div class="lesson-loading" id="lessonLoading">
@@ -2185,7 +2185,7 @@
     <aside class="toc-sidebar" id="tocSidebar" aria-hidden="true"></aside>
   </div>
 
-  <div class="reading-progress-bar" id="readingProgressBar">
+  <div class="reading-progress-bar" id="readingProgressBar" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
     <div class="reading-progress-fill" id="readingProgressFill"></div>
   </div>
 
@@ -2212,6 +2212,8 @@
     <span class="resume-banner-text" id="resumeBannerText"></span>
     <button class="resume-banner-btn" id="resumeBannerBtn" type="button">Resume &rarr;</button>
   </div>
+
+  <footer class="site-footer"><div class="container footer-inner"><p>AI Engineering from Scratch · open source · free forever.</p><div class="footer-links"><a href="catalog.html">Course catalog</a><a href="glossary.html">Glossary</a><a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener">GitHub</a></div></div></footer>
 
   <script src="build-meta.js"></script>
   <script src="langs.js?v=20260802a"></script>
@@ -4352,12 +4354,14 @@
       if (window.AIFSReadingProgress) window.AIFSReadingProgress.onChange(onProgressSaved);
 
       var progressBar = document.getElementById('readingProgressFill');
+      var progressContainer = document.getElementById('readingProgressBar');
       if (progressBar) {
         window.addEventListener('scroll', function () {
           var scrollTop = window.scrollY || document.documentElement.scrollTop;
           var docHeight = document.documentElement.scrollHeight - window.innerHeight;
           var pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
           progressBar.style.width = pct + '%';
+          if (progressContainer) progressContainer.setAttribute('aria-valuenow', Math.round(pct));
         }, { passive: true });
       }
     })();
