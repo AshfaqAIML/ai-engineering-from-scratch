@@ -30,6 +30,49 @@
 
   --header-offset: 92px;
 
+  /* Spacing — restrained 8pt scale + editorial exceptions */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* Content widths */
+  --content-max: 1360px;
+  --content-narrow: 720px;
+  --measure: 72ch;
+
+  /* Borders & radii — editorial, sharp with occasional 2-4px */
+  --border-thin: 1px;
+  --border-thick: 3px;
+  --radius-sm: 2px;
+  --radius: 4px;
+  --radius-lg: 6px;
+
+  /* Surfaces — page → section → surface → element */
+  --surface-1: var(--bg);
+  --surface-2: var(--bg-surface);
+  --surface-3: var(--code-bg);
+  --surface-elevated: var(--modal-bg);
+
+  /* Typography scale — clamp keeps hierarchy at 390 */
+  --type-xs: 0.64rem;
+  --type-sm: 0.78rem;
+  --type-base: 1rem;
+  --type-lg: 1.25rem;
+  --type-xl: clamp(1.8rem, 4vw, 2.6rem);
+  --type-display: clamp(3.2rem, 11vw, 8rem);
+  --leading-tight: 0.86;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  /* Shadows — sparing, hard editorial where needed */
+  --shadow-soft: 0 4px 16px rgba(26, 26, 26, 0.08);
+  --shadow-medium: 0 8px 24px rgba(26, 26, 26, 0.12);
+
   --text: var(--ink);
   --text-muted: var(--ink-soft);
   --border: var(--rule-soft);
@@ -3126,6 +3169,16 @@ body.nav-open {
     bottom: 76px;
     max-width: calc(100vw - 32px);
   }
+}
+
+/* ── Disabled state — consistent across all controls ──────────────────── */
+button:disabled,
+a[aria-disabled="true"],
+.masthead-btn[aria-disabled="true"],
+.fig-control:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ── Print (save ink, keep reading clean) ─────────────────────────────── */
