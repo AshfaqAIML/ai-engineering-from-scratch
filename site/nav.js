@@ -7,7 +7,9 @@
 (function () {
   'use strict';
 
-  var MENU_BREAKPOINT = 1360;
+  // The full nav always rides in an off-canvas drawer; the fixed bar shows only
+  // the brand plus the compact priority links and the menu toggle at every width.
+  var MENU_BREAKPOINT = Number.MAX_SAFE_INTEGER;
 
   function wireDrawer() {
     var toggle = document.getElementById('menuToggle');
@@ -17,17 +19,33 @@
     toggle.setAttribute('aria-controls', 'siteNav');
     toggle.setAttribute('aria-expanded', 'false');
 
+    // A closed off-canvas drawer is only visually hidden (transform), so it must
+    // also leave the accessibility tree and the tab order. On wide screens the
+    // nav is the inline top bar, so it must never be inert there.
+    function syncAccessibility() {
+      var drawerHidden = window.innerWidth <= MENU_BREAKPOINT && !nav.classList.contains('open');
+      if (drawerHidden) {
+        nav.setAttribute('inert', '');
+        nav.setAttribute('aria-hidden', 'true');
+      } else {
+        nav.removeAttribute('inert');
+        nav.removeAttribute('aria-hidden');
+      }
+    }
+
     function open() {
       nav.classList.add('open');
       toggle.classList.add('is-open');
       toggle.setAttribute('aria-expanded', 'true');
       document.body.classList.add('nav-open');
+      syncAccessibility();
     }
     function close() {
       nav.classList.remove('open');
       toggle.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('nav-open');
+      syncAccessibility();
     }
 
     toggle.addEventListener('click', function (e) {
@@ -51,7 +69,10 @@
     // Resize back above the breakpoint resets state.
     window.addEventListener('resize', function () {
       if (window.innerWidth > MENU_BREAKPOINT) close();
+      else syncAccessibility();
     });
+
+    syncAccessibility();
   }
 
   // The language picker cannot stay in the fixed bar on narrow screens

@@ -310,8 +310,8 @@ p.dropcap::first-letter {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  flex: 0 1 auto;
-  min-width: 0;
+  flex: 0 0 auto;
+  min-width: max-content;
   margin-inline-end: auto;
   white-space: nowrap;
 }
@@ -353,7 +353,7 @@ p.dropcap::first-letter {
 }
 
 .header-priority-nav {
-  display: none;
+  display: flex;
   gap: 20px;
   align-items: center;
   flex: 0 0 auto;
@@ -3216,7 +3216,7 @@ summary:focus-visible,
 /* ── Mobile drawer navigation ─────────────────────────────────────────── */
 
 .menu-toggle {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
@@ -3253,118 +3253,99 @@ body.nav-open {
   overflow: hidden;
 }
 
-@media (max-width: 1360px) {
-  .header-inner {
-    justify-content: flex-start;
-  }
+/* The full nav always rides in an off-canvas drawer at every width; the fixed
+   bar holds the brand, the compact priority links, and the menu toggle.
+   Scoped to the shared drawer header (has .menu-toggle): pages that still use
+   the plain inline header-nav keep their inline layout untouched. */
+.search-toggle {
+  margin-left: auto;
+}
 
-  .header-priority-nav {
-    display: flex;
-    gap: 14px;
-  }
+.site-header:has(.menu-toggle) .header-nav {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  bottom: 0;
+  width: min(320px, 84vw);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 12px 0 32px;
+  background: var(--bg);
+  border-right: 1px solid var(--rule-soft);
+  box-shadow: 24px 0 48px rgba(0, 0, 0, 0.18);
+  transform: translateX(-105%);
+  transition: transform var(--motion-drawer) var(--ease-drawer);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: 90;
+}
 
-  .menu-toggle {
-    display: flex;
-  }
+.site-header:has(.menu-toggle) .header-nav.open {
+  transform: translateX(0);
+}
 
-  .search-toggle {
-    margin-left: auto;
-  }
+.site-header:has(.menu-toggle) .header-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--rule-soft);
+  transition: background-color var(--motion-feedback) ease, color var(--motion-feedback) ease, border-color var(--motion-feedback) ease, padding-left var(--motion-feedback) ease;
+}
 
-  .header-nav {
-    position: fixed;
-    top: var(--header-h);
-    left: 0;
-    bottom: 0;
-    width: min(320px, 84vw);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    margin: 0;
-    padding: 12px 0 32px;
-    background: var(--bg);
-    border-right: 1px solid var(--rule-soft);
-    box-shadow: 24px 0 48px rgba(0, 0, 0, 0.18);
-    transform: translateX(-105%);
-    transition: transform var(--motion-drawer) var(--ease-drawer);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    z-index: 90;
-  }
+.site-header:has(.menu-toggle) .header-nav a:hover {
+  background: var(--blueprint-tint);
+  color: var(--ink);
+}
 
-  .header-nav.open {
-    transform: translateX(0);
-  }
+.site-header:has(.menu-toggle) .header-nav a:active {
+  transform: scale(0.98);
+  background: var(--blueprint-tint-strong);
+}
 
-  .header-nav a {
-    display: flex;
-    align-items: center;
-    min-height: 46px;
-    padding: 12px 24px;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--rule-soft);
-    transition: background-color var(--motion-feedback) ease, color var(--motion-feedback) ease, border-color var(--motion-feedback) ease, padding-left var(--motion-feedback) ease;
-  }
+.site-header:has(.menu-toggle) .header-nav a[aria-current="page"] {
+  background: var(--blueprint-tint);
+  color: var(--blueprint);
+  border-left: 3px solid var(--blueprint);
+  padding-left: 21px;
+}
 
-  .header-nav a:hover {
-    background: var(--blueprint-tint);
-    color: var(--ink);
-  }
+.site-header:has(.menu-toggle) .header-nav .header-github {
+  display: flex;
+  margin: 16px 16px 4px;
+  padding: 12px 14px;
+  min-height: 44px;
+  border-bottom: none;
+}
 
-  .header-nav a:active {
-    transform: scale(0.98);
-    background: var(--blueprint-tint-strong);
-  }
+.site-header:has(.menu-toggle) .header-nav .lang-picker {
+  display: flex;
+  margin: 12px 16px 4px;
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 16px;
+}
 
-  .header-nav a[aria-current="page"] {
-    background: var(--blueprint-tint);
-    color: var(--blueprint);
-    border-left: 3px solid var(--blueprint);
-    padding-left: 21px;
-  }
+.site-header:has(.menu-toggle) .header-nav .lang-picker-btn {
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 44px;
+}
 
-  .header-nav .header-github {
-    display: flex;
-    margin: 16px 16px 4px;
-    padding: 12px 14px;
-    min-height: 44px;
-    border-bottom: none;
-  }
-
-  .header-nav .lang-picker {
-    display: flex;
-    margin: 12px 16px 4px;
-    border-top: 1px solid var(--rule-soft);
-    padding-top: 16px;
-  }
-
-  .header-nav .lang-picker-btn {
-    justify-content: flex-start;
-    flex: 1;
-    min-height: 44px;
-  }
-
-  .header-nav .lang-panel {
-    top: calc(100% - 8px);
-    left: 0;
-    right: auto;
-    width: 100%;
-  }
+.site-header:has(.menu-toggle) .header-nav .lang-panel {
+  top: calc(100% - 8px);
+  left: 0;
+  right: auto;
+  width: 100%;
 }
 
 /* Drawer grouping — primary vs secondary vs about */
-@media (max-width: 1360px) {
-  .header-nav a:nth-child(5) {
-    border-bottom: 2px solid var(--rule);
-    margin-bottom: 8px;
-    padding-bottom: 16px;
-  }
-}
-
-@media (min-width: 1361px) and (max-width: 1480px) {
-  .header-nav { gap: 14px; }
-  .header-nav a { font-size: 0.74rem; letter-spacing: 0.06em; }
-  .header-github { padding: 5px 9px; }
+.site-header:has(.menu-toggle) .header-nav a:nth-child(5) {
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: 8px;
+  padding-bottom: 16px;
 }
 
 @media (max-width: 820px) {
@@ -3374,10 +3355,19 @@ body.nav-open {
 }
 
 /* Narrow phones: give the brand room in the fixed bar. */
+/* The ⌘K palette is a keyboard-first desktop affordance; on touch screens
+   there is no ⌘/Ctrl-K, so it is tucked away to free space for the brand. */
 @media (max-width: 600px) {
   .logo {
-    max-width: calc(100vw - 184px);
+    max-width: calc(100vw - 156px);
     font-size: 1rem;
+    min-width: max-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-toggle {
+    display: none;
   }
 
   #profileName {
