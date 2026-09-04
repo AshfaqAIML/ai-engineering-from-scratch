@@ -118,12 +118,30 @@
         <a class="dash-browse-btn" href="catalog.html">Browse lessons &rarr;</a>
       </section>
 
-      <section class="dash-stats" id="dashStats">
-        <div class="dash-stat-card">
+      <div class="dash-guest-note" id="dashGuestNote" style="display:none">
+        <span class="dash-guest-icon" aria-hidden="true">◐</span>
+        <div class="dash-guest-copy">
+          <strong>Signed in as guest</strong> — progress saved in this browser. <a href="#" id="dashGuestSignIn">Sign in</a> to sync across devices and keep streaks when you switch browsers.
+        </div>
+      </div>
+
+      <section class="dash-stats" id="dashStats" aria-label="Progress summary">
+        <div class="dash-stat-card primary">
           <div class="dash-stat-value" id="statCompleted">0</div>
           <div class="dash-stat-label">Lessons Completed</div>
+          <div class="dash-stat-sub" id="statCompletedSub">of 523</div>
         </div>
-        <div class="dash-stat-card accent">
+        <div class="dash-stat-card primary">
+          <div class="dash-stat-value small" id="statPhase">—</div>
+          <div class="dash-stat-label">Current Phase</div>
+          <div class="dash-stat-sub" id="statPhaseSub">where you are</div>
+        </div>
+        <div class="dash-stat-card primary">
+          <div class="dash-stat-value" id="statTime">0m</div>
+          <div class="dash-stat-label">Total Reading Time</div>
+          <div class="dash-stat-sub" id="statTimeSub">across all lessons</div>
+        </div>
+        <div class="dash-stat-card">
           <div class="dash-stat-value" id="statCurrent">0</div>
           <div class="dash-stat-label">Current Streak</div>
         </div>
@@ -133,34 +151,24 @@
         </div>
         <div class="dash-stat-card">
           <div class="dash-stat-value" id="statTotal">0</div>
-          <div class="dash-stat-label">Total Reading Days</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-value" id="statTime">0m</div>
-          <div class="dash-stat-label">Reading Time</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-value" id="statRemaining">0</div>
-          <div class="dash-stat-label">Lessons Remaining</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-value" id="statEstimate">0</div>
-          <div class="dash-stat-label">Est. Time Left</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-value" id="statActivity">&mdash;</div>
-          <div class="dash-stat-label">Last Activity</div>
+          <div class="dash-stat-label">Total Active Days</div>
         </div>
       </section>
 
       <div class="dash-grid">
 
-        <section class="dash-panel" id="dashContinue">
+        <section class="dash-panel dash-panel--featured" id="dashContinue" aria-labelledby="continueTitle">
           <div class="dash-panel-header">
-            <span class="dash-panel-title">Continue Reading</span>
+            <span class="dash-panel-title" id="continueTitle">Continue Reading</span>
+            <span class="dash-panel-note">your next step</span>
           </div>
           <div id="dashContinueBody">
-            <div class="dash-empty">Start reading a lesson and you'll be able to pick up right where you left off.</div>
+            <div class="dash-empty dash-empty--featured">
+              <div class="dash-empty-icon" aria-hidden="true">◐</div>
+              <p class="dash-empty-title">No lesson in progress yet</p>
+              <p class="dash-empty-text">Open any lesson — we’ll save your scroll and time so you can resume here. Guest progress stays in this browser; sign in to sync.</p>
+              <a class="dash-empty-cta" href="catalog.html">Browse 523 lessons →</a>
+            </div>
           </div>
         </section>
 
@@ -176,9 +184,10 @@
           </div>
         </section>
 
-        <section class="dash-panel">
+        <section class="dash-panel dash-panel--donut">
           <div class="dash-panel-header">
-            <span class="dash-panel-title">Curriculum Completion</span>
+            <span class="dash-panel-title">Overall Completion</span>
+            <span class="dash-panel-note" id="dashDonutNote">of 523 lessons</span>
           </div>
           <div class="dash-donut-wrap">
             <svg class="dash-donut" viewBox="0 0 120 120" aria-hidden="true">
@@ -187,34 +196,48 @@
             </svg>
             <div class="dash-donut-label"><span id="dashDonutPct">0%</span><span>complete</span></div>
           </div>
+          <div class="dash-donut-explain" id="dashDonutExplain">0 of 523 lessons completed · 523 remaining · ~0h left</div>
           <div class="dash-donut-stats">
             <span><b id="dashDonutDone">0</b> done</span>
-            <span><b id="dashDonutTotal">503</b> lessons</span>
+            <span><b id="dashDonutTotal">523</b> lessons</span>
+            <span><b id="dashDonutRemain">523</b> remaining</span>
           </div>
         </section>
 
-        <section class="dash-panel">
+        <section class="dash-panel dash-panel--streak">
           <div class="dash-panel-header">
-            <span class="dash-panel-title">Last 28 Days</span>
-            <span class="dash-panel-note">a day counts after 5+ minutes of reading</span>
+            <span class="dash-panel-title">Momentum</span>
+            <span class="dash-panel-note">5 min/day keeps it alive</span>
           </div>
           <div class="dash-heatmap" id="dashHeatmap"></div>
           <div class="streak-today" id="dashStreakToday"></div>
+          <p class="dash-panel-hint">Each filled square is a day you read at least 5 minutes. Darker is not “better” — consistency is the signal.</p>
         </section>
 
       </div>
 
-      <section class="dash-panel">
+      <section class="dash-panel" id="dashRecent">
         <div class="dash-panel-header">
           <span class="dash-panel-title">Reading Progress</span>
-          <span class="dash-panel-note">auto-saved every few seconds</span>
+          <div class="dash-panel-actions">
+            <span class="dash-panel-note">auto-saved every few seconds</span>
+            <div class="dash-filter" role="group" aria-label="Filter lessons">
+              <button class="dash-filter-btn is-active" data-filter="all" type="button">All</button>
+              <button class="dash-filter-btn" data-filter="inprogress" type="button">In progress</button>
+              <button class="dash-filter-btn" data-filter="completed" type="button">Completed</button>
+            </div>
+          </div>
         </div>
         <div class="dash-progress-list" id="dashProgressList">
-          <div class="dash-empty">No reading progress yet. Open a lesson to start tracking.</div>
+          <div class="dash-empty dash-empty--inline">
+            <p class="dash-empty-title">No reading progress yet</p>
+            <p class="dash-empty-text">Open any lesson — we’ll track your scroll, time, and completion so you can resume and see your path.</p>
+            <a class="dash-empty-cta secondary" href="catalog.html">Browse catalog →</a>
+          </div>
         </div>
       </section>
 
-      <p class="dash-privacy">Signed-in progress, streaks, and accounts are saved to your account and sync across devices. Signed-out activity stays in this browser.</p>
+      <p class="dash-privacy">Guest progress lives in this browser (localStorage). <a href="#" id="dashPrivacySignIn">Sign in</a> to sync across devices and keep streaks when you switch browsers. <span id="dashPrivacyDetail" style="display:none">Signed-in progress is stored in Neon Postgres and merged on every sync.</span></p>
 
     </div>
   </main>
@@ -362,6 +385,8 @@
         var now = new Date();
         var hour = now.getHours();
         var tod = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+        var guestNote = document.getElementById('dashGuestNote');
+        var privacyDetail = document.getElementById('dashPrivacyDetail');
 
         if (user) {
           loginBtn.style.display = 'none';
@@ -379,7 +404,9 @@
           document.getElementById('dashAvatar').textContent = user.name.charAt(0).toUpperCase();
           greeting.textContent = tod + ', ' + user.name.split(' ')[0];
           title.textContent = 'Welcome back';
-          document.getElementById('dashSubtitle').textContent = user.email + ' · progress synced to your account';
+          document.getElementById('dashSubtitle').textContent = user.email + ' \u00b7 progress synced to your account';
+          if (guestNote) guestNote.style.display = 'none';
+          if (privacyDetail) privacyDetail.style.display = '';
         } else {
           loginBtn.style.display = '';
           profileBtn.style.display = 'none';
@@ -388,7 +415,9 @@
           document.getElementById('dashAvatar').textContent = '?';
           greeting.textContent = tod;
           title.textContent = 'Welcome';
-          document.getElementById('dashSubtitle').textContent = 'Signed in as guest · progress stays in this browser';
+          document.getElementById('dashSubtitle').textContent = 'Signed in as guest \u00b7 progress stays in this browser';
+          if (guestNote) guestNote.style.display = '';
+          if (privacyDetail) privacyDetail.style.display = 'none';
         }
       }
 
@@ -458,24 +487,49 @@
         document.getElementById('statLongest').textContent = streak.longestStreak;
         document.getElementById('statTotal').textContent = streak.totalDays;
 
+        var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
         var totalSeconds = 0;
         var completedSeconds = 0;
-        var lastActivity = 0;
-        var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
+        var currentPhase = null;
+        var phaseIndex = -1;
+        var currentPath = null;
+        var latestTs = 0;
         for (var path in all) {
           if (!all.hasOwnProperty(path)) continue;
           var p = all[path];
           if (p.readSeconds) totalSeconds += p.readSeconds;
-          if (p.lastOpened > lastActivity) lastActivity = p.lastOpened;
           if (p.completed && p.readSeconds) completedSeconds += p.readSeconds;
+          if (!p.completed && p.lastOpened > latestTs) {
+            latestTs = p.lastOpened;
+            currentPath = path;
+          }
         }
         document.getElementById('statTime').textContent = formatTime(totalSeconds);
-        document.getElementById('statActivity').textContent = timeAgo(lastActivity);
+        document.getElementById('statCompletedSub').textContent = 'of ' + totalLessons;
 
-        var remaining = Math.max(0, totalLessons - completed);
-        document.getElementById('statRemaining').textContent = remaining;
-        var avgSeconds = completed > 0 ? Math.max(1800, completedSeconds / completed) : 2700;
-        document.getElementById('statEstimate').textContent = formatTime(avgSeconds * remaining);
+        if (currentPath && typeof PHASES !== 'undefined') {
+          for (var i = 0; i < PHASES.length; i++) {
+            for (var j = 0; j < PHASES[i].lessons.length; j++) {
+              var lobj = PHASES[i].lessons[j];
+              var mm = lobj.url ? lobj.url.match(/(phases\/[^/]+\/[^/]+)\/?$/) : null;
+              if (mm && mm[1] === currentPath) {
+                phaseIndex = i;
+                currentPhase = PHASES[i];
+                break;
+              }
+            }
+            if (currentPhase) break;
+          }
+        }
+        var phaseEl = document.getElementById('statPhase');
+        var phaseSub = document.getElementById('statPhaseSub');
+        if (currentPhase) {
+          phaseEl.textContent = String(currentPhase.id).padStart(2, '0');
+          phaseSub.textContent = currentPhase.name;
+        } else {
+          phaseEl.textContent = '\u2014';
+          phaseSub.textContent = 'where you are';
+        }
       }
 
       function renderGoal() {
@@ -507,11 +561,22 @@
         var pct = Math.min(100, Math.round((completed / totalLessons) * 100));
         document.getElementById('dashDonutPct').textContent = pct + '%';
         document.getElementById('dashDonutDone').textContent = completed;
+        var remaining = Math.max(0, totalLessons - completed);
+        document.getElementById('dashDonutRemain').textContent = remaining;
+        document.getElementById('dashDonutTotal').textContent = totalLessons;
         var fill = document.getElementById('dashDonutFill');
         var c = 2 * Math.PI * 52;
         fill.setAttribute('stroke-dasharray', c);
         fill.setAttribute('stroke-dashoffset', c * (1 - pct / 100));
         fill.setAttribute('data-pct', pct);
+        var explain = document.getElementById('dashDonutExplain');
+        var note = document.getElementById('dashDonutNote');
+        if (explain) {
+          var avgSeconds = completed > 0 ? 2700 : 2700;
+          var hoursLeft = Math.round((avgSeconds * remaining) / 3600);
+          explain.textContent = completed + ' of ' + totalLessons + ' lessons completed \u00b7 ' + remaining + ' remaining \u00b7 ~' + hoursLeft + 'h left';
+        }
+        if (note) note.textContent = 'of ' + totalLessons + ' lessons';
       }
 
       function renderContinue() {
@@ -548,6 +613,8 @@
           '</div>';
       }
 
+      var activeFilter = 'all';
+
       function renderProgress() {
         var list = document.getElementById('dashProgressList');
         var all = window.AIFSReadingProgress ? window.AIFSReadingProgress.getAllProgress() : {};
@@ -558,17 +625,26 @@
         paths.sort(function (a, b) { return all[b].lastOpened - all[a].lastOpened; });
 
         if (!paths.length) {
-          list.innerHTML = '<div class="dash-empty">No reading progress yet. Open a lesson to start tracking.</div>';
+          list.innerHTML =
+            '<div class="dash-empty dash-empty--inline">' +
+              '<p class="dash-empty-title">No reading progress yet</p>' +
+              '<p class="dash-empty-text">Open any lesson — we\u2019ll track your scroll, time, and completion so you can resume and see your path.</p>' +
+              '<a class="dash-empty-cta secondary" href="catalog.html">Browse catalog \u2192</a>' +
+            '</div>';
           return;
         }
 
         var html = '';
+        var shown = 0;
         for (var i = 0; i < paths.length; i++) {
           var pp = paths[i];
           var data = all[pp];
           var name = lessonNames[pp] || pp;
           var pct = Math.min(100, Math.round(data.scrollPct || 0));
           var isComplete = data.completed;
+          if (activeFilter === 'inprogress' && isComplete) continue;
+          if (activeFilter === 'completed' && !isComplete) continue;
+          shown++;
           html += '<div class="dash-progress-row">' +
             '<div class="dash-progress-info">' +
               '<a class="dash-progress-name" href="lesson.html?path=' + escapeHtml(pp) + '">' + escapeHtml(name) + '</a>' +
@@ -577,7 +653,28 @@
             '<div class="dash-bar"><div class="dash-bar-fill' + (isComplete ? ' complete' : '') + '" style="width:' + pct + '%"></div></div>' +
           '</div>';
         }
+        if (shown === 0) {
+          html =
+            '<div class="dash-empty dash-empty--inline">' +
+              '<p class="dash-empty-title">Nothing here</p>' +
+              '<p class="dash-empty-text">No ' + (activeFilter === 'inprogress' ? 'in-progress' : 'completed') + ' lessons right now.</p>' +
+              '<a class="dash-empty-cta secondary" href="catalog.html">Browse catalog \u2192</a>' +
+            '</div>';
+        }
         list.innerHTML = html;
+      }
+
+      function wireFilters() {
+        var btns = document.querySelectorAll('.dash-filter-btn');
+        if (!btns.length) return;
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            btns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            activeFilter = btn.getAttribute('data-filter') || 'all';
+            renderProgress();
+          });
+        });
       }
 
       function renderHeatmap() {
@@ -602,10 +699,20 @@
         todayEl.className = 'streak-today' + (todayDone ? ' done' : '');
       }
 
+      function openLogin() { openAuth('login'); }
+
+      document.querySelectorAll('#dashGuestSignIn, #dashPrivacySignIn').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          openAuth('login');
+        });
+      });
+
       window.AIFSAuth.onChange(refreshAll);
       window.AIFSStreak.onChange(refreshAll);
       if (window.AIFSReadingProgress) window.AIFSReadingProgress.onChange(refreshAll);
       if (window.AIFSProgress) window.AIFSProgress.onChange(refreshAll);
+      wireFilters();
       refreshAll();
     })();
   </script>
