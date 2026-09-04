@@ -2207,6 +2207,210 @@
       .colophon-cmd code { white-space: pre-wrap; word-break: break-all; }
       .preface-body { font-size: 0.96rem; }
     }
+
+    /* ── Pass 03: hero proof/statistics row ──────────────────────────────── */
+    .manual-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin: 24px 0 4px;
+      max-width: 720px;
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .manual-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .manual-stat strong {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--blueprint);
+      text-transform: uppercase;
+    }
+    .manual-stat span {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    @media (max-width: 480px) {
+      .manual-stats { gap: 8px 16px; }
+      .manual-stat strong { font-size: 1.1rem; }
+    }
+
+    /* ── Pass 03: course structure progression strip ─────────────────────── */
+    .progression {
+      margin: 22px 0 28px;
+      padding: 16px;
+      border: 1px solid var(--rule-soft);
+      background: var(--bg-surface);
+    }
+    .progression-track {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .progression-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 132px;
+      flex: 1 1 150px;
+    }
+    .progression-stage-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blueprint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progression-stage-phases {
+      display: grid;
+      gap: 6px;
+    }
+    .progression-node {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 6px 8px;
+      border: 1px solid var(--rule-soft);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color var(--motion-feedback) ease, box-shadow var(--motion-feedback) ease, transform var(--motion-press) var(--ease-out);
+    }
+    .progression-node:hover,
+    .progression-node:focus-visible {
+      border-color: var(--blueprint);
+      box-shadow: inset 0 0 0 1px var(--blueprint);
+    }
+    .progression-node:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 2px; }
+    .progression-node:active { transform: scale(0.98); }
+    .progression-node-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--blueprint);
+    }
+    .progression-node-name {
+      font-size: 0.78rem;
+      line-height: 1.2;
+      color: var(--ink);
+      word-break: break-word;
+    }
+    .progression-arrow {
+      display: none;
+    }
+    @media (min-width: 900px) {
+      .progression-track { flex-wrap: nowrap; align-items: center; }
+      .progression-stage { flex: 0 1 auto; }
+      .progression-arrow {
+        display: block;
+        align-self: center;
+        color: var(--ink-mute);
+        padding: 0 2px;
+        font-family: var(--font-mono);
+      }
+    }
+
+    /* ── Pass 03: decision-interface route meta ──────────────────────────── */
+    .course-route-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 6px;
+    }
+    .course-route-meta-item {
+      display: flex;
+      gap: 6px;
+      align-items: baseline;
+    }
+    .course-route-meta-item i {
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      flex-shrink: 0;
+    }
+    .course-route-meta-item b {
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: var(--ink);
+    }
+
+    /* ── Pass 03: artifacts chapter ──────────────────────────────────────── */
+    .artifacts {
+      padding: 24px 32px 46px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .artifacts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .artifact-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid var(--rule-soft);
+      background: var(--bg);
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color var(--motion-feedback) ease, box-shadow var(--motion-feedback) ease, transform var(--motion-press) var(--ease-out);
+    }
+    .artifact-card:hover,
+    .artifact-card:focus-visible {
+      border-color: var(--blueprint);
+      box-shadow: inset 0 0 0 1px var(--blueprint);
+    }
+    .artifact-card:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 2px; }
+    .artifact-card:active { transform: scale(0.98); }
+    .artifact-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blueprint);
+    }
+    .artifact-card strong {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .artifact-card p {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--ink-soft);
+    }
+    @media (max-width: 900px) {
+      .artifacts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .artifacts { padding: 28px 18px 40px; }
+      .artifacts-grid { grid-template-columns: 1fr; }
+    }
 </style>
 </head>
 <body>
@@ -2313,12 +2517,27 @@
         <span class="right">open source · MIT</span>
       </div>
       <h1 class="manual-title">AI Engineering<br>from Scratch</h1>
-      <p class="manual-tagline reveal">523 lessons. 20 phases. Every algorithm built from raw math before a single framework gets imported.</p>
-      <p class="manual-attribution reveal" style="--stagger-delay: 80ms;">Maintained by Rohit Ghumare and contributors. Run on your own machine.</p>
-      <p class="manual-lede reveal" style="--stagger-delay: 100ms;">Build the math, write the code, keep the artifact. No black boxes, no copy-paste deploys — and a reader dashboard that saves your progress and streaks every lesson you read.</p>
+      <p class="manual-tagline reveal">Build every core algorithm by hand — backprop, tokenizer, attention, agent loop — before a single framework gets imported.</p>
+      <div class="manual-stats reveal" style="--stagger-delay: 60ms;" aria-label="Course at a glance">
+        <div class="manual-stat"><strong>523</strong><span>lessons</span></div>
+        <div class="manual-stat"><strong>20</strong><span>phases</span></div>
+        <div class="manual-stat"><strong>4</strong><span>languages</span></div>
+        <div class="manual-stat"><strong>6</strong><span>book volumes</span></div>
+        <div class="manual-stat"><strong>0</strong><span>frameworks first</span></div>
+        <div class="manual-stat"><strong>free</strong><span>open source</span></div>
+      </div>
+      <p class="manual-attribution reveal" style="--stagger-delay: 80ms;">Maintained by Rohit Ghumare and contributors. Run on your own machine, on GitHub, or with your coding agent as tutor.</p>
+      <p class="manual-lede reveal" style="--stagger-delay: 100ms;">Build the math, write the code, run the test, keep the artifact. A single spine from linear algebra to autonomous swarms — with a reader dashboard that saves your progress and streak on every lesson you read.</p>
       <div class="masthead-cta reveal" style="--stagger-delay: 140ms;">
-        <a class="masthead-btn masthead-btn--primary" href="dashboard.html" aria-label="Open your reading dashboard">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        <a class="masthead-btn masthead-btn--primary" href="#contents" aria-label="Explore the curriculum">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Explore the curriculum</span>
+        </a>
+        <a class="masthead-btn" href="learning-paths.html" aria-label="Find the path that fits your goal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Find your path</span>
+        </a>
+        <a class="masthead-btn" href="dashboard.html" aria-label="Open your reading dashboard">
           <span>Open Dashboard</span>
         </a>
         <a class="masthead-btn" href="https://ai-engineering-from-scratch-mu-dun.vercel.app/" target="_blank" rel="noopener" aria-label="Try the live demo">
@@ -2491,7 +2710,6 @@
       </figure>
       <div class="ascii-rule" style="margin-top:48px;"></div>
     </section>
-
     <section class="learners-strip" aria-label="Where readers learn and where the course is discussed">
       <div class="learners-eyebrow">Read by engineers and students at</div>
       <div class="marquee" data-marquee>
@@ -2520,7 +2738,6 @@
       </div>
       <p class="learners-quote">&ldquo;Obsessed with the AI Engineering from Scratch repo.&rdquo; <span class="learners-quote-attr">&mdash; AI engineer at Google</span></p>
     </section>
-
     <section class="preface container">
       <div class="preface-grid">
         <div class="preface-eyebrow reveal reveal--left">How this works</div>
@@ -2531,7 +2748,6 @@
         </div>
       </div>
     </section>
-
     <section class="course-paths container" id="choose-path" aria-labelledby="coursePathsTitle">
       <header class="course-paths-header">
         <h2 id="coursePathsTitle">Choose the work you want to do</h2>
@@ -2568,6 +2784,10 @@
       <div class="course-route-list">
         <article class="course-route is-recommended">
           <div class="course-route-name"><span>Recommended first</span><strong>New to AI engineering</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>anyone starting from zero</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+          </div>
           <p>Set up a working environment, run the repository, and learn the lesson workflow before choosing a specialization.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment">Open lesson</a>
@@ -2576,6 +2796,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Building and Deploying AI Applications</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>builders shipping real products</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 11 · LLM Engineering</b></span>
+          </div>
           <p>Move from prompts, structured outputs, embeddings, and retrieval through evaluation, serving, observability, and safe release.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/11-llm-engineering/01-prompt-engineering&amp;learningPath=building-and-deploying-ai-applications">Start path</a>
@@ -2584,6 +2808,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Software Engineering Fundamentals</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>engineers hardening the system around AI</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+          </div>
           <p>Build the repository, environment, interface, debugging, verification, security, release, and operational foundations AI systems depend on.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment&amp;learningPath=software-engineering-fundamentals">Start path</a>
@@ -2592,6 +2820,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Agent-Assisted Engineering</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>devs who want AI to write and verify code</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+          </div>
           <p>Frame the task, plan from repository evidence, engineer the loop and harness, isolate delegation, verify the result, and preserve feedback.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/14-agent-engineering/31-agent-workbench-why-models-fail&amp;learningPath=using-coding-agents">Start path</a>
@@ -2600,6 +2832,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Product Judgment and Delivery</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>engineers turned product thinkers</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+          </div>
           <p>Turn observed work into outcomes, assumptions, testable slices, executable specifications, measurement plans, staged releases, and owned feedback.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/14-agent-engineering/47-outcomes-before-output&amp;learningPath=shaping-the-build">Start path</a>
@@ -2608,6 +2844,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Focused path</span><strong>Model Context Protocol (MCP)</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>devs wiring AI to tools and data</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+          </div>
           <p>Build, secure, verify, and operate stateless MCP systems from wire envelopes through release gates.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/13-tools-and-protocols/06-mcp-fundamentals&amp;learningPath=model-context-protocol">Start path</a>
@@ -2616,6 +2856,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Focused path</span><strong>Agent Skills</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>devs building portable skills for agents</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+          </div>
           <p>Build, invoke, route, secure, evaluate, package, and verify portable skills in real agent hosts.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/13-tools-and-protocols/22-skills-and-agent-sdks&amp;learningPath=agent-skills">Start path</a>
@@ -2624,6 +2868,10 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Practice by evidence</span><strong>Certification preparation</strong></div>
+          <div class="course-route-meta">
+            <span class="course-route-meta-item"><i>for</i> <b>learners aiming at a Claude certification</b></span>
+            <span class="course-route-meta-item"><i>starts</i> <b>your chosen track's first lesson</b></span>
+          </div>
           <p>Choose a certification route, complete practical labs, keep learner-owned artifacts, and use original assessments.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="certifications.html">Explore paths</a>
@@ -2632,9 +2880,77 @@
         </article>
       </div>
     </section>
+    <section class="toc container" id="contents">
+      <div class="continue-card" id="continueCard">
+        <div class="continue-card-label">Continue Reading</div>
+        <div class="continue-card-title" id="continueTitle"></div>
+        <div class="continue-card-meta" id="continueMeta"></div>
+        <div class="continue-card-actions">
+          <a class="continue-card-btn" id="continueBtn" href="#">Resume</a>
+          <span class="continue-card-pct" id="continuePct"></span>
+        </div>
+      </div>
 
+      <div class="streak-widget" id="streakWidget">
+        <div class="streak-header">
+          <span class="streak-icon" aria-hidden="true">&#128293;</span>
+          <span class="streak-title">Reading Streak</span>
+        </div>
+        <div class="streak-stats">
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakCurrent">0</div>
+            <div class="streak-stat-label">Current</div>
+          </div>
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakLongest">0</div>
+            <div class="streak-stat-label">Longest</div>
+          </div>
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakTotal">0</div>
+            <div class="streak-stat-label">Total Days</div>
+          </div>
+        </div>
+        <div class="streak-calendar" id="streakCalendar"></div>
+        <div class="streak-today" id="streakToday"></div>
+      </div>
 
+      <div class="toc-title reveal reveal--left">Curriculum · 20 phases · 523 lessons</div>
+      <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">One progression: foundation, machine learning, deep learning, transformers and LLMs, tools, agents, production, capstone. Tap any phase to expand its lessons — every one ships when its math, code, and test are written.</div>
+      <div class="progression reveal" style="--stagger-delay: 120ms;" id="progressionStrip"></div>
+      <div class="toc-list" id="phasesGrid"></div>
+      <div class="legend">
+        <span class="legend-item"><span class="toc-status complete"></span> Complete</span>
+        <span class="legend-item"><span class="toc-status in-progress"></span> In progress</span>
+        <span class="legend-item"><span class="toc-status planned"></span> Planned</span>
+      </div>
+    </section>
+    <section class="certification-spotlight container" id="certifications" aria-labelledby="certification-spotlight-title">
+      <div class="certification-spotlight-grid reveal">
+        <figure class="certification-badge-stage" aria-hidden="true">
+          <img
+            src="https://images.credly.com/images/f101c6ac-8a2d-4220-b381-70e3e6c364e3/blob"
+            width="601" height="601" loading="lazy" decoding="async" referrerpolicy="no-referrer"
+            alt="">
+        </figure>
 
+        <div class="certification-copy">
+          <span class="certification-eyebrow">Part of the same curriculum</span>
+          <h2 id="certification-spotlight-title">Prepare by building the real systems</h2>
+          <p class="certification-intro">Certification tracks are the same course, aimed at a credential: the same build-by-hand method, interactive labs, and practical artifacts — taught by an AI tutor that works straight from the GitHub repo. When you finish a core domain above, the matching track is the natural next step.</p>
+          <div class="certification-proof" aria-label="Certification curriculum coverage">
+            <span><strong>4</strong> tracks</span>
+            <span><strong>33</strong> certification lessons</span>
+            <span><strong>295</strong> original practice questions</span>
+          </div>
+          <p class="certification-disclaimer">An independent community curriculum — not affiliated with, endorsed by, sponsored by, or authorized by Anthropic. It does not issue credentials or guarantee a passing result.</p>
+        </div>
+
+        <div class="certification-actions">
+          <a class="masthead-btn masthead-btn--primary" href="certifications.html">Explore certifications</a>
+          <a class="certification-github-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/certifications/claude/GETTING_STARTED.md" target="_blank" rel="noopener" aria-label="Use the certification tutor on GitHub (opens in a new tab)">Learn with the GitHub tutor</a>
+        </div>
+      </div>
+    </section>
     <section class="stat-block container">
       <div class="stat-block-title reveal reveal--left">Current Progress</div>
       <div class="stat-rows reveal" style="--stagger-delay: 100ms;" id="statRows">
@@ -2660,7 +2976,6 @@
         </div>
       </div>
     </section>
-
     <section class="dashboard-promo container" id="dashboard">
       <div class="dashboard-promo-grid">
         <div class="dashboard-promo-copy">
@@ -2698,49 +3013,66 @@
       </div>
     </section>
 
-    <section class="toc container" id="contents">
-      <div class="continue-card" id="continueCard">
-        <div class="continue-card-label">Continue Reading</div>
-        <div class="continue-card-title" id="continueTitle"></div>
-        <div class="continue-card-meta" id="continueMeta"></div>
-        <div class="continue-card-actions">
-          <a class="continue-card-btn" id="continueBtn" href="#">Resume</a>
-          <span class="continue-card-pct" id="continuePct"></span>
-        </div>
-      </div>
-
-      <div class="streak-widget" id="streakWidget">
-        <div class="streak-header">
-          <span class="streak-icon" aria-hidden="true">&#128293;</span>
-          <span class="streak-title">Reading Streak</span>
-        </div>
-        <div class="streak-stats">
-          <div class="streak-stat">
-            <div class="streak-stat-value" id="streakCurrent">0</div>
-            <div class="streak-stat-label">Current</div>
-          </div>
-          <div class="streak-stat">
-            <div class="streak-stat-value" id="streakLongest">0</div>
-            <div class="streak-stat-label">Longest</div>
-          </div>
-          <div class="streak-stat">
-            <div class="streak-stat-value" id="streakTotal">0</div>
-            <div class="streak-stat-label">Total Days</div>
-          </div>
-        </div>
-        <div class="streak-calendar" id="streakCalendar"></div>
-        <div class="streak-today" id="streakToday"></div>
-      </div>
-
-      <div class="toc-title reveal reveal--left">Curriculum · 20 phases · 523 lessons</div>
-      <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">Tap a phase to expand its lessons. Each one ships when its math, code, and test are all written.</div>
-      <div class="toc-list" id="phasesGrid"></div>
-      <div class="legend">
-        <span class="legend-item"><span class="toc-status complete"></span> Complete</span>
-        <span class="legend-item"><span class="toc-status in-progress"></span> In progress</span>
-        <span class="legend-item"><span class="toc-status planned"></span> Planned</span>
+    <section class="artifacts container" id="artifacts" aria-labelledby="artifacts-title">
+      <div class="toc-title reveal reveal--left">You ship artifacts, not just notes</div>
+      <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">Every lesson runs read → derive → write → test → keep. What you keep is a reusable artifact you can plug straight into your daily work — plus a learner-owned copy you build and grade yourself.</div>
+      <div class="artifacts-grid" id="artifactsGrid">
+        <a class="artifact-card reveal" href="learning-paths.html">
+          <span class="artifact-card-label">Learning path</span>
+          <strong>Your route, sequenced</strong>
+          <p>A focused track from your goal to a working artifact, with each lesson's tests as the proof.</p>
+        </a>
+        <a class="artifact-card reveal" href="prereqs.html" style="--stagger-delay: 60ms;">
+          <span class="artifact-card-label">Skills &amp; prompts</span>
+          <strong>Agent-ready help</strong>
+          <p>Lessons ship reusable skills, prompts, agent harnesses, and MCP servers you can drop into any host.</p>
+        </a>
+        <a class="artifact-card reveal" href="glossary.html" style="--stagger-delay: 120ms;">
+          <span class="artifact-card-label">Reference</span>
+          <strong>Canonical glossary</strong>
+          <p>A shared vocabulary across every phase, so terms stay consistent as the curriculum grows.</p>
+        </a>
+        <a class="artifact-card reveal" href="certifications.html" style="--stagger-delay: 180ms;">
+          <span class="artifact-card-label">Learner-owned</span>
+          <strong>Your evidence bundle</strong>
+          <p>Practice labs and original assessments leave you with an artifact you can grade, keep, and show.</p>
+        </a>
       </div>
     </section>
+
+    <section class="books container" id="books">
+      <div class="toc-title reveal reveal--left">The book edition · six volumes</div>
+      <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">The course, compiled. EPUB and PDF built from the same lessons and attached to every GitHub release. The site stays the living edition — every chapter links back here for the animated figures, quizzes, and code.</div>
+      <div class="books-grid" id="booksGrid"></div>
+      <div class="books-note">Links resolve to the newest <a href="https://github.com/rohitg00/ai-engineering-from-scratch/releases" target="_blank" rel="noopener">GitHub release</a> · rebuilt by CI from the lessons on every release · <a href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/book/README.md" target="_blank" rel="noopener">how it's made</a></div>
+    </section>
+    <section class="colophon container">
+      <div class="colophon-grid">
+        <div class="colophon-eyebrow reveal reveal--left">Colophon</div>
+        <div class="reveal" style="--stagger-delay: 80ms;">
+          <p>The entire curriculum is on GitHub. Clone it, fork it, learn at your own pace. No paywall, no signup. Every lesson has runnable code in Python, TypeScript, Rust, or Julia, depending on what fits the concept best.</p>
+          <div class="colophon-cmd">
+            <code id="cloneCmd">git clone https://github.com/rohitg00/ai-engineering-from-scratch.git</code>
+            <button class="copy-chip" id="copyBtn" aria-label="Copy command" type="button">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <rect x="3.5" y="3.5" width="7" height="7"/>
+                <path d="M8.5 3.5v-2h-7v7h2"/>
+              </svg>
+              <span id="copyBtnLabel" role="status" aria-live="polite">copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
 
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal" id="modal">
@@ -2761,40 +3093,7 @@
     </div>
 
 
-    <section class="books container" id="books">
-      <div class="toc-title reveal reveal--left">The book edition · six volumes</div>
-      <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">The course, compiled. EPUB and PDF built from the same lessons and attached to every GitHub release. The site stays the living edition — every chapter links back here for the animated figures, quizzes, and code.</div>
-      <div class="books-grid" id="booksGrid"></div>
-      <div class="books-note">Links resolve to the newest <a href="https://github.com/rohitg00/ai-engineering-from-scratch/releases" target="_blank" rel="noopener">GitHub release</a> · rebuilt by CI from the lessons on every release · <a href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/book/README.md" target="_blank" rel="noopener">how it's made</a></div>
-    </section>
 
-    <section class="certification-spotlight container" id="certifications" aria-labelledby="certification-spotlight-title">
-      <div class="certification-spotlight-grid reveal">
-        <figure class="certification-badge-stage" aria-hidden="true">
-          <img
-            src="https://images.credly.com/images/f101c6ac-8a2d-4220-b381-70e3e6c364e3/blob"
-            width="601" height="601" loading="lazy" decoding="async" referrerpolicy="no-referrer"
-            alt="">
-        </figure>
-
-        <div class="certification-copy">
-          <span class="certification-eyebrow">Independent certification preparation</span>
-          <h2 id="certification-spotlight-title">Prepare by building the real systems</h2>
-          <p class="certification-intro">Four Claude certification paths taught the same way as the course: step by step, with interactive labs, practical artifacts, and an AI tutor that works from the GitHub repo.</p>
-          <div class="certification-proof" aria-label="Certification curriculum coverage">
-            <span><strong>4</strong> tracks</span>
-            <span><strong>33</strong> certification lessons</span>
-            <span><strong>295</strong> original practice questions</span>
-          </div>
-          <p class="certification-disclaimer">Not affiliated with, endorsed by, sponsored by, or authorized by Anthropic. This curriculum does not issue credentials or guarantee a passing result.</p>
-        </div>
-
-        <div class="certification-actions">
-          <a class="masthead-btn masthead-btn--primary" href="certifications.html">Explore certifications</a>
-          <a class="certification-github-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/certifications/claude/GETTING_STARTED.md" target="_blank" rel="noopener" aria-label="Use the certification tutor on GitHub (opens in a new tab)">Learn with the GitHub tutor</a>
-        </div>
-      </div>
-    </section>
 
 
     <script>
@@ -2880,25 +3179,64 @@
         grid.innerHTML = html;
       })();
     </script>
+    <script>
+      (function () {
+        // Progression strip: the 20 phases grouped into the course's arc.
+        // Reads the same PHASES data the phases grid uses — no curriculum edits.
+        var GROUPING = [
+          { label: 'Foundation',    ids: [0, 1, 2, 3] },
+          { label: 'Machine learning', ids: [4, 5, 6] },
+          { label: 'Deep learning', ids: [7] },
+          { label: 'Transformers & LLMs', ids: [8, 9, 10, 11] },
+          { label: 'Tools & protocols',  ids: [12, 13] },
+          { label: 'Agents',        ids: [14, 15, 16] },
+          { label: 'Production',    ids: [17, 18] },
+          { label: 'Capstone',      ids: [19] }
+        ];
+        function short(name) {
+          var words = name.split(/\s+/);
+          var s = words.length > 3 ? words.slice(0, 3).join(' ') : name;
+          return s.replace(/&/g, '&amp;');
+        }
+        function esc(s) {
+          var d = document.createElement('div');
+          d.textContent = s == null ? '' : String(s);
+          return d.innerHTML;
+        }
+        function render() {
+          var strip = document.getElementById('progressionStrip');
+          if (!strip || typeof PHASES === 'undefined') return;
+          var html = '';
+          html += '<div class="progression-track" role="list" aria-label="Course progression">';
+          for (var g = 0; g < GROUPING.length; g++) {
+            var grp = GROUPING[g];
+            html += '<div class="progression-stage" role="listitem">';
+            html += '<div class="progression-stage-label">' + grp.label + '</div>';
+            html += '<div class="progression-stage-phases">';
+            for (var k = 0; k < grp.ids.length; k++) {
+              var idx = grp.ids[k];
+              var ph = PHASES[idx];
+              if (!ph) continue;
+              html += '<button type="button" class="phase-card progression-node" data-phase="' + idx + '" aria-label="Open phase ' + String(idx).padStart(2, '0') + ', ' + esc(ph.name || '') + '">';
+              html += '<span class="progression-node-num">' + String(idx).padStart(2, '0') + '</span>';
+              html += '<span class="progression-node-name">' + short(ph.name || '') + '</span>';
+              html += '</button>';
+            }
+            html += '</div>';
+            if (g < GROUPING.length - 1) html += '<div class="progression-arrow" aria-hidden="true">→</div>';
+            html += '</div>';
+          }
+          html += '</div>';
+          strip.innerHTML = html;
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', render);
+        } else {
+          render();
+        }
+      })();
+    </script>
 
-    <section class="colophon container">
-      <div class="colophon-grid">
-        <div class="colophon-eyebrow reveal reveal--left">Colophon</div>
-        <div class="reveal" style="--stagger-delay: 80ms;">
-          <p>The entire curriculum is on GitHub. Clone it, fork it, learn at your own pace. No paywall, no signup. Every lesson has runnable code in Python, TypeScript, Rust, or Julia, depending on what fits the concept best.</p>
-          <div class="colophon-cmd">
-            <code id="cloneCmd">git clone https://github.com/rohitg00/ai-engineering-from-scratch.git</code>
-            <button class="copy-chip" id="copyBtn" aria-label="Copy command" type="button">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                <rect x="3.5" y="3.5" width="7" height="7"/>
-                <path d="M8.5 3.5v-2h-7v7h2"/>
-              </svg>
-              <span id="copyBtnLabel" role="status" aria-live="polite">copy</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </main>
 
