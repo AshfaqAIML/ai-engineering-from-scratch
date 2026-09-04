@@ -2196,6 +2196,17 @@
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
+
+    @media (max-width: 768px) {
+      .preface-grid { grid-template-columns: 1fr; gap: 24px; }
+      .preface-body { column-count: 1; text-align: left; }
+      .colophon-grid { grid-template-columns: 1fr; gap: 24px; }
+      .colophon-cmd { flex-wrap: wrap; }
+    }
+    @media (max-width: 480px) {
+      .colophon-cmd code { white-space: pre-wrap; word-break: break-all; }
+      .preface-body { font-size: 0.96rem; }
+    }
 </style>
 </head>
 <body>
@@ -2207,6 +2218,11 @@
       <a href="index.html" class="logo">
         <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
       </a>
+      <nav class="header-priority-nav" aria-label="Priority">
+        <a href="#contents">Contents</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-controls="siteNav" aria-expanded="false">
         <span class="menu-icon" aria-hidden="true">&#9776;</span>
         <span class="close-icon" aria-hidden="true">&#10005;</span>
