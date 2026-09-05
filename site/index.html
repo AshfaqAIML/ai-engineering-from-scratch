@@ -1711,6 +1711,13 @@
       color: var(--ink-soft);
       font-size: 0.9rem;
       line-height: 1.5;
+      margin-top: 0;
+    }
+
+    .course-route-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .course-route-actions {
@@ -1758,8 +1765,7 @@
     }
 
     @media (max-width: 900px) {
-      .course-route { grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.5fr); }
-      .course-route-actions { grid-column: 1 / -1; justify-self: start; }
+      .course-route { grid-template-columns: minmax(150px, 0.8fr) 1fr auto; }
     }
 
     @media (max-width: 600px) {
@@ -1840,7 +1846,7 @@
         text-transform: uppercase;
       }
       .course-route { grid-template-columns: 1fr; gap: 8px; padding: 16px 12px; }
-      .course-route-actions { grid-column: auto; width: 100%; justify-self: stretch; }
+      .course-route-actions { grid-column: 1; width: 100%; justify-self: stretch; }
       .course-route-link { white-space: normal; text-align: center; }
     }
 
@@ -2793,11 +2799,13 @@
       <div class="course-route-list">
         <article class="course-route is-recommended">
           <div class="course-route-name"><span>Recommended first</span><strong>New to AI engineering</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>anyone starting from zero</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>anyone starting from zero</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+            </div>
+            <p>Set up a working environment, run the repository, and learn the lesson workflow before choosing a specialization.</p>
           </div>
-          <p>Set up a working environment, run the repository, and learn the lesson workflow before choosing a specialization.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment">Open lesson</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/01-dev-environment" target="_blank" rel="noopener">GitHub source</a>
@@ -2805,11 +2813,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Building and Deploying AI Applications</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>builders shipping real products</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 11 · LLM Engineering</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>builders shipping real products</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 11 · LLM Engineering</b></span>
+            </div>
+            <p>Move from prompts, structured outputs, embeddings, and retrieval through evaluation, serving, observability, and safe release.</p>
           </div>
-          <p>Move from prompts, structured outputs, embeddings, and retrieval through evaluation, serving, observability, and safe release.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/11-llm-engineering/01-prompt-engineering&amp;learningPath=building-and-deploying-ai-applications">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/learning-paths/building-and-deploying-ai-applications.json" target="_blank" rel="noopener">GitHub path</a>
@@ -2817,11 +2827,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Software Engineering Fundamentals</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>engineers hardening the system around AI</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>engineers hardening the system around AI</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 00 · Setup</b></span>
+            </div>
+            <p>Build the repository, environment, interface, debugging, verification, security, release, and operational foundations AI systems depend on.</p>
           </div>
-          <p>Build the repository, environment, interface, debugging, verification, security, release, and operational foundations AI systems depend on.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment&amp;learningPath=software-engineering-fundamentals">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/learning-paths/software-engineering-fundamentals.json" target="_blank" rel="noopener">GitHub path</a>
@@ -2829,11 +2841,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Agent-Assisted Engineering</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>devs who want AI to write and verify code</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>devs who want AI to write and verify code</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+            </div>
+            <p>Frame the task, plan from repository evidence, engineer the loop and harness, isolate delegation, verify the result, and preserve feedback.</p>
           </div>
-          <p>Frame the task, plan from repository evidence, engineer the loop and harness, isolate delegation, verify the result, and preserve feedback.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/14-agent-engineering/31-agent-workbench-why-models-fail&amp;learningPath=using-coding-agents">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/learning-paths/using-coding-agents.json" target="_blank" rel="noopener">GitHub path</a>
@@ -2841,11 +2855,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Core domain</span><strong>Product Judgment and Delivery</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>engineers turned product thinkers</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>engineers turned product thinkers</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 14 · Agent Engineering</b></span>
+            </div>
+            <p>Turn observed work into outcomes, assumptions, testable slices, executable specifications, measurement plans, staged releases, and owned feedback.</p>
           </div>
-          <p>Turn observed work into outcomes, assumptions, testable slices, executable specifications, measurement plans, staged releases, and owned feedback.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/14-agent-engineering/47-outcomes-before-output&amp;learningPath=shaping-the-build">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/learning-paths/shaping-the-build.json" target="_blank" rel="noopener">GitHub path</a>
@@ -2853,11 +2869,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Focused path</span><strong>Model Context Protocol (MCP)</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>devs wiring AI to tools and data</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>devs wiring AI to tools and data</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+            </div>
+            <p>Build, secure, verify, and operate stateless MCP systems from wire envelopes through release gates.</p>
           </div>
-          <p>Build, secure, verify, and operate stateless MCP systems from wire envelopes through release gates.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/13-tools-and-protocols/06-mcp-fundamentals&amp;learningPath=model-context-protocol">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/06-mcp-fundamentals" target="_blank" rel="noopener">GitHub source</a>
@@ -2865,11 +2883,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Focused path</span><strong>Agent Skills</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>devs building portable skills for agents</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>devs building portable skills for agents</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>Phase 13 · Tools &amp; Protocols</b></span>
+            </div>
+            <p>Build, invoke, route, secure, evaluate, package, and verify portable skills in real agent hosts.</p>
           </div>
-          <p>Build, invoke, route, secure, evaluate, package, and verify portable skills in real agent hosts.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="lesson.html?path=phases/13-tools-and-protocols/22-skills-and-agent-sdks&amp;learningPath=agent-skills">Start path</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/22-skills-and-agent-sdks" target="_blank" rel="noopener">GitHub source</a>
@@ -2877,11 +2897,13 @@
         </article>
         <article class="course-route">
           <div class="course-route-name"><span>Practice by evidence</span><strong>Certification preparation</strong></div>
-          <div class="course-route-meta">
-            <span class="course-route-meta-item"><i>for</i> <b>learners aiming at a Claude certification</b></span>
-            <span class="course-route-meta-item"><i>starts</i> <b>your chosen track's first lesson</b></span>
+          <div class="course-route-body">
+            <div class="course-route-meta">
+              <span class="course-route-meta-item"><i>for</i> <b>learners aiming at a Claude certification</b></span>
+              <span class="course-route-meta-item"><i>starts</i> <b>your chosen track's first lesson</b></span>
+            </div>
+            <p>Choose a certification route, complete practical labs, keep learner-owned artifacts, and use original assessments.</p>
           </div>
-          <p>Choose a certification route, complete practical labs, keep learner-owned artifacts, and use original assessments.</p>
           <div class="course-route-actions">
             <a class="course-route-link" href="certifications.html">Explore paths</a>
             <a class="course-route-link" href="https://github.com/rohitg00/ai-engineering-from-scratch/blob/main/certifications/claude/GETTING_STARTED.md" target="_blank" rel="noopener">GitHub tutor</a>
