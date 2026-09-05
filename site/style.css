@@ -3255,7 +3255,7 @@ body[data-palette-open] {
    container-query reflow for the grid-heavy surfaces. */
 
 :root {
-  --fluid-gutter: clamp(16px, 4vw, 32px);
+  --fluid-gutter: clamp(20px, 4vw, 32px);
   --header-h: clamp(52px, 6vh, 64px);
   --focus-ring: 2px solid var(--blueprint);
 }
@@ -3270,6 +3270,19 @@ body[data-palette-open] {
   height: var(--header-h);
   padding-left: var(--fluid-gutter);
   padding-right: var(--fluid-gutter);
+}
+
+.header-inner .tts-toggle,
+.header-inner .theme-toggle {
+  margin-inline-start: auto;
+}
+
+.header-inner .theme-toggle {
+  margin-inline-start: 0;
+}
+
+.header-inner .search-toggle {
+  margin-inline-start: 0;
 }
 
 /* Overflow + media safety net. */
