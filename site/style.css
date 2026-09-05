@@ -1090,8 +1090,12 @@ body.js-anim .toc-row.in-view {
     display: none;
   }
 
+  .profile-wrap {
+    display: none !important;
+  }
+
   .login-btn {
-    display: none;
+    display: none !important;
   }
 
   .header-nav {
