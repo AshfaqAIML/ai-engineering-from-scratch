@@ -3272,16 +3272,23 @@ body[data-palette-open] {
   padding-right: var(--fluid-gutter);
 }
 
-.header-inner .tts-toggle,
-.header-inner .theme-toggle {
+.header-inner .menu-toggle {
+  order: 13;
   margin-inline-start: auto;
 }
 
-.header-inner .theme-toggle {
+.header-inner .search-toggle {
+  order: 10;
   margin-inline-start: 0;
 }
 
-.header-inner .search-toggle {
+.header-inner .tts-toggle {
+  order: 11;
+  margin-inline-start: 0;
+}
+
+.header-inner .theme-toggle {
+  order: 12;
   margin-inline-start: 0;
 }
 

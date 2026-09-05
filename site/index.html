@@ -600,7 +600,7 @@
 
 
     .preface {
-      padding: 48px 0 32px;
+      padding: 48px 32px 32px !important;
       border-bottom: 1px solid var(--rule-soft);
     }
 
@@ -683,7 +683,7 @@
     }
 
     .stat-block {
-      padding: 32px 0 40px;
+      padding: 32px 32px 40px !important;
       border-bottom: 1px solid var(--rule-soft);
     }
 
@@ -747,7 +747,7 @@
     }
 
     .toc {
-      padding: 56px 0 80px;
+      padding: 56px 32px 80px !important;
       border-bottom: 1px solid var(--rule-soft);
     }
 
@@ -849,7 +849,7 @@
     }
 
     .legend {
-      padding: 32px 0 72px;
+      padding: 32px 32px 72px !important;
       display: flex;
       gap: 28px;
       flex-wrap: wrap;
@@ -921,7 +921,7 @@
     }
 
     .books {
-      padding: 40px 0 8px;
+      padding: 40px 32px 8px !important;
       border-top: 1px solid var(--rule-soft);
     }
 
@@ -1891,7 +1891,7 @@
     }
 
     .certification-spotlight {
-      padding: 40px 0 48px;
+      padding: 40px 32px 48px !important;
     }
 
     .certification-spotlight-grid {
@@ -2139,7 +2139,7 @@
     }
 
     .stat-block {
-      padding: 32px 0 40px;
+      padding: 32px 32px 40px !important;
       border-bottom: 1px solid var(--rule-soft);
     }
 
@@ -2440,10 +2440,6 @@
         <a href="glossary.html">Glossary</a>
         <a href="about.html">About</a>
       </nav>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-controls="siteNav" aria-expanded="false">
-        <span class="menu-icon" aria-hidden="true">&#9776;</span>
-        <span class="close-icon" aria-hidden="true">&#10005;</span>
-      </button>
       <nav class="header-nav" id="siteNav" aria-label="Primary">
         <a href="#contents">Contents</a>
         <a href="catalog.html">Catalog</a>
@@ -2468,6 +2464,10 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
         <span class="search-hint" aria-hidden="true">⌘K</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-controls="siteNav" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true">&#9776;</span>
+        <span class="close-icon" aria-hidden="true">&#10005;</span>
       </button>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
         <span class="theme-icon" id="themeIcon">N</span>
