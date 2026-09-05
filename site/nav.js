@@ -9,7 +9,7 @@
 
   // The full nav always rides in an off-canvas drawer; the fixed bar shows only
   // the brand plus the compact priority links and the menu toggle at every width.
-  var MENU_BREAKPOINT = Number.MAX_SAFE_INTEGER;
+  var MENU_BREAKPOINT = 900;
 
   function syncAccessibility() {
     var nav = document.getElementById('siteNav');

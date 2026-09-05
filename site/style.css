@@ -3476,7 +3476,7 @@ body.nav-open::before {
   padding-bottom: 16px;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 900px) {
   .header-priority-nav {
     display: none;
   }
@@ -3486,7 +3486,7 @@ body.nav-open::before {
 }
 
 /* Desktop: hide hamburger, show priority nav inline */
-@media (min-width: 1401px) {
+@media (min-width: 901px) {
   .menu-toggle {
     display: none;
   }
