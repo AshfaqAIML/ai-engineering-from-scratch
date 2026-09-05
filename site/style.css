@@ -3368,6 +3368,14 @@ body.nav-open {
   overflow: hidden;
 }
 
+body.nav-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.35);
+}
+
 /* The full nav always rides in an off-canvas drawer at every width; the fixed
    bar holds the brand, the compact priority links, and the menu toggle.
    Scoped to the shared drawer header (has .menu-toggle): pages that still use
@@ -3380,7 +3388,7 @@ body.nav-open {
   position: fixed;
   top: var(--header-h);
   right: 0;
-  bottom: 0;
+  height: calc(100vh - var(--header-h));
   width: min(320px, 84vw);
   flex-direction: column;
   align-items: stretch;
@@ -3396,7 +3404,7 @@ body.nav-open {
   transition: transform var(--motion-drawer) var(--ease-drawer), visibility 0s linear var(--motion-drawer);
   overflow-y: auto;
   overscroll-behavior: contain;
-  z-index: 90;
+  z-index: 101;
 }
 
 .site-header:has(.menu-toggle) .header-nav.open {
