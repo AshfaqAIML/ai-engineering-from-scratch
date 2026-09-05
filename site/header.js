@@ -1,24 +1,30 @@
 /**
- * Shared header behaviors: live GitHub star counter.
- * Loaded by every page that includes the .header-github component.
+ * Shared header behaviors: GitHub star counter, TTS auto-loading,
+ * current-page highlighting, and responsive navigation.
+ * Loaded by every page.
  */
 (function () {
+  'use strict';
+
   var REPO = 'rohitg00/ai-engineering-from-scratch';
   var CACHE_KEY = 'gh:stars:' + REPO;
-  var CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+  var CACHE_TTL_MS = 10 * 60 * 1000;
+  var TTS_VERSION = '20260905a';
 
-  function format(n) {
+  /* ── GitHub star counter ─────────────────────────────────────────────── */
+
+  function formatStars(n) {
     if (n >= 10000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
     if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
     return String(n);
   }
 
-  function paint(n) {
+  function paintStars(n) {
     var els = document.querySelectorAll(
       '.header-github .star-count, #starCount, [data-gh-stars="' + REPO + '"]'
     );
     for (var i = 0; i < els.length; i++) {
-      els[i].textContent = format(n);
+      els[i].textContent = formatStars(n);
       els[i].removeAttribute('data-loading');
     }
   }
@@ -38,15 +44,13 @@
   function writeCache(n) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({ n: n, t: Date.now() }));
-    } catch (e) {
-      // localStorage may be disabled
-    }
+    } catch (e) {}
   }
 
-  function load() {
+  function loadStars() {
     var cached = readCache();
     if (cached != null) {
-      paint(cached);
+      paintStars(cached);
       return;
     }
     fetch('https://api.github.com/repos/' + REPO, {
@@ -60,16 +64,48 @@
         var n = data.stargazers_count;
         if (typeof n !== 'number') return;
         writeCache(n);
-        paint(n);
+        paintStars(n);
       })
-      .catch(function () {
-        // Leave the placeholder; the link still works.
-      });
+      .catch(function () {});
+  }
+
+  /* ── TTS auto-loading ────────────────────────────────────────────────── */
+
+  function ensureNarration() {
+    if (window.__AIFS_TTS_VERSION === TTS_VERSION) return;
+    if (document.querySelector('script[data-aifs-tts="' + TTS_VERSION + '"]')) return;
+    var script = document.createElement('script');
+    script.src = 'tts.js?v=' + TTS_VERSION;
+    script.async = true;
+    script.setAttribute('data-aifs-tts', TTS_VERSION);
+    document.head.appendChild(script);
+  }
+
+  /* ── Current page highlighting ───────────────────────────────────────── */
+
+  function syncCurrentPage() {
+    var path = location.pathname.split('/').pop() || 'index.html';
+    var links = document.querySelectorAll('.header-nav a, .header-priority-nav a');
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      var linkPath = href.split('?')[0].split('#')[0];
+      if (linkPath === path || (path === '' && linkPath === 'index.html')) {
+        links[i].setAttribute('aria-current', 'page');
+      }
+    }
+  }
+
+  /* ── Init ────────────────────────────────────────────────────────────── */
+
+  function init() {
+    loadStars();
+    ensureNarration();
+    syncCurrentPage();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', load);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    load();
+    init();
   }
 })();
