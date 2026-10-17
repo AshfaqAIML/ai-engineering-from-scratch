@@ -41,7 +41,7 @@
 > **84% of students already use AI tools. Only 18% feel prepared to use them
 > professionally.** This curriculum closes that gap.
 >
-> 523 lessons. 20 phases. ~342 hours. Python, TypeScript, Rust, Julia. Every lesson ships
+> 542 lessons. 20 phases. ~342 hours. Python, TypeScript, Rust, Julia. Every lesson ships
 > a reusable artifact: a prompt, a skill, an agent, an MCP server. Free, open source, MIT.
 >
 > You don't just learn AI. You build it. End-to-end. By hand.
@@ -165,7 +165,7 @@ flashy agent demo somewhere else. The pieces rarely line up. You ship a chatbot 
 explain its loss curve. You hook a function to an agent but can't say what attention does
 inside the model that's calling it.
 
-This curriculum is the spine. 20 phases, 523 lessons, four languages: Python, TypeScript,
+This curriculum is the spine. 20 phases, 542 lessons, four languages: Python, TypeScript,
 Rust, Julia. Linear algebra at one end, autonomous swarms at the other. Every algorithm
 gets built from raw math first. Backprop. Tokenizer. Attention. Agent loop. By the time
 PyTorch shows up, you already know what it's doing under the hood.
@@ -381,7 +381,7 @@ Other curricula end with *"congratulations, you learned X."* Each lesson here en
 </table>
 
 > Install the lot with `python3 scripts/install_skills.py <target>`. Real tools, not homework.
-> By the end of the curriculum, you have a portfolio of 523 artifacts you actually
+> By the end of the curriculum, you have a portfolio of 542 artifacts you actually
 > understand because you built them.
 
 ### FIG_002 · A worked sample
@@ -1226,7 +1226,7 @@ npx skills add rohitg00/ai-engineering-from-scratch
 `.claude/skills/`, `.cursor/skills/`, `.codex/skills/`, or another supported
 skills folder. Verify that the selected host discovers that exact destination.
 
-**The lesson artifacts.** The repo ships 396 skills and 99 prompts under
+**The lesson artifacts.** The repo ships 414 skills and 100 prompts under
 `phases/**/outputs/`; install them via `scripts/install_skills.py`. Requires
 cloning the repo. Supports tag filters, dry-runs, and per-agent layouts:
 
@@ -1426,7 +1426,7 @@ relative links inside lesson docs.
 | LLM systems | [Prompt engineering](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/01-prompt-engineering) |
 | Agents and delivery | [The agent loop](https://aiengineeringfromscratch.com/lesson?path=phases/14-agent-engineering/01-the-agent-loop) |
 
-Free, MIT-licensed, 523 lessons. The curriculum is maintained through cash sponsorships
+Free, MIT-licensed, 542 lessons. The curriculum is maintained through cash sponsorships
 and approved Hardware Lab Partners.
 
 **Reach:** 114,584 monthly visitors · 181,995 page views (Vercel Web Analytics verified
