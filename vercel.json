@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node site/fetch-translation-coverage.js && node site/build.js && node scripts/build_certification_data.js && node site/build-projects.js --strict && node site/build-agents.js && node site/build-manuals.js && node site/clean-urls.js && node site/version-assets.js",
+  "buildCommand": "node scripts/build_site.js",
   "outputDirectory": "site",
   "framework": null,
   "installCommand": "npm install --no-audit --no-fund",
@@ -88,6 +88,10 @@
       "destination": "/agent-pages/about.md"
     },
     {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
       "source": "/inside-an-ai-agent",
       "destination": "/inside-an-ai-agent.html"
     },
@@ -111,6 +115,10 @@
       "destination": "/agent-pages/catalog.md"
     },
     {
+      "source": "/catalog",
+      "destination": "/catalog.html"
+    },
+    {
       "source": "/glossary",
       "has": [
         {
@@ -120,6 +128,10 @@
         }
       ],
       "destination": "/agent-pages/glossary.md"
+    },
+    {
+      "source": "/glossary",
+      "destination": "/glossary.html"
     },
     {
       "source": "/glossary/:page([a-z0-9-]+)",
@@ -133,6 +145,10 @@
       "destination": "/agent-pages/glossary/:page.md"
     },
     {
+      "source": "/glossary/:page([a-z0-9-]+)",
+      "destination": "/hubs/glossary/:page.html"
+    },
+    {
       "source": "/phase/:page([a-z0-9-]+)",
       "has": [
         {
@@ -142,6 +158,10 @@
         }
       ],
       "destination": "/agent-pages/phase/:page.md"
+    },
+    {
+      "source": "/phase/:page([a-z0-9-]+)",
+      "destination": "/hubs/phase/:page.html"
     },
     {
       "source": "/roadmap",
@@ -155,6 +175,10 @@
       "destination": "/agent-pages/roadmap.md"
     },
     {
+      "source": "/roadmap",
+      "destination": "/roadmap.html"
+    },
+    {
       "source": "/developer",
       "has": [
         {
@@ -164,6 +188,10 @@
         }
       ],
       "destination": "/agent-pages/developer.md"
+    },
+    {
+      "source": "/developer",
+      "destination": "/developer.html"
     },
     {
       "source": "/docs",
@@ -177,6 +205,10 @@
       "destination": "/agent-pages/developer.md"
     },
     {
+      "source": "/docs",
+      "destination": "/developer.html"
+    },
+    {
       "source": "/contact",
       "has": [
         {
@@ -186,6 +218,10 @@
         }
       ],
       "destination": "/agent-pages/contact.md"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     },
     {
       "source": "/privacy",
@@ -199,6 +235,10 @@
       "destination": "/agent-pages/privacy.md"
     },
     {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
       "source": "/sponsors",
       "has": [
         {
@@ -208,6 +248,10 @@
         }
       ],
       "destination": "/agent-pages/sponsors.md"
+    },
+    {
+      "source": "/sponsors",
+      "destination": "/sponsors.html"
     },
     {
       "source": "/assessment",
@@ -223,6 +267,10 @@
         }
       ],
       "destination": "/agent-pages/developer.md"
+    },
+    {
+      "source": "/developers",
+      "destination": "/developer.html"
     },
     {
       "source": "/api",
@@ -247,6 +295,10 @@
       "destination": "/agent-pages/projects.md"
     },
     {
+      "source": "/projects",
+      "destination": "/projects.html"
+    },
+    {
       "source": "/dashboard",
       "destination": "/dashboard.html"
     },
@@ -262,6 +314,10 @@
       "destination": "/agent-pages/learning-paths.md"
     },
     {
+      "source": "/learning-paths",
+      "destination": "/learning-paths.html"
+    },
+    {
       "source": "/certifications",
       "has": [
         {
@@ -271,6 +327,10 @@
         }
       ],
       "destination": "/agent-pages/certifications.md"
+    },
+    {
+      "source": "/certifications",
+      "destination": "/certifications.html"
     },
     {
       "source": "/mcp",
@@ -287,6 +347,30 @@
     {
       "source": "/:page(manuals|manual-[a-z0-9-]+)",
       "destination": "/:page.html"
+    },
+    {
+      "source": "/api/v1/markdown",
+      "destination": "/api/markdown"
+    },
+    {
+      "source": "/api/auth/login",
+      "destination": "/api/auth?action=login"
+    },
+    {
+      "source": "/api/auth/signup",
+      "destination": "/api/auth?action=signup"
+    },
+    {
+      "source": "/api/auth/google",
+      "destination": "/api/auth?action=google"
+    },
+    {
+      "source": "/api/auth/logout",
+      "destination": "/api/auth?action=logout"
+    },
+    {
+      "source": "/api/auth/me",
+      "destination": "/api/auth?action=me"
     },
     {
       "source": "/api/:missing*",
@@ -449,11 +533,6 @@
       "includeFiles": "{site/lesson-seo.json,site/certification-seo.json,site/og-cards.json,site/anatomy/*.png,lib/og-render.js,lib/og-fonts/*.json}"
     },
     "api/markdown.js": {
-      "maxDuration": 10,
-      "includeFiles": "{site/*.html,site/agent-pages/*.md}",
-      "excludeFiles": "site/**/*.js"
-    },
-    "api/v1/markdown.js": {
       "maxDuration": 10,
       "includeFiles": "{site/*.html,site/agent-pages/*.md}",
       "excludeFiles": "site/**/*.js"

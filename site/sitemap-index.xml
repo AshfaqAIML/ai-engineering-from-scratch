@@ -28,9 +28,15 @@
     <loc>https://aiengineeringfromscratch.com/sitemap-lessons-pt.xml</loc>
   </sitemap>
   <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-pt-BR.xml</loc>
+  </sitemap>
+  <sitemap>
     <loc>https://aiengineeringfromscratch.com/sitemap-lessons-tr.xml</loc>
   </sitemap>
   <sitemap>
     <loc>https://aiengineeringfromscratch.com/sitemap-lessons-vi.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-fa.xml</loc>
   </sitemap>
 </sitemapindex>

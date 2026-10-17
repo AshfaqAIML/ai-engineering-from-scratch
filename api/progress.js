@@ -23,9 +23,9 @@
  * so re-sends are idempotent; scroll_pct only grows; read_seconds/minutes are
  * deltas and answers merge via jsonb.
  */
-const { getPool, ensureSchema } = require('./lib/db');
-const helpers = require('./lib/helpers');
-const session = require('./lib/session');
+const { getPool, ensureSchema } = require('../lib/auth/db');
+const helpers = require('../lib/auth/helpers');
+const session = require('../lib/auth/session');
 
 const PATH_RE = /^phases\/[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+$/;
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
