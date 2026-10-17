@@ -6,7 +6,7 @@
   <title>Dashboard - AI Engineering from Scratch</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf5'/><rect x='2' y='2' width='28' height='28' fill='none' stroke='%233553ff' stroke-width='1.2'/><text x='6' y='22' font-size='14' font-family='monospace' fill='%233553ff'>AI</text></svg>">
   <meta name="description" content="Your reading dashboard for AI Engineering from Scratch — progress, streaks, and where you left off.">
-  <link rel="canonical" href="https://aiengineeringfromscratch.com/dashboard.html">
+  <link rel="canonical" href="https://aiengineeringfromscratch.com/dashboard">
   <meta property="og:title" content="AI Engineering from Scratch · Dashboard">
   <meta property="og:description" content="Your reading dashboard — progress, streaks, and where you left off.">
   <meta property="og:type" content="website">
@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260807a">
+  <link rel="stylesheet" href="style.css?v=459bca67c5215438">
 </head>
 <body>
 
@@ -22,26 +22,33 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="logo">
+      <a href="./" class="logo">
         <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
       </a>
       <nav class="header-priority-nav" aria-label="Priority">
         <a href="#contents">Contents</a>
-        <a href="catalog.html">Catalog</a>
-        <a href="learning-paths.html">Learning Paths</a>
+        <a href="catalog">Catalog</a>
+        <a href="learning-paths">Learning Paths</a>
 
-        <a href="certifications.html">Certifications</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="index.html#books">Books</a>
-        <a href="prereqs.html">Roadmap</a>
-        <a href="glossary.html">Glossary</a>
-        <a href="about.html">About</a>
+        <a href="certifications">Certifications</a>
+        <a href="dashboard">Dashboard</a>
+        <a href="./#books">Books</a>
+        <a href="roadmap">Roadmap</a>
+        <a href="glossary">Glossary</a>
+        <a href="about">About</a>
+        <a href="skills">Skills</a>
+        <a href="projects">Projects</a>
+        <a href="blogs">Blogs</a>
+        <a href="how-to-learn">How to Learn</a>
+        <a href="inside-an-ai-agent">Inside an AI Agent</a>
+        <a href="sponsors">Sponsor us</a>
+        <a href="manuals">Manuals</a>
             </nav>
       <nav class="header-nav" id="siteNav" aria-label="Primary">
-        <a href="index.html#contents">Contents</a>
-        <a href="catalog.html">Catalog</a>
-        <a href="prereqs.html">Roadmap</a>
-        <a href="glossary.html">Glossary</a>
+        <a href="./#contents">Contents</a>
+        <a href="catalog">Catalog</a>
+        <a href="roadmap">Roadmap</a>
+        <a href="glossary">Glossary</a>
         <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener" class="header-github">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
           <span class="star-count" data-loading="true" aria-label="GitHub stars">…</span>
@@ -116,7 +123,7 @@
           <h1 class="dash-title" id="dashTitle">Welcome</h1>
           <p class="dash-subtitle" id="dashSubtitle">Signed in as guest · data stored in this browser</p>
         </div>
-        <a class="dash-browse-btn" href="catalog.html">Browse lessons &rarr;</a>
+        <a class="dash-browse-btn" href="catalog">Browse lessons &rarr;</a>
       </section>
 
       <div class="dash-guest-note" id="dashGuestNote" style="display:none">
@@ -168,7 +175,7 @@
               <div class="dash-empty-icon" aria-hidden="true">◐</div>
               <p class="dash-empty-title">No lesson in progress yet</p>
               <p class="dash-empty-text">Open any lesson — we’ll save your scroll and time so you can resume here. Guest progress stays in this browser; sign in to sync.</p>
-              <a class="dash-empty-cta" href="catalog.html">Browse 523 lessons →</a>
+              <a class="dash-empty-cta" href="catalog">Browse 523 lessons →</a>
             </div>
           </div>
         </section>
@@ -233,7 +240,7 @@
           <div class="dash-empty dash-empty--inline">
             <p class="dash-empty-title">No reading progress yet</p>
             <p class="dash-empty-text">Open any lesson — we’ll track your scroll, time, and completion so you can resume and see your path.</p>
-            <a class="dash-empty-cta secondary" href="catalog.html">Browse catalog →</a>
+            <a class="dash-empty-cta secondary" href="catalog">Browse catalog →</a>
           </div>
         </div>
       </section>
@@ -247,26 +254,34 @@
     <div class="container footer-inner">
       <p>AI Engineering from Scratch · open source · free forever.</p>
       <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="./">Home</a>
+        <a href="dashboard">Dashboard</a>
         <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener">GitHub</a>
-        <a href="catalog.html">Catalog</a>
+        <a href="catalog">Catalog</a>
         <a href="https://github.com/rohitg00/ai-engineering-from-scratch/issues/new/choose" target="_blank" rel="noopener">Report / Suggest</a>
+      
+        <a href="skills">Skills</a>
+        <a href="projects">Projects</a>
+        <a href="blogs">Blogs</a>
+        <a href="how-to-learn">How to Learn</a>
+        <a href="inside-an-ai-agent">Inside an AI Agent</a>
+        <a href="sponsors">Sponsor us</a>
+        <a href="manuals">Manuals</a>
       </div>
     </div>
   </footer>
 
-  <script src="data.js?v=20260801a"></script>
-  <script src="progress.js?v=20260805a"></script>
-  <script src="auth.js?v=20260805a"></script>
-  <script src="google-auth.js?v=20260805a"></script>
-  <script src="auth-ui.js?v=20260809a"></script>
-  <script src="streak.js?v=20260805a"></script>
-  <script src="reading-progress.js?v=20260805a"></script>
-  <script src="sync.js?v=20260805a"></script>
-  <script src="header.js?v=20260905a" defer></script>
-  <script src="nav.js?v=20260807a" defer></script>
-  <script src="cmdpalette.js?v=20260801a" defer></script>
+  <script src="data.js?v=4388ada986b6fbc8"></script>
+  <script src="progress.js?v=e09a7cce998996ec"></script>
+  <script src="auth.js?v=aac11297ce64640c"></script>
+  <script src="google-auth.js?v=a546f6d12e5a9243"></script>
+  <script src="auth-ui.js?v=6bbc7ee46f37db70"></script>
+  <script src="streak.js?v=19b405d3db211917"></script>
+  <script src="reading-progress.js?v=6bf2412a497fff3c"></script>
+  <script src="sync.js?v=7a896edde464a4c2"></script>
+  <script src="header.js?v=70455224c9b64901" defer></script>
+  <script src="nav.js?v=25e15a8b48efc924" defer></script>
+  <script src="cmdpalette.js?v=d159bed59f846f6b" defer></script>
   <script>
     (function () {
       // Theme

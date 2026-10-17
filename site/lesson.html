@@ -5,21 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lesson - AI Engineering from Scratch</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf5'/><rect x='2' y='2' width='28' height='28' fill='none' stroke='%233553ff' stroke-width='1.2'/><text x='6' y='22' font-size='14' font-family='monospace' fill='%233553ff'>AI</text></svg>">
-  <meta name="description" content="A lesson from the AI Engineering from Scratch curriculum. 523 lessons across 20 phases, four languages, every algorithm built from raw math.">
-  <link rel="canonical" href="https://aiengineeringfromscratch.com/lesson.html">
+  <meta name="description" content="A lesson from the AI Engineering from Scratch curriculum. 542 lessons across 20 phases, four languages, every algorithm built from raw math.">
+  <link rel="canonical" href="https://aiengineeringfromscratch.com/lesson">
   <meta property="og:title" content="AI Engineering from Scratch · Lesson">
-  <meta property="og:description" content="523 lessons. 20 phases. Write the backprop, the tokenizer, the attention mechanism, and the agent loop by hand.">
+  <meta property="og:description" content="542 lessons. 20 phases. Write the backprop, the tokenizer, the attention mechanism, and the agent loop by hand.">
   <meta property="og:image" content="https://aiengineeringfromscratch.com/og-image.png?v=3">
   <!-- og:url omitted intentionally: lesson.html is a static template that loads the lesson body client-side via ?path=. Static hosting cannot template the URL, so we let crawlers fall back to the request URL (which is the lesson-specific share link). -->
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Engineering from Scratch">
-  <meta name="twitter:description" content="523 lessons. 20 phases. Build it from raw math, by hand.">
+  <meta name="twitter:description" content="542 lessons. 20 phases. Build it from raw math, by hand.">
   <meta name="twitter:image" content="https://aiengineeringfromscratch.com/og-image.png?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260807a">
+  <link rel="stylesheet" href="certifications.css?v=1be514615568f060">
+<link rel="stylesheet" href="style.css?v=459bca67c5215438">
   <style>
     /* ── Unified reading progress — single thin bar, no competing indicators ── */
     .scroll-progress {
@@ -2052,6 +2053,15 @@
       .lesson-complete-actions { flex-direction: column; }
       .lesson-complete-btn { width: 100%; justify-content: center; }
     }
+  .lesson-article .math-inline,
+    .lesson-article .math-display {
+      color: var(--ink);
+    }
+
+    .lesson-article .katex {
+      font-size: 1.08em;
+      color: inherit;
+    }
   </style>
 </head>
 <body>
@@ -2062,26 +2072,33 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="logo">
+      <a href="./" class="logo">
         <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
       </a>
       <nav class="header-priority-nav" aria-label="Priority">
         <a href="#contents">Contents</a>
-        <a href="catalog.html">Catalog</a>
-        <a href="learning-paths.html">Learning Paths</a>
-        <a href="certifications.html">Certifications</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="catalog">Catalog</a>
+        <a href="learning-paths">Learning Paths</a>
+        <a href="certifications">Certifications</a>
+        <a href="dashboard">Dashboard</a>
         <a href="#books">Books</a>
-        <a href="prereqs.html">Roadmap</a>
-        <a href="glossary.html">Glossary</a>
-        <a href="about.html">About</a>
+        <a href="roadmap">Roadmap</a>
+        <a href="glossary">Glossary</a>
+        <a href="about">About</a>
+        <a href="skills">Skills</a>
+        <a href="projects">Projects</a>
+        <a href="blogs">Blogs</a>
+        <a href="how-to-learn">How to Learn</a>
+        <a href="inside-an-ai-agent">Inside an AI Agent</a>
+        <a href="sponsors">Sponsor us</a>
+        <a href="manuals">Manuals</a>
       </nav>
       <nav class="header-nav" id="siteNav" aria-label="Primary">
-        <a href="index.html#contents">Contents</a>
-        <a href="catalog.html">Catalog</a>
-        <a href="prereqs.html">Roadmap</a>
-        <a href="glossary.html">Glossary</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="./#contents">Contents</a>
+        <a href="catalog">Catalog</a>
+        <a href="roadmap">Roadmap</a>
+        <a href="glossary">Glossary</a>
+        <a href="dashboard">Dashboard</a>
         <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener" class="header-github">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
           <svg class="star-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.896l-7.416 3.517 1.48-8.279L0 9.306l8.332-1.151z"/></svg>
@@ -2191,7 +2208,7 @@
       <span class="read-status-flame" aria-hidden="true">&#128293;</span>
       <span class="read-status-streak" id="readStatusStreak">0</span>
       <span class="read-status-unit">day streak</span>
-      <a class="read-status-link" href="dashboard.html">Dashboard</a>
+      <a class="read-status-link" href="dashboard">Dashboard</a>
     </div>
     <div class="read-status-sub">
       <span class="read-status-dot" id="readStatusDot"></span>
@@ -2205,80 +2222,35 @@
     <button class="resume-banner-btn" id="resumeBannerBtn" type="button">Resume &rarr;</button>
   </div>
 
-  <footer class="site-footer"><div class="container footer-inner"><p>AI Engineering from Scratch · open source · free forever.</p><div class="footer-links"><a href="catalog.html">Course catalog</a><a href="glossary.html">Glossary</a><a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener">GitHub</a></div></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><p>AI Engineering from Scratch · open source · free forever.</p><div class="footer-links"><a href="catalog">Course catalog</a><a href="glossary">Glossary</a><a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener">GitHub</a>
+        <a href="skills">Skills</a>
+        <a href="projects">Projects</a>
+        <a href="blogs">Blogs</a>
+        <a href="how-to-learn">How to Learn</a>
+        <a href="inside-an-ai-agent">Inside an AI Agent</a>
+        <a href="sponsors">Sponsor us</a>
+        <a href="manuals">Manuals</a>
+      </div></div></footer>
 
-  <script src="build-meta.js"></script>
-  <script src="langs.js?v=20260802a"></script>
-  <script src="lang-picker.js?v=20260802a" defer></script>
-  <script src="data.js?v=20260801a"></script>
-  <script src="progress.js?v=20260805a"></script>
-  <script src="auth.js?v=20260805a"></script>
-  <script src="google-auth.js?v=20260805a"></script>
-  <script src="auth-ui.js?v=20260809a"></script>
-  <script src="streak.js?v=20260805a"></script>
-  <script src="reading-progress.js?v=20260805a"></script>
-  <script src="sync.js?v=20260805a"></script>
-  <script src="header.js?v=20260905a" defer></script>
-  <script src="nav.js?v=20260807a" defer></script>
-  <script src="cmdpalette.js?v=20260801a" defer></script>
-  <script src="figures.js?v=20260801a" defer></script>
-  <script src="lesson-figures.js?v=20260801a" defer></script>
-  <script src="figures-math.js?v=20260801a" defer></script>
-  <script src="figures-ml.js?v=20260801a" defer></script>
-  <script src="figures-dl.js?v=20260801a" defer></script>
-  <script src="figures-vision-speech.js?v=20260801a" defer></script>
-  <script src="figures-transformers.js?v=20260801a" defer></script>
-  <script src="figures-genai-rl.js?v=20260801a" defer></script>
-  <script src="figures-llms-systems.js?v=20260801a" defer></script>
-  <script src="figures-agents-alignment.js?v=20260801a" defer></script>
-  <script src="figures-math2.js?v=20260801a" defer></script>
-  <script src="figures-nlp2.js?v=20260801a" defer></script>
-  <script src="figures-llms2.js?v=20260801a" defer></script>
-  <script src="figures-infra.js?v=20260801a" defer></script>
-  <script src="figures-frontier.js?v=20260801a" defer></script>
-  <script src="figures-llmeng.js?v=20260801a" defer></script>
-  <script src="figures-multimodal.js?v=20260801a" defer></script>
-  <script src="figures-agents2.js?v=20260801a" defer></script>
-  <script src="figures-alignment2.js?v=20260801a" defer></script>
-  <script src="figures-foundations2.js?v=20260801a" defer></script>
-  <script src="figures-capstone-a.js?v=20260801a" defer></script>
-  <script src="figures-capstone-b.js?v=20260801a" defer></script>
-  <script src="figures-agents3.js?v=20260801a" defer></script>
-  <script src="figures-nlp3.js?v=20260801a" defer></script>
-  <script src="figures-cv2.js?v=20260801a" defer></script>
-  <script src="figures-llms3.js?v=20260801a" defer></script>
-  <script src="figures-autonomous2.js?v=20260801a" defer></script>
-  <script src="figures-swarms2.js?v=20260801a" defer></script>
-  <script src="figures-infra2.js?v=20260801a" defer></script>
-  <script src="figures-systems3.js?v=20260801a" defer></script>
-  <script src="figures-capstone-c.js?v=20260801a" defer></script>
-  <script src="figures-capstone-d.js?v=20260801a" defer></script>
-  <script src="figures-cv3.js?v=20260801a" defer></script>
-  <script src="figures-speech2.js?v=20260801a" defer></script>
-  <script src="figures-multimodal2.js?v=20260801a" defer></script>
-  <script src="figures-tools2.js?v=20260801a" defer></script>
-  <script src="figures-agents4.js?v=20260801a" defer></script>
-  <script src="figures-swarms3.js?v=20260801a" defer></script>
-  <script src="figures-genai3.js?v=20260801a" defer></script>
-  <script src="figures-misc2.js?v=20260801a" defer></script>
-  <script src="figures-history.js?v=20260801a" defer></script>
-  <script src="figures-capstone-e.js?v=20260801a" defer></script>
-  <script src="figures-capstone-f.js?v=20260801a" defer></script>
-  <script src="figures-capstone-g.js?v=20260801a" defer></script>
-  <script src="figures-capstone-h.js?v=20260801a" defer></script>
-  <script src="figures-capstone-i.js?v=20260801a" defer></script>
-  <script src="figures-alignment3.js?v=20260801a" defer></script>
-  <script src="figures-alignment4.js?v=20260801a" defer></script>
-  <script src="figures-workbench.js?v=20260801a" defer></script>
-  <script src="figures-tools3.js?v=20260801a" defer></script>
-  <script src="figures-setup.js?v=20260801a" defer></script>
-  <script src="figures-foundations3.js?v=20260801a" defer></script>
-  <script src="figures-visaudio4.js?v=20260801a" defer></script>
-  <script src="figures-nlp5.js?v=20260801a" defer></script>
-  <script src="figures-llmstack5.js?v=20260801a" defer></script>
-  <script src="figures-autoswarm5.js?v=20260801a" defer></script>
-  <script src="figures-infra4.js?v=20260801a" defer></script>
-  <script type="module">
+  <script src="build-meta.js?v=cd3c55ac93808a10"></script>
+  <script src="langs.js?v=35e14d7b5a9ece41"></script>
+  <script src="lang-picker.js?v=5babe64009786456" defer></script>
+  <script src="data.js?v=4388ada986b6fbc8"></script>
+  <script src="content-source.js?v=ebc089fdf8830c56"></script>
+  <script src="lesson-markdown.js?v=857d2788b6fd84a6" defer></script>
+  <script src="progress.js?v=e09a7cce998996ec"></script>
+  <script src="auth.js?v=aac11297ce64640c"></script>
+  <script src="google-auth.js?v=a546f6d12e5a9243"></script>
+  <script src="auth-ui.js?v=6bbc7ee46f37db70"></script>
+  <script src="streak.js?v=19b405d3db211917"></script>
+  <script src="reading-progress.js?v=6bf2412a497fff3c"></script>
+  <script src="sync.js?v=7a896edde464a4c2"></script>
+  <script src="header.js?v=70455224c9b64901" defer></script>
+  <script src="nav.js?v=25e15a8b48efc924" defer></script>
+  <script src="cmdpalette.js?v=d159bed59f846f6b" defer></script>
+  <script src="figures.js?v=2cd2df589d4b6d20" defer></script>
+  <script src="lesson-figures.js?v=39a7d3e978641569"></script>
+<script src="figure-manifest.js?v=fe67508fdc4e2334"></script>  <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
     mermaid.initialize({
       startOnLoad: false,
@@ -2636,7 +2608,7 @@
             return p.replace(/[*_`]/g, '').slice(0, 200);
           }
         }
-        return '523 lessons. 20 phases. Build it from raw math, by hand.';
+        return '542 lessons. 20 phases. Build it from raw math, by hand.';
       }
 
       // Client-side per-lesson SEO. Robust indexing comes with build-time
@@ -2696,7 +2668,9 @@
 
         initCodeCopy();
         addCodeLineNumbers();
-        renderMermaidBlocks();
+        var article = document.querySelector('.lesson-article') || el;
+        renderMermaidBlocks(article);
+        renderMathBlocks(article);
         if (window.mountLessonFigures) window.mountLessonFigures(el);
         renderAIPanels();
         buildTOC();
@@ -3355,7 +3329,7 @@
         });
       }
 
-      function renderMermaidBlocks() {
+      function renderMermaidBlocks(root) {
         var fontsReady = (document.fonts && document.fonts.load)
           ? Promise.all([
               document.fonts.load('400 13px "JetBrains Mono"'),
@@ -4379,6 +4353,64 @@
       window.addEventListener('offline', update);
       update();
     })();
+      var KATEX_BASE = 'https://cdn.jsdelivr.net/npm/katex@0.16.47/dist/';
+      var KATEX_JS_SRI = 'sha384-CwjPRVHTvLiMBFjEoij+QZViMV5rhTOIp7CJzl24JEqpRDA1sJFHVXXLURktbYYp';
+      var KATEX_CSS_SRI = 'sha384-nH0MfJ44wi1dd7w6jinlyBgljjS8EJAh2JBoRad8a3VDw2K69vfaaqm4WnR+gXtA';
+      var katexPromise = null;
+
+      function loadKatex() {
+        if (window.katex) return Promise.resolve(window.katex);
+        if (!katexPromise) {
+          katexPromise = new Promise(function (resolve, reject) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = KATEX_BASE + 'katex.min.css';
+            link.integrity = KATEX_CSS_SRI;
+            link.crossOrigin = 'anonymous';
+            document.head.appendChild(link);
+            var script = document.createElement('script');
+            script.src = KATEX_BASE + 'katex.min.js';
+            script.integrity = KATEX_JS_SRI;
+            script.crossOrigin = 'anonymous';
+            script.onload = function () {
+              if (window.katex) {
+                resolve(window.katex);
+                return;
+              }
+              katexPromise = null;
+              reject(new Error('katex loaded without defining window.katex'));
+            };
+            script.onerror = function () {
+              katexPromise = null;
+              reject(new Error('katex failed to load'));
+            };
+            document.head.appendChild(script);
+          });
+        }
+        return katexPromise;
+
+      function renderMathBlocks(root) {
+        var nodes = (root || document).querySelectorAll('.math-inline:not([data-math-rendered]), .math-display:not([data-math-rendered])');
+        if (!nodes.length) return Promise.resolve();
+        return loadKatex().then(function (katex) {
+          Array.prototype.forEach.call(nodes, function (node) {
+            if (!node.isConnected) return;
+            var tex = node.textContent;
+            try {
+              katex.render(tex, node, {
+                displayMode: node.classList.contains('math-display'),
+                throwOnError: true,
+                strict: 'ignore',
+                trust: false
+              });
+              node.setAttribute('data-math-rendered', '');
+            } catch (error) {
+              node.textContent = tex;
+              node.setAttribute('title', String(error && error.message || error));
+            }
+          });
+        }).catch(function () {});
+      }
   </script>
 </body>
 </html>

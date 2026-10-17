@@ -470,7 +470,7 @@ test('shared site asset families use the expected cache keys on every page', () 
     'glossary.html',
     'index.html',
     'lesson.html',
-    'prereqs.html',
+    'roadmap.html',
   ];
   const sourceFor = page => fs.readFileSync(path.join(__dirname, page), 'utf8');
   const versionFor = (source, asset) => {
@@ -488,8 +488,8 @@ test('shared site asset families use the expected cache keys on every page', () 
   }
 
   assert.equal(versionFor(sourceFor('index.html'), 'app.js'), release);
-  assert.equal(versionFor(sourceFor('prereqs.html'), 'roadmap.css'), release);
-  assert.equal(versionFor(sourceFor('prereqs.html'), 'roadmap.js'), release);
+  assert.equal(versionFor(sourceFor('roadmap.html'), 'roadmap.css'), release);
+  assert.equal(versionFor(sourceFor('roadmap.html'), 'roadmap.js'), release);
   assert.match(
     fs.readFileSync(path.join(__dirname, 'header.js'), 'utf8'),
     new RegExp(`NARRATION_VERSION = '${narrationRelease}'`)
@@ -622,7 +622,7 @@ test('build-time SEO manifests cover every readable lesson and expose canonical 
   assert.ok((certificationDiscovery.match(/href="lesson\?path=/g) || []).length >= expectedCertificationPaths.length);
   assert.doesNotMatch(catalogDiscovery + certificationDiscovery, /(?:lesson|certification)\.html\?/);
 
-  for (const file of ['index.html', 'prereqs.html']) {
+  for (const file of ['index.html', 'roadmap.html']) {
     const source = fs.readFileSync(path.join(__dirname, file), 'utf8');
     const description = source.match(/<meta name="description" content="([^"]+)">/);
     assert.ok(description, `${file} lacks a meta description`);

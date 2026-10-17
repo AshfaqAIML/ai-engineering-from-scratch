@@ -25,7 +25,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1a1a1a?style=flat-square&labelColor=fafaf5" alt="MIT License"></a>
-  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/lessons-523-3553ff?style=flat-square&labelColor=fafaf5" alt="523 lessons"></a>
+  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/lessons-542-3553ff?style=flat-square&labelColor=fafaf5" alt="542 lessons"></a>
   <a href="#contents"><img src="https://img.shields.io/badge/phases-20-3553ff?style=flat-square&labelColor=fafaf5" alt="20 phases"></a>
   <a href="https://github.com/rohitg00/ai-engineering-from-scratch/stargazers"><img src="https://img.shields.io/github/stars/rohitg00/ai-engineering-from-scratch?style=flat-square&labelColor=fafaf5&color=3553ff" alt="GitHub stars"></a>
   <a href="https://aiengineeringfromscratch.com"><img src="https://img.shields.io/badge/web-aiengineeringfromscratch.com-3553ff?style=flat-square&labelColor=fafaf5" alt="Website"></a>
@@ -464,6 +464,7 @@ Twenty phases. Click any phase to expand its lesson list.
 | 10 | [Terminal & Shell](phases/00-setup-and-tooling/10-terminal-and-shell/) | Learn | — |
 | 11 | [Linux for AI](phases/00-setup-and-tooling/11-linux-for-ai/) | Learn | — |
 | 12 | [Debugging & Profiling](phases/00-setup-and-tooling/12-debugging-and-profiling/) | Build | Python |
+| 13 | [Python for AI Engineering](phases/00-setup-and-tooling/13-python-for-ai-engineering/) | Build | Python |
 
 <details id="phase-1">
 <summary><b>Phase 1 — Math Foundations</b> &nbsp;<code>22 lessons</code>&nbsp; <em>The intuition behind every AI algorithm, through code.</em></summary>
@@ -520,6 +521,9 @@ Twenty phases. Click any phase to expand its lesson list.
 | 16 | [Anomaly Detection](phases/02-ml-fundamentals/16-anomaly-detection/) | Build | Python |
 | 17 | [Handling Imbalanced Data](phases/02-ml-fundamentals/17-imbalanced-data/) | Build | Python |
 | 18 | [Feature Selection](phases/02-ml-fundamentals/18-feature-selection/) | Build | Python |
+| 19 | [ML System Design — From Problem to Deployed Model](phases/02-ml-fundamentals/19-ml-system-design/) | Build | Python |
+| 20 | [Monitoring Models in Production — Data Drift and Concept Drift](phases/02-ml-fundamentals/20-model-monitoring-and-drift/) | Build | Python |
+| 21 | [Feature Stores and Training-Serving Skew](phases/02-ml-fundamentals/21-feature-stores-and-training-serving-skew/) | Build | Python |
 
 </details>
 
@@ -846,6 +850,20 @@ Twenty phases. Click any phase to expand its lesson list.
 | 29 | [MCP Reliability, Cancellation, and Flow Control](phases/13-tools-and-protocols/29-mcp-reliability-cancellation-and-flow-control/) | Build | Python |
 | 30 | [MCP Registry Supply Chain: Admission, Drift, and Rollback](phases/13-tools-and-protocols/30-mcp-registry-supply-chain-and-drift/) | Build | Python |
 | 31 | [MCP Conformance Engineering: Versioning, Evidence, and Operations](phases/13-tools-and-protocols/31-mcp-conformance-versioning-and-operations/) | Build | Python |
+| 32 | [Program Anatomy: An ELF Reader From Scratch](phases/13-tools-and-protocols/32-program-anatomy-elf-from-scratch/) | Build | Python |
+| 33 | [Disassembly and Control Flow: From Bytes to a Graph You Can Check](phases/13-tools-and-protocols/33-disassembly-and-control-flow/) | Build | Python |
+| 34 | [Lifting to Pseudocode: IR, SSA, and Structuring From Scratch](phases/13-tools-and-protocols/34-lifting-to-pseudocode/) | Build | Python |
+| 35 | [Evidence, Confidence, and Unknowns in Binary Analysis](phases/13-tools-and-protocols/35-evidence-confidence-and-unknowns/) | Build | Python |
+| 36 | [Rebuild and Prove Equal: Differential Tests, Byte Comparison, and the Evidence Loop](phases/13-tools-and-protocols/36-rebuild-and-prove-equal/) | Build | Python |
+| 37 | [The Reverse Engineering Landscape: History, Tool Families, and How a Decompiler Is Built](phases/13-tools-and-protocols/37-the-reverse-engineering-landscape/) | Build | Python |
+| 38 | [Calling Conventions and Stack Frames: System V, Windows x64, and AArch64](phases/13-tools-and-protocols/38-calling-conventions-and-stack-frames/) | Build | Python |
+| 39 | [Compiler Idioms: What Optimization Does to Your Code and How to Read It Back](phases/13-tools-and-protocols/39-compiler-idioms-and-optimization/) | Build | Python |
+| 40 | [Linking, Loading, and Stripped Binaries: PLT, GOT, Imports, Fixups, and Function Identification](phases/13-tools-and-protocols/40-linking-loading-and-stripped-binaries/) | Build | Python |
+| 41 | [Recovering Data and Types: Structs, Arrays, C++ Objects, and DWARF](phases/13-tools-and-protocols/41-recovering-data-and-types/) | Build | Python |
+| 42 | [Dynamic Analysis of Your Own Program: Debuggers, Traces, and Confirming Static Claims](phases/13-tools-and-protocols/42-dynamic-analysis-of-your-own-program/) | Build | Python |
+| 43 | [Beyond Native Code: Python, JVM, .NET, and WebAssembly Bytecode](phases/13-tools-and-protocols/43-bytecode-and-managed-formats/) | Build | Python |
+| 44 | [Binary Diffing and Symbolic Execution: Matching Functions and Solving for Inputs](phases/13-tools-and-protocols/44-binary-diffing-and-symbolic-execution/) | Build | Python |
+| 45 | [AI-Assisted Reverse Engineering: LLM Decompilers, Analysis Agents, and Ground Truth](phases/13-tools-and-protocols/45-ai-assisted-reverse-engineering/) | Build | Python |
 
 Lessons 06-18 and 28-31 form the focused
 [Model Context Protocol (MCP) path](learning-paths/model-context-protocol.json). Its manifest order
@@ -1031,6 +1049,7 @@ through evidence, risk, scope, measurement, staged release, and feedback ownersh
 | 26 | [Compliance — SOC 2, HIPAA, GDPR, EU AI Act, ISO 42001](phases/17-infrastructure-and-production/26-compliance-frameworks/) | Learn | Python |
 | 27 | [FinOps for LLMs — Unit Economics and Multi-Tenant Attribution](phases/17-infrastructure-and-production/27-finops-llms/) | Learn | Python |
 | 28 | [Self-Hosted Serving Selection — Matching Engine to Hardware and Scale](phases/17-infrastructure-and-production/28-self-hosted-serving-selection/) | Learn | Python |
+| 29 | [Model Demo Interfaces — From a Function to a Shareable App](phases/17-infrastructure-and-production/29-model-demo-interfaces/) | Build | Python |
 
 </details>
 
@@ -1387,6 +1406,25 @@ relative links inside lesson docs.
 ```
 
 ## Sponsor the work
+
+### Sponsors
+
+<p align="center">
+  <a href="https://serpapi.com/ai-engineering-from-scratch"><picture><source media="(min-width: 768px)" srcset="assets/sponsors/serpapi-banner-compact.png" width="48%"><img src="assets/sponsors/serpapi-banner-compact.png" alt="SerpApi. Web Search API for your AI apps. Available in Markdown and JSON for any integration." width="440"></picture></a>
+  <a href="https://nitrostack.ai/referral/aiengineeringfromscratch"><picture><source media="(min-width: 768px)" srcset="assets/sponsors/nitrostack-banner-equal.png" width="48%"><img src="assets/sponsors/nitrostack-banner-equal.png" alt="NitroStack. Build and deploy your MCP app in 10 minutes. Get your product into ChatGPT and Claude marketplaces with free cloud deployment." width="440"></picture></a>
+</p>
+
+<p align="center">
+  <sub><b>523,000+</b> readers · <span>Your support keeps every lesson free and open source.</span> <a href="SPONSORS.md">Become a sponsor</a></sub>
+</p>
+
+## Learning paths
+
+| Route | Starting lesson |
+|---|---|
+| Model foundations | [Setup and tooling](https://aiengineeringfromscratch.com/lesson?path=phases/00-setup-and-tooling/01-dev-environment) |
+| LLM systems | [Prompt engineering](https://aiengineeringfromscratch.com/lesson?path=phases/11-llm-engineering/01-prompt-engineering) |
+| Agents and delivery | [The agent loop](https://aiengineeringfromscratch.com/lesson?path=phases/14-agent-engineering/01-the-agent-loop) |
 
 Free, MIT-licensed, 523 lessons. The curriculum is maintained through cash sponsorships
 and approved Hardware Lab Partners.

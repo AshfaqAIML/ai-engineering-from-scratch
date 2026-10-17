@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-phases.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-glossary.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-zh.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-hi.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-es.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-ar.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-fr.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-pt.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-tr.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://aiengineeringfromscratch.com/sitemap-lessons-vi.xml</loc>
+  </sitemap>
+</sitemapindex>
