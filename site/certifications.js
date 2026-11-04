@@ -156,7 +156,7 @@
   }
 
   function lessonReferenceHref(path, sourceTrack) {
-    var href = 'lesson.html?path=' + encodeURIComponent(path);
+    var href = 'lesson?path=' + encodeURIComponent(path);
     if (sourceTrack) {
       href += trackContainsLesson(sourceTrack, path)
         ? '&track=' + encodeURIComponent(sourceTrack.id)
@@ -490,7 +490,7 @@
         return metaChip(fact.label + ': ' + factText(fact));
       }).join('') + '</div>' +
       '<div class="cert-track-hero-actions">' +
-        (firstPath ? '<a class="cert-action" href="lesson.html?path=' + encodeURIComponent(firstPath) + '&track=' + encodeURIComponent(track.id) + '">' + (complete ? 'Continue path' : 'Start learning') + '</a>' : '') +
+        (firstPath ? '<a class="cert-action" href="lesson?path=' + encodeURIComponent(firstPath) + '&track=' + encodeURIComponent(track.id) + '">' + (complete ? 'Continue path' : 'Start learning') + '</a>' : '') +
         '<a class="cert-action secondary" href="#trackAssessments">Practice readiness</a>' +
         (tutorUrl ? '<a class="cert-action secondary" href="' + attr(tutorUrl) + '" target="_blank" rel="noopener" aria-label="Learn with an AI tutor on GitHub (opens in a new tab)">Learn with an AI tutor on GitHub ↗</a>' : '') +
         (track.exam && track.exam.officialGuideUrl ? '<a class="cert-action secondary" href="' + attr(track.exam.officialGuideUrl) + '" target="_blank" rel="noopener">Official exam guide</a>' : '') +
@@ -554,7 +554,7 @@
         '<div class="cert-lesson-num">' + String(index + 1).padStart(2, '0') + '</div>' +
         '<div class="cert-lesson-copy"><h3>' + esc(lesson.name) + '</h3><p>' + esc((done ? 'Complete · ' : '') + origin + (lesson.summary ? ' · ' + lesson.summary : '')) + '</p></div>' +
         '<div class="cert-domain-chips">' + domains.map(function (domain) { return '<span class="cert-domain-chip">' + esc(domain) + '</span>'; }).join('') + '</div>' +
-        '<a class="cert-lesson-open" href="lesson.html?path=' + encodeURIComponent(path) + '&track=' + encodeURIComponent(track.id) + '">' + (done ? 'Review' : 'Open') + ' →</a>' +
+        '<a class="cert-lesson-open" href="lesson?path=' + encodeURIComponent(path) + '&track=' + encodeURIComponent(track.id) + '">' + (done ? 'Review' : 'Open') + ' →</a>' +
       '</article>';
     }).join('') : '<div class="cert-empty">Lessons have not been added to this track yet.</div>';
   }

@@ -1,6 +1,6 @@
 # AI Engineering from Scratch API and MCP documentation
 
-Canonical documentation: https://aiengineeringfromscratch.com/developer
+Canonical documentation: https://aiengineeringfromscratch.com/developer.html
 
 Search the public curriculum and read its original Markdown from your own tools.
 The API and MCP server are read-only. They do not run lesson code, grade
@@ -11,7 +11,7 @@ learners, store progress, or access accounts.
 No API key or login is required. All returned material is already public.
 There are no write endpoints or webhooks. Browser progress stays in the browser.
 Do not send credentials or learner data. Contact the maintainers through the
-[public contact page](https://aiengineeringfromscratch.com/contact).
+[public contact page](https://aiengineeringfromscratch.com/contact.html).
 
 ## REST API v1
 

@@ -4,22 +4,22 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How to work through a lesson · AI Engineering from Scratch</title>
   <meta name="description" content="What to do in each part of a lesson: where to run Build It, what to install for Use It, how to use Ship It outputs, and a routine for exercises.">
-  <link rel="canonical" href="https://aiengineeringfromscratch.com/how-to-learn">
+  <link rel="canonical" href="https://aiengineeringfromscratch.com/how-to-learn.html">
   <meta property="og:title" content="How to work through a lesson · AI Engineering from Scratch">
   <meta property="og:description" content="What to do in each part of a lesson: where to run Build It, what to install for Use It, how to use Ship It outputs, and a routine for exercises.">
-  <meta property="og:image" content="https://aiengineeringfromscratch.com/og/page/how-to-learn.png?v=437f75d35339">
+  <meta property="og:image" content="https://aiengineeringfromscratch.com/og/page/how-to-learn.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="How to work through a lesson - AI Engineering from Scratch">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://aiengineeringfromscratch.com/og/page/how-to-learn.png?v=437f75d35339">
-  <meta name="twitter:image:alt" content="How to work through a lesson - AI Engineering from Scratch">
-  <meta property="og:url" content="https://aiengineeringfromscratch.com/how-to-learn">
+  <meta property="og:url" content="https://aiengineeringfromscratch.com/how-to-learn.html">
   <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://aiengineeringfromscratch.com/og/page/how-to-learn.png">
+  <meta name="twitter:image:alt" content="How to work through a lesson - AI Engineering from Scratch">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=459bca67c5215438">
+  <link rel="stylesheet" href="style.css?v=20261015a">
   <style>
     .trust-page { max-width: 780px; margin: 0 auto; padding: 100px 0 80px; }
     .trust-page h1, .trust-page h2 { font-family: var(--font-display); color: var(--blueprint); text-transform: uppercase; }
@@ -45,22 +45,15 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a href="./" class="logo">
+      <a href="index.html" class="logo">
         <span class="logo-icon" aria-hidden="true"></span> AI / FROM SCRATCH
       </a>
       <nav class="header-nav">
-        <a href="./#contents">Contents</a>
-        <a href="catalog">Catalog</a>
-        <a href="roadmap">Roadmap</a>
-        <a href="glossary">Glossary</a>
-        <a href="about">About</a>
-        <a href="skills">Skills</a>
-        <a href="projects">Projects</a>
-        <a href="blogs">Blogs</a>
-        <a href="how-to-learn">How to Learn</a>
-        <a href="inside-an-ai-agent">Inside an AI Agent</a>
-        <a href="sponsors">Sponsor us</a>
-        <a href="manuals">Manuals</a>
+        <a href="index.html#contents">Contents</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="about.html">About</a>
         <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank" rel="noopener" class="header-github">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
           <span class="star-count" data-loading="true" aria-label="GitHub stars">…</span>
@@ -92,6 +85,7 @@
       <a href="#use-it">Use It</a>
       <a href="#ship-it">Ship It</a>
       <a href="#exercises">Exercises</a>
+      <a href="#summary">Summary</a>
       <a href="#check">Quiz and checkpoints</a>
       <a href="#projects">Projects</a>
       <a href="#stuck">When you are stuck</a>
@@ -103,7 +97,7 @@
 cd ai-engineering-from-scratch
 python3 phases/00-setup-and-tooling/01-dev-environment/code/verify.py --route beginner</code></pre>
     <p>The check tells you which tools you need now and which you need later. Each failure prints the reason and a command that fixes it. Run every lesson command from this folder, the repository root. It contains <code>README.md</code> and <code>phases/</code>.</p>
-    <p>Each lesson is a folder such as <code>phases/01-math-foundations/01-linear-algebra-intuition/</code>. It has <code>docs/en.md</code> (the text you read), <code>code/</code> (the program you build and run), <code>outputs/</code> (what the lesson ships), and <code>quiz.json</code>. If you are new, start with <a href="lesson?path=phases/00-setup-and-tooling/01-dev-environment">Phase 0, Dev Environment</a>.</p>
+    <p>Each lesson is a folder such as <code>phases/01-math-foundations/01-linear-algebra-intuition/</code>. It has <code>docs/en.md</code> (the text you read), <code>code/</code> (the program you build and run), <code>outputs/</code> (what the lesson ships), and <code>quiz.json</code>. If you are new, start with <a href="lesson.html?path=phases/00-setup-and-tooling/01-dev-environment">Phase 0, Dev Environment</a>.</p>
 
     <h2 id="read">Read: motto, problem, concept</h2>
     <p>The first parts explain the idea. Read them with the code closed. When you finish, say the idea in two sentences in your own words: what problem it solves, and how. If you cannot, read the Concept part again before you write code.</p>
@@ -144,6 +138,9 @@ pip install -r requirements.txt</code></pre>
       <li><strong>Check.</strong> Compare with your prediction. Then test one edge case, such as a zero vector or an empty list.</li>
     </ol>
     <p>Many lessons have a <strong>Hints</strong> part after the exercises. Each hint gives you the first step and a way to check your answer. Open a hint only after you try the steps above.</p>
+    <h2 id="summary">Summary: a cheat sheet for review</h2>
+    <p>Some lessons end with a Summary section. It collects the key formulas, definitions, and intuitions from the lesson on one page. Treat it as a cheat sheet: skim it before the exercises, and again before you move on to the next lesson.</p>
+    <p>The course also has printable <a href="/cheatsheets">cheat sheets</a>. Each sheet is a poster for one topic, for example RAG or LLM serving. It shows tasks, commands, annotated code, diagrams, defaults and fixes on one or two pages. Each block links to the lessons that hold its facts. A lesson page shows the sheets that cover it. Keep the sheet open while you do the exercises.</p>
 
     <h2 id="check">Quiz and checkpoints</h2>
     <p>On the website, the panel at the top of each lesson has five checkpoints: read, build, run, prove, and continue. Mark each one when you finish it. The quiz at the end tests the main ideas. Your progress stays in your browser only. Go to the next lesson when you can explain the output of the code and make one small change without guessing.</p>
@@ -151,24 +148,16 @@ pip install -r requirements.txt</code></pre>
     <h2 id="projects">Projects: pick by goal</h2>
     <p>Projects are larger programs that you build in stages, with tests for each stage. Start a project when you finish the phases that it needs.</p>
     <ul>
-      <li>To pick a project for a job, open <a href="projects">Projects</a> and select a role under <strong>Pick by role</strong>. The list shows the projects that give proof for that role, from easy to hard.</li>
-      <li>To see the lessons that a role needs, open <a href="learning-paths">Learning paths</a>. Each career route ends with a proof project stage.</li>
+      <li>To pick a project for a job, open <a href="projects.html">Projects</a> and select a role under <strong>Pick by role</strong>. The list shows the projects that give proof for that role, from easy to hard.</li>
+      <li>To see the lessons that a role needs, open <a href="learning-paths.html">Learning paths</a>. Each career route ends with a proof project stage.</li>
       <li>If you are new, start at level 1 and finish one project completely before you start a second one.</li>
     </ul>
 
     <h2 id="stuck">When you are stuck</h2>
     <p>Write down the command, the folder you ran it from, and the full error. Most problems are a wrong folder, a missing library, or an old Python version. Run the setup check again. If the problem continues, search the <a href="https://github.com/rohitg00/ai-engineering-from-scratch/issues" target="_blank" rel="noopener">issues</a> or ask in <a href="https://github.com/rohitg00/ai-engineering-from-scratch/discussions" target="_blank" rel="noopener">discussions</a>. Put the lesson path, the command, and the error in your question.</p>
   </article></main>
-  <footer class="site-footer"><div class="container footer-inner"><p>© 2026 · open source · free forever</p><div class="footer-links"><a href="about">About</a><a href="contact">Contact</a><a href="developer">Developer resources</a><a href="sponsors">Sponsor us</a>
-        <a href="skills">Skills</a>
-        <a href="projects">Projects</a>
-        <a href="blogs">Blogs</a>
-        <a href="how-to-learn">How to Learn</a>
-        <a href="inside-an-ai-agent">Inside an AI Agent</a>
-        <a href="sponsors">Sponsor us</a>
-        <a href="manuals">Manuals</a>
-      </div></div></footer>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"How to work through a lesson · AI Engineering from Scratch","url":"https://aiengineeringfromscratch.com/how-to-learn","isPartOf":{"@type":"WebSite","name":"AI Engineering from Scratch","url":"https://aiengineeringfromscratch.com"}}</script>
+  <footer class="site-footer"><div class="container footer-inner"><p>© 2026 · open source · free forever</p><div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="developer.html">Developer resources</a><a href="sponsors.html">Sponsor us</a></div></div></footer>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"How to work through a lesson · AI Engineering from Scratch","url":"https://aiengineeringfromscratch.com/how-to-learn.html","isPartOf":{"@type":"WebSite","name":"AI Engineering from Scratch","url":"https://aiengineeringfromscratch.com"}}</script>
   <script>
     (function () {
       var root = document.documentElement;
@@ -195,9 +184,9 @@ pip install -r requirements.txt</code></pre>
       });
     })();
   </script>
-  <script src="data.js?v=0f46d4bf338acb44"></script>
-  <script src="progress.js?v=e09a7cce998996ec"></script>
-  <script src="header.js?v=70455224c9b64901" defer></script>
-  <script src="cmdpalette.js?v=d159bed59f846f6b" defer></script>
+  <script src="data.js?v=20260821c"></script>
+  <script src="progress.js?v=20260822a"></script>
+  <script src="header.js?v=20261103a" defer></script>
+  <script src="cmdpalette.js?v=20261103a" defer></script>
 </body>
 </html>

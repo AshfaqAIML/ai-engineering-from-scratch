@@ -1,11 +1,15 @@
 {
   "name": "ai-engineering-from-scratch-site",
   "private": true,
-  "description": "Backend for the AI Engineering from Scratch learning site (Vercel Functions + Neon Postgres). The static site lives in site/.",
+  "description": "Build tools for the AI Engineering from Scratch website.",
+  "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
-  "dependencies": {
-    "pg": "^8.13.1"
+  "devDependencies": {
+    "@shikijs/langs": "4.5.0",
+    "@shikijs/themes": "4.5.0",
+    "pagefind": "1.5.2",
+    "shiki": "4.5.0"
   }
 }
