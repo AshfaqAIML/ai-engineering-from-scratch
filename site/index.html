@@ -2131,6 +2131,19 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
       </button>
+      <div class="profile-wrap" id="profileWrap">
+        <button class="login-btn" id="loginBtn" type="button" style="display:none">Log In</button>
+        <button class="profile-btn" id="profileBtn" type="button" style="display:none">
+          <span class="profile-avatar" id="profileAvatar"></span>
+          <span id="profileName"></span>
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a class="profile-dropdown-item" href="dashboard.html">Dashboard</a>
+          <a class="profile-dropdown-item" href="#contents">My Progress</a>
+          <div class="profile-dropdown-sep"></div>
+          <button class="profile-dropdown-item" id="logoutBtn" type="button">Log Out</button>
+        </div>
+      </div>
       <div id="langPicker"></div>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
         <span class="theme-icon" id="themeIcon">N</span>
@@ -2139,6 +2152,45 @@
   </header>
 
   <main id="main">
+
+    <div class="auth-overlay" id="authOverlay">
+      <div class="auth-modal" style="position:relative">
+        <button class="auth-close" id="authClose" type="button" aria-label="Close">&times;</button>
+        <div class="auth-modal-title" id="authTitle">Log In</div>
+        <div class="auth-info" id="authInfo" aria-live="polite"></div>
+        <div class="auth-error" id="authError" role="alert"></div>
+        <form id="authForm" autocomplete="on">
+          <div class="auth-field" id="authNameField" style="display:none">
+            <label for="authName">Name</label>
+            <input type="text" id="authName" placeholder="Your name" autocomplete="name">
+            <div class="auth-field-err" id="authNameErr"></div>
+          </div>
+          <div class="auth-field">
+            <label for="authEmail">Email</label>
+            <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email">
+            <div class="auth-field-err" id="authEmailErr"></div>
+          </div>
+          <div class="auth-field">
+            <label for="authPassword">Password</label>
+            <input type="password" id="authPassword" placeholder="Min. 6 characters" autocomplete="current-password">
+            <div class="auth-pw-guide" id="authPwGuide"></div>
+            <div class="auth-field-err" id="authPasswordErr"></div>
+          </div>
+          <button class="auth-submit" type="submit" id="authSubmit">
+            <span class="auth-submit-label" id="authSubmitLabel">Log In</span>
+          </button>
+          <div class="auth-status" id="authStatus" role="status"></div>
+        </form>
+        <div class="auth-google" id="authGoogleWrap" style="display:none">
+          <div class="auth-divider"><span>or</span></div>
+          <div class="auth-google-btn" id="authGoogleBtn"></div>
+          <p class="auth-google-note">Continue with Google - no password needed. Google shares only your name and email.</p>
+        </div>
+        <div class="auth-switch" id="authSwitch">
+          <span>Don't have an account?</span> <a id="authToggleLink">Sign up</a>
+        </div>
+      </div>
+    </div>
 
     <section class="manual-masthead container">
       <div class="manual-meta-row">
@@ -2559,6 +2611,39 @@
     </section>
 
     <section class="toc container" id="contents">
+      <div class="continue-card" id="continueCard">
+        <div class="continue-card-label">Continue Reading</div>
+        <div class="continue-card-title" id="continueTitle"></div>
+        <div class="continue-card-meta" id="continueMeta"></div>
+        <div class="continue-card-actions">
+          <a class="continue-card-btn" id="continueBtn" href="#">Resume</a>
+          <span class="continue-card-pct" id="continuePct"></span>
+        </div>
+      </div>
+
+      <div class="streak-widget" id="streakWidget">
+        <div class="streak-header">
+          <span class="streak-icon" aria-hidden="true">&#128293;</span>
+          <span class="streak-title">Reading Streak</span>
+        </div>
+        <div class="streak-stats">
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakCurrent">0</div>
+            <div class="streak-stat-label">Current</div>
+          </div>
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakLongest">0</div>
+            <div class="streak-stat-label">Longest</div>
+          </div>
+          <div class="streak-stat">
+            <div class="streak-stat-value" id="streakTotal">0</div>
+            <div class="streak-stat-label">Total Days</div>
+          </div>
+        </div>
+        <div class="streak-calendar" id="streakCalendar"></div>
+        <div class="streak-today" id="streakToday"></div>
+      </div>
+
       <div class="toc-title reveal reveal--left">Curriculum · <span id="tocPhaseCount">20 phases</span> · <span id="tocLessonCount">542 lessons</span></div>
       <div class="toc-subtitle reveal" style="--stagger-delay: 80ms;">Tap a phase to expand its lessons. Each one ships when its math, code, and test are all written.</div>
       <div class="toc-list" id="phasesGrid"></div>
@@ -2778,9 +2863,80 @@
   <script src="lang-picker.js?v=20261010a" defer></script>
   <script src="data.js?v=20260821c"></script>
   <script src="progress.js?v=20260822a"></script>
+  <script src="auth.js?v=20260822a"></script>
+  <script src="google-auth.js?v=20260822a"></script>
+  <script src="auth-ui.js?v=20260822a"></script>
+  <script src="streak.js?v=20260822a"></script>
+  <script src="reading-progress.js?v=20260822a"></script>
+  <script src="sync.js?v=20260822a"></script>
   <script src="header.js?v=20261103a" defer></script>
   <script src="cmdpalette.js?v=20261103a" defer></script>
   <script src="app.js?v=20261015a"></script>
+
+  <script>
+    (function () {
+      function updateContinueCard() {
+        if (!window.AIFSReadingProgress) return;
+        var last = window.AIFSReadingProgress.getLastLesson ? window.AIFSReadingProgress.getLastLesson() : null;
+        var card = document.getElementById('continueCard');
+        if (!card) return;
+        if (!last || last.completed) { card.className = 'continue-card'; return; }
+        var title = (last.path || '').replace('phases/', '').replace(/\//g, ' > ').replace(/-/g, ' ');
+        var titleEl = document.getElementById('continueTitle');
+        var pctEl = document.getElementById('continuePct');
+        var metaEl = document.getElementById('continueMeta');
+        var btn = document.getElementById('continueBtn');
+        if (titleEl) titleEl.textContent = title;
+        var pct = Math.round(last.scrollPct || 0);
+        if (pctEl) pctEl.textContent = pct + '% read';
+        if (metaEl && last.lastOpened) metaEl.textContent = 'Last opened ' + new Date(last.lastOpened).toLocaleDateString();
+        if (btn) btn.href = 'lesson.html?path=' + encodeURIComponent(last.path || '');
+        card.className = 'continue-card visible';
+      }
+
+      function updateStreakWidget() {
+        if (!window.AIFSStreak) return;
+        var streak = window.AIFSStreak.getStreak ? window.AIFSStreak.getStreak() : {};
+        var cur = document.getElementById('streakCurrent');
+        var lon = document.getElementById('streakLongest');
+        var tot = document.getElementById('streakTotal');
+        if (cur) cur.textContent = streak.currentStreak || 0;
+        if (lon) lon.textContent = streak.longestStreak || 0;
+        if (tot) tot.textContent = streak.totalDays || 0;
+
+        var today = new Date();
+        var cal = document.getElementById('streakCalendar');
+        if (cal) {
+          var html = '';
+          var readDays = streak.readingDays || [];
+          for (var i = 27; i >= 0; i--) {
+            var d = new Date(today);
+            d.setDate(d.getDate() - i);
+            var ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            var isToday = i === 0;
+            var isRead = readDays.indexOf(ds) >= 0;
+            html += '<div class="streak-day' + (isRead ? ' read' : '') + (isToday ? ' today' : '') + '" title="' + ds + '"></div>';
+          }
+          cal.innerHTML = html;
+        }
+
+        var todayEl = document.getElementById('streakToday');
+        if (todayEl && window.AIFSStreak.getTodayStatus) {
+          var todayDone = window.AIFSStreak.getTodayStatus();
+          todayEl.textContent = todayDone ? 'Today: reading logged' : 'Read today to keep your streak going';
+          todayEl.className = 'streak-today' + (todayDone ? ' done' : '');
+        }
+
+        var widget = document.getElementById('streakWidget');
+        if (widget) widget.className = 'streak-widget' + ((streak.totalDays || 0) > 0 ? ' visible' : '');
+      }
+
+      function refresh() { updateContinueCard(); updateStreakWidget(); }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', refresh); else refresh();
+      if (window.AIFSReadingProgress && window.AIFSReadingProgress.onChange) window.AIFSReadingProgress.onChange(updateContinueCard);
+      if (window.AIFSStreak && window.AIFSStreak.onChange) window.AIFSStreak.onChange(updateStreakWidget);
+    })();
+  </script>
   <script src="intelligence-check.js" defer></script>
   <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
 </body>

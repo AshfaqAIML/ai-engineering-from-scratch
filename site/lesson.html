@@ -2656,12 +2656,65 @@
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
       </button>
+      <div class="profile-wrap" id="profileWrap">
+        <button class="login-btn" id="loginBtn" type="button" style="display:none">Log In</button>
+        <button class="profile-btn" id="profileBtn" type="button" style="display:none">
+          <span class="profile-avatar" id="profileAvatar"></span>
+          <span id="profileName"></span>
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a class="profile-dropdown-item" href="dashboard.html">Dashboard</a>
+          <a class="profile-dropdown-item" href="#contents">My Progress</a>
+          <div class="profile-dropdown-sep"></div>
+          <button class="profile-dropdown-item" id="logoutBtn" type="button">Log Out</button>
+        </div>
+      </div>
       <div id="langPicker"></div>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
         <span class="theme-icon" id="themeIcon">N</span>
       </button>
     </div>
   </header>
+
+
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-modal" style="position:relative">
+      <button class="auth-close" id="authClose" type="button" aria-label="Close">&times;</button>
+      <div class="auth-modal-title" id="authTitle">Log In</div>
+      <div class="auth-info" id="authInfo" aria-live="polite"></div>
+      <div class="auth-error" id="authError" role="alert"></div>
+      <form id="authForm" autocomplete="on">
+        <div class="auth-field" id="authNameField" style="display:none">
+          <label for="authName">Name</label>
+          <input type="text" id="authName" placeholder="Your name" autocomplete="name">
+          <div class="auth-field-err" id="authNameErr"></div>
+        </div>
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email">
+          <div class="auth-field-err" id="authEmailErr"></div>
+        </div>
+        <div class="auth-field">
+          <label for="authPassword">Password</label>
+          <input type="password" id="authPassword" placeholder="Min. 6 characters" autocomplete="current-password">
+          <div class="auth-pw-guide" id="authPwGuide"></div>
+          <div class="auth-field-err" id="authPasswordErr"></div>
+        </div>
+        <button class="auth-submit" type="submit" id="authSubmit">
+          <span class="auth-submit-label" id="authSubmitLabel">Log In</span>
+        </button>
+        <div class="auth-status" id="authStatus" role="status"></div>
+      </form>
+      <div class="auth-google" id="authGoogleWrap" style="display:none">
+        <div class="auth-divider"><span>or</span></div>
+        <div class="auth-google-btn" id="authGoogleBtn"></div>
+        <p class="auth-google-note">Continue with Google - no password needed. Google shares only your name and email.</p>
+      </div>
+      <div class="auth-switch" id="authSwitch">
+        <span>Don't have an account?</span> <a id="authToggleLink">Sign up</a>
+      </div>
+    </div>
+  </div>
 
   <button class="lesson-sidebar-toggle" id="sidebarToggle" aria-label="Toggle lesson menu" aria-controls="lessonSidebar" aria-expanded="false" type="button">
     <span aria-hidden="true">&#9776;</span>
@@ -2697,6 +2750,10 @@
     <aside class="toc-sidebar" id="tocSidebar" aria-hidden="true"></aside>
   </div>
 
+
+  <div class="reading-progress-bar" id="readingProgressBar">
+    <div class="reading-progress-fill" id="readingProgressFill"></div>
+  </div>
   <script src="build-meta.js"></script>
   <script src="langs.js?v=20260802a"></script>
   <script src="lang-picker.js?v=20261010a"></script>
@@ -2724,6 +2781,12 @@
   <script src="content-source.js?v=20260821a"></script>
   <script src="lesson-markdown.js?v=20261104a"></script>
   <script src="progress.js?v=20260822a"></script>
+  <script src="auth.js?v=20260822a"></script>
+  <script src="google-auth.js?v=20260822a"></script>
+  <script src="auth-ui.js?v=20260822a"></script>
+  <script src="streak.js?v=20260822a"></script>
+  <script src="reading-progress.js?v=20260822a"></script>
+  <script src="sync.js?v=20260822a"></script>
   <script src="highlights-anchor.js?v=20261018a"></script>
   <script src="highlights-store.js?v=20261018a"></script>
   <script src="highlights.js?v=20261023a"></script>
